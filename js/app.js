@@ -38,13 +38,17 @@
     try {
       const stored = localStorage.getItem(PLAYLISTS_STORAGE_KEY);
       if (stored) {
-        customPlaylists = JSON.parse(stored);
-      } else {
-        customPlaylists = [
-          { id: "pl-chill", name: "Late Night Coding", trackIds: [] },
-          { id: "pl-synth", name: "High Focus Session", trackIds: [] }
-        ];
+        const parsed = JSON.parse(stored);
+        // Completely purge any old dummy default playlists
+        customPlaylists = Array.isArray(parsed) ? parsed.filter(pl => 
+          pl.name !== "Late Night Coding" && 
+          pl.name !== "High Focus Session" &&
+          pl.id !== "pl-chill" &&
+          pl.id !== "pl-synth"
+        ) : [];
         savePlaylists();
+      } else {
+        customPlaylists = [];
       }
     } catch (e) {
       customPlaylists = [];
@@ -190,6 +194,11 @@
     if (!listEl) return;
 
     listEl.innerHTML = "";
+
+    if (customPlaylists.length === 0) {
+      listEl.innerHTML = `<div class="sidebar-empty-hint">No custom playlists yet</div>`;
+      return;
+    }
 
     customPlaylists.forEach(pl => {
       const item = document.createElement("button");
@@ -578,27 +587,11 @@
     if (playbackInterval) clearInterval(playbackInterval);
     stopSynthPlayback();
 
-    const thumb = document.getElementById("player-thumb-img");
-    const title = document.getElementById("player-title");
-    const artist = document.getElementById("player-artist");
-    const formatBadge = document.getElementById("player-format-badge");
-    const totalTimeEl = document.getElementById("player-total-time");
-    const currentTimeEl = document.getElementById("player-current-time");
-    const seekFill = document.getElementById("player-seek-fill");
-    const playBtn = document.getElementById("player-play-btn");
-    const playIcon = playBtn ? playBtn.querySelector("i") : null;
-    const visualizer = document.getElementById("audio-visualizer");
-
-    if (thumb) thumb.innerHTML = '<i data-lucide="music" class="icon-sm" aria-hidden="true"></i>';
-    if (title) title.textContent = "No Track Loaded";
-    if (artist) artist.textContent = "Import audio files from PC";
-    if (formatBadge) formatBadge.textContent = "--";
-    if (totalTimeEl) totalTimeEl.textContent = "0:00";
-    if (currentTimeEl) currentTimeEl.textContent = "0:00";
-    if (seekFill) seekFill.style.width = "0%";
-    if (playIcon) playIcon.setAttribute("data-lucide", "play");
-    if (visualizer) visualizer.classList.remove("active");
-    if (typeof lucide !== "undefined") lucide.createIcons();
+    const playerDock = document.querySelector(".player-dock");
+    if (playerDock) {
+      playerDock.classList.remove("is-active");
+    }
+    document.body.classList.remove("has-active-player");
   }
 
   function loadTrack(index) {
@@ -608,6 +601,12 @@
     }
     currentTrackIndex = index;
     const track = allTracks[currentTrackIndex];
+
+    const playerDock = document.querySelector(".player-dock");
+    if (playerDock) {
+      playerDock.classList.add("is-active");
+    }
+    document.body.classList.add("has-active-player");
 
     const thumb = document.getElementById("player-thumb-img");
     const title = document.getElementById("player-title");
