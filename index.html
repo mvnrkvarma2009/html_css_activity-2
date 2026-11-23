@@ -3,49 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IGNITE MUSIC | Sonic Fire & Lossless Streaming | NRI University Assignment</title>
-  <meta name="description" content="IGNITE MUSIC is a high-fidelity music streaming platform powered by real-time ASCII fire simulation, studio master acoustics, curated Indian indie & electronic charts, and Indian Currency (₹ INR) subscriptions.">
-  <meta name="theme-color" content="#08080C">
+  <title>Windows Music Workspace | NRI University Web Assignment</title>
+  <meta name="description" content="Windows Music Workspace is a clean, high-fidelity music player for importing, organizing, and streaming local audio files on Windows.">
+  <meta name="theme-color" content="#07070A">
 
   <!-- Lucide Icons & Stylesheet -->
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Originkit Ascii Flame Physics & Audio Engine -->
+  <!-- Originkit Scramble Text & Ascii Flame Physics & SmoothUI Exposure Slider & Audio Engine -->
+  <script src="js/scramble.js" defer></script>
   <script src="js/ascii-flame.js" defer></script>
+  <script src="js/exposure-slider.js" defer></script>
   <script src="js/app.js" defer></script>
 </head>
 
 <body>
 
+  <!-- Hidden File Input for Local System Audio Import -->
+  <input type="file" id="local-audio-input" accept="audio/*,.mp3,.wav,.flac,.ogg,.m4a,.aac" multiple aria-hidden="true" style="display:none">
+
   <!-- ======================================================================
-       HEADER & NAVIGATION
+       HEADER & NAVIGATION (CLEAN, SIMPLE, NO EMOJIS)
        ====================================================================== -->
   <header class="site-nav">
     <div class="container nav__inner">
-      <a href="#hero" class="nav__brand" aria-label="IGNITE MUSIC Home">
-        <span class="brand-flame-icon">🔥</span>
-        <span class="brand-name">IGNITE</span>
-        <span class="brand-badge">HI-FI</span>
+      <a href="#hero" class="nav__brand" aria-label="Windows Music Workspace Home">
+        <div class="brand-flame-wrapper">
+          <i data-lucide="music" class="brand-flame-icon" aria-hidden="true"></i>
+        </div>
+        <span class="brand-name">Music Workspace</span>
+        <span class="brand-badge">Windows</span>
       </a>
 
       <ul class="nav__links">
-        <li><a href="#recent">Recently Played</a></li>
-        <li><a href="#charts">Top Charts</a></li>
+        <li><a href="#library">My Library</a></li>
+        <li><a href="#recent">Recent Tracks</a></li>
+        <li><a href="#charts">Top Tracks</a></li>
         <li><a href="#albums">Albums</a></li>
         <li><a href="#playlists">Playlists</a></li>
         <li><a href="#artists">Artists</a></li>
-        <li><a href="#pricing">Premium</a></li>
       </ul>
 
       <div class="nav__actions">
-        <a href="#pricing" class="btn-premium">Get Premium &bull; &#8377;99</a>
+        <button class="btn-import-header btn-trigger-import" type="button">
+          <i data-lucide="folder-plus" class="icon-sm" aria-hidden="true"></i>
+          <span>Import Music</span>
+        </button>
+        <button class="btn-download-header btn-download-win" type="button">
+          <i data-lucide="download" class="icon-sm" aria-hidden="true"></i>
+          <span>Download for Windows</span>
+        </button>
       </div>
     </div>
   </header>
 
   <!-- ======================================================================
-       HERO SECTION WITH ORIGINKIT PROCEDURAL ASCII FLAME
+       HERO SECTION — WINDOWS MUSIC WORKSPACE (HERO 55 LAYOUT)
        ====================================================================== -->
   <section class="hero-stage" id="hero">
     <!-- ASCII Flame Canvas Container (Originkit Engine) -->
@@ -55,61 +69,145 @@
 
     <div class="hero-overlay"></div>
 
-    <div class="container hero-content">
-      <div class="hero-copy">
-        <div class="hero-badge">
-          <span class="badge-live-pulse" aria-hidden="true"></span>
-          <span>ORIGINKIT ASCII FLAME ENGINE &bull; 30 FPS PROCEDURAL</span>
-        </div>
+    <div class="container hero-content-centered">
+      <!-- Announcement Strip -->
+      <a href="#library" class="hero-announcement" aria-label="Open Local Music Library">
+        <span class="announcement-badge">Windows 11 / 10</span>
+        <span class="announcement-text">Local Music Player &amp; Audio Workspace</span>
+        <i data-lucide="chevron-right" class="announcement-arrow" aria-hidden="true"></i>
+      </a>
 
-        <h1 class="hero-title">
-          SOUND IN ITS <br>
-          <span class="flame-gradient-text">PUREST HEAT.</span>
-        </h1>
+      <!-- Headline -->
+      <h1 class="hero-title">
+        WINDOWS MUSIC <br>
+        <span class="flame-gradient-text">WORKSPACE.</span>
+      </h1>
 
-        <p class="hero-desc">
-          Experience ultra-low latency, studio master 24-bit lossless acoustics, and curated indie, classical fusion &amp; electronic anthems ignited by live mathematical fire physics.
-        </p>
+      <!-- Description -->
+      <p class="hero-desc">
+        A clean, high-performance workspace for playing and managing music files directly from your computer. Drag and drop any FLAC, MP3, WAV, or AAC song to play instantly with repeat, shuffle, and smooth visual dynamics.
+      </p>
 
-        <div class="hero-ctas">
-          <button class="btn-play-all" id="hero-play-featured" type="button">
-            <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
-            <span>Play Featured Track</span>
-          </button>
-          <a href="#pricing" class="btn-explore">Explore Plans (From &#8377;99)</a>
-        </div>
+      <!-- Paired Action Buttons -->
+      <div class="hero-ctas">
+        <button class="btn-hero-primary btn-download-win" type="button">
+          <i data-lucide="download" class="icon-sm" aria-hidden="true"></i>
+          <span>Download for Windows</span>
+          <span class="btn-badge">v2.4 &bull; 64-bit</span>
+        </button>
+
+        <button class="btn-hero-secondary btn-trigger-import" type="button">
+          <i data-lucide="folder-open" class="icon-sm" aria-hidden="true"></i>
+          <span>Import Music Files</span>
+        </button>
       </div>
 
-      <div class="hero-card">
-        <div class="hero-card__media">
-          <img src="assets/images/album_1.jpg" alt="Featured Album: Inferno Nights" width="600" height="340" fetchpriority="high">
-          <button class="hero-card__play-btn" id="hero-card-play" type="button" aria-label="Play Inferno Nights">
-            <i data-lucide="play" aria-hidden="true"></i>
-          </button>
+      <!-- Quick Specs -->
+      <div class="hero-meta-row">
+        <div class="meta-item">
+          <i data-lucide="hard-drive" class="meta-icon" aria-hidden="true"></i>
+          <span>Plays from Local Disk</span>
         </div>
-        <div class="hero-card__info">
-          <h3>Inferno Nights</h3>
-          <p>Aarav Sen &amp; Divine Pulse &bull; 2.4M Streams &bull; 2026 Master</p>
+        <div class="meta-sep">&bull;</div>
+        <div class="meta-item">
+          <i data-lucide="repeat" class="meta-icon" aria-hidden="true"></i>
+          <span>Shuffle &amp; Repeat Modes</span>
+        </div>
+        <div class="meta-sep">&bull;</div>
+        <div class="meta-item">
+          <i data-lucide="sliders" class="meta-icon" aria-hidden="true"></i>
+          <span>Adjustable Speed &amp; Volume</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ======================================================================
-       01 / RECENTLY PLAYED SONGS (MANDATORY REQUIREMENT)
+       01 / LOCAL MUSIC LIBRARY & DROPZONE
+       ====================================================================== -->
+  <section class="section" id="library">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-head__meta">
+          <span class="section-tag">// 01 &mdash; LOCAL FILES</span>
+          <h2 class="section-title">LOCAL MUSIC LIBRARY</h2>
+          <p class="section-desc">Open audio files directly from your computer folders. Everything plays smoothly in your browser or desktop.</p>
+        </div>
+        <div class="section-head__actions">
+          <button class="btn-pill-action btn-trigger-import" type="button">
+            <i data-lucide="folder-plus" class="icon-sm" aria-hidden="true"></i>
+            <span>Add Music Files</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Drag & Drop Zone -->
+      <div class="import-zone" id="import-dropzone">
+        <div class="import-zone__icon">
+          <i data-lucide="upload-cloud" aria-hidden="true"></i>
+        </div>
+        <h3 class="import-zone__title">Drag and drop audio files here</h3>
+        <p class="import-zone__subtitle">or click browse to select songs from your Windows folders</p>
+        
+        <button class="btn-browse btn-trigger-import" type="button">
+          <i data-lucide="folder-open" class="icon-sm" aria-hidden="true"></i>
+          <span>Browse Device Folders</span>
+        </button>
+
+        <div class="import-formats">
+          <span class="format-pill">.FLAC</span>
+          <span class="format-pill">.WAV</span>
+          <span class="format-pill">.MP3</span>
+          <span class="format-pill">.OGG</span>
+          <span class="format-pill">.M4A</span>
+          <span class="format-pill">.AAC</span>
+        </div>
+      </div>
+
+      <!-- Imported Tracks List -->
+      <div class="imported-section" id="imported-section">
+        <div class="imported-header">
+          <div class="imported-header__title">
+            <i data-lucide="disc" class="icon-sm" aria-hidden="true"></i>
+            <span>IMPORTED SONGS</span>
+          </div>
+          <span class="imported-count-badge" id="imported-count-badge">0 TRACKS</span>
+        </div>
+
+        <div class="imported-empty-state" id="imported-empty-state">
+          <i data-lucide="music-2" class="empty-icon" aria-hidden="true"></i>
+          <h4>No songs imported yet</h4>
+          <p>Drag audio files into the dropzone above or click "Browse Device Folders" to start playing.</p>
+        </div>
+
+        <div class="imported-tracks-list" id="imported-tracks-list" style="display:none">
+          <!-- Dynamically populated rows -->
+        </div>
+      </div>
+
+      <!-- Studio Exposure Slider Monitoring Station -->
+      <div class="exposure-studio-card">
+        <div class="exposure-studio-meta">
+          <span class="exposure-studio-tag">// STUDIO EXPOSURE MONITORING</span>
+          <h3 class="exposure-studio-title">Master Volume Exposure Dial</h3>
+          <p class="exposure-studio-desc">Drag the ticker left or right to dial in bit-perfect output levels with spring-physics snapping, circular SVG progress ring, and proximity notch animation.</p>
+        </div>
+        <div id="workspace-exposure-slider"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       02 / RECENT TRACKS
        ====================================================================== -->
   <section class="section" id="recent">
     <div class="container">
       <div class="section-head">
         <div class="section-head__meta">
-          <span class="section-tag">// 01 &mdash; YOUR ROTATION</span>
-          <h2 class="section-title">RECENTLY PLAYED</h2>
-          <p class="section-desc">Jump right back into your sonic stream with instant local caching and high-res reproduction.</p>
+          <span class="section-tag">// 02 &mdash; HISTORY</span>
+          <h2 class="section-title">RECENT TRACKS</h2>
+          <p class="section-desc">Quickly return to previously played songs and default music selections.</p>
         </div>
-        <a href="#charts" class="section-link">
-          <span>View full library</span>
-          <i data-lucide="chevron-right" aria-hidden="true"></i>
-        </a>
       </div>
 
       <div class="recent-grid">
@@ -173,15 +271,15 @@
   </section>
 
   <!-- ======================================================================
-       02 / POPULAR TRACKS (MANDATORY REQUIREMENT)
+       03 / TOP TRACKS
        ====================================================================== -->
   <section class="section" id="charts">
     <div class="container">
       <div class="section-head">
         <div class="section-head__meta">
-          <span class="section-tag">// 02 &mdash; STREAMING NOW</span>
-          <h2 class="section-title">POPULAR TRACKS &amp; CHARTS</h2>
-          <p class="section-desc">The most played releases across India this week &mdash; click any song to stream audio live.</p>
+          <span class="section-tag">// 03 &mdash; CHARTS</span>
+          <h2 class="section-title">TOP TRACKS</h2>
+          <p class="section-desc">Popular songs available in the workspace library &mdash; click any song to play.</p>
         </div>
       </div>
 
@@ -304,15 +402,15 @@
   </section>
 
   <!-- ======================================================================
-       03 / FEATURED ALBUMS (MANDATORY REQUIREMENT)
+       04 / ALBUMS
        ====================================================================== -->
   <section class="section" id="albums">
     <div class="container">
       <div class="section-head">
         <div class="section-head__meta">
-          <span class="section-tag">// 03 &mdash; STUDIO MASTER RELEASES</span>
-          <h2 class="section-title">FEATURED ALBUMS</h2>
-          <p class="section-desc">Uncompressed 24-bit 192kHz studio albums, mixed for full dynamic acoustic presence.</p>
+          <span class="section-tag">// 04 &mdash; COLLECTIONS</span>
+          <h2 class="section-title">ALBUMS</h2>
+          <p class="section-desc">Sample albums included with Windows Music Workspace.</p>
         </div>
       </div>
 
@@ -327,7 +425,7 @@
           </div>
           <h3 class="album-title">Neon Flame EP</h3>
           <p class="album-artist">Aarav Sen</p>
-          <div class="album-meta">8 Tracks &bull; 2026 Master &bull; FLAC</div>
+          <div class="album-meta">8 Tracks &bull; 2026 Master</div>
         </article>
 
         <!-- Album 2 -->
@@ -340,7 +438,7 @@
           </div>
           <h3 class="album-title">Monsoon Melodies</h3>
           <p class="album-artist">Tara Krishnan</p>
-          <div class="album-meta">10 Tracks &bull; 2026 &bull; Hi-Res Audio</div>
+          <div class="album-meta">10 Tracks &bull; 2026</div>
         </article>
 
         <!-- Album 3 -->
@@ -353,7 +451,7 @@
           </div>
           <h3 class="album-title">Cyber Hyderabad</h3>
           <p class="album-artist">Rishi &amp; The Circuit</p>
-          <div class="album-meta">9 Tracks &bull; 2026 &bull; Synth-Wave</div>
+          <div class="album-meta">9 Tracks &bull; 2026</div>
         </article>
 
         <!-- Album 4 -->
@@ -366,22 +464,22 @@
           </div>
           <h3 class="album-title">Ignite Volume 1</h3>
           <p class="album-artist">DJ Agni &amp; Nova</p>
-          <div class="album-meta">12 Tracks &bull; 2026 &bull; Bass Heavy</div>
+          <div class="album-meta">12 Tracks &bull; 2026</div>
         </article>
       </div>
     </div>
   </section>
 
   <!-- ======================================================================
-       04 / CURATED PLAYLISTS (MANDATORY REQUIREMENT)
+       05 / PLAYLISTS
        ====================================================================== -->
   <section class="section" id="playlists">
     <div class="container">
       <div class="section-head">
         <div class="section-head__meta">
-          <span class="section-tag">// 04 &mdash; HANDPICKED MOODS</span>
-          <h2 class="section-title">CURATED PLAYLISTS</h2>
-          <p class="section-desc">Precision-curated mixes tailored for late night coding, city commutes, and explosive festival drops.</p>
+          <span class="section-tag">// 05 &mdash; MIXES</span>
+          <h2 class="section-title">PLAYLISTS</h2>
+          <p class="section-desc">Curated playlists for study, focus, workout, and relaxation.</p>
         </div>
       </div>
 
@@ -394,10 +492,10 @@
           <div class="playlist-body">
             <span class="playlist-tag">HIGH VOLTAGE</span>
             <h3 class="playlist-title">Bollywood Fire &amp; Bass</h3>
-            <p class="playlist-desc">Heavy sub-bass kicks blended with chart-topping desi club hits and festival edits.</p>
+            <p class="playlist-desc">High-energy basslines and chart-topping desi club edits.</p>
             <div class="playlist-footer">
               <span>50 Songs &bull; 3h 12m</span>
-              <span>Updated Today</span>
+              <span>Workspace Mix</span>
             </div>
           </div>
         </article>
@@ -410,10 +508,10 @@
           <div class="playlist-body">
             <span class="playlist-tag">CHILL &amp; STUDY</span>
             <h3 class="playlist-title">Midnight Chai Lo-Fi</h3>
-            <p class="playlist-desc">Warm vinyl crackles, gentle acoustic sitars, and mellow lofi beats for focused late-night sessions.</p>
+            <p class="playlist-desc">Vinyl crackles and chill beats designed for late night study sessions.</p>
             <div class="playlist-footer">
               <span>42 Songs &bull; 2h 45m</span>
-              <span>Top Chill</span>
+              <span>Focus Mix</span>
             </div>
           </div>
         </article>
@@ -426,10 +524,10 @@
           <div class="playlist-body">
             <span class="playlist-tag">FESTIVAL ANTHEMS</span>
             <h3 class="playlist-title">Inferno EDM Festival</h3>
-            <p class="playlist-desc">Peak-time mainstage drops, hard-hitting synths, and pure adrenaline rushes.</p>
+            <p class="playlist-desc">Peak-time festival anthems and hard-hitting synth drops.</p>
             <div class="playlist-footer">
               <span>65 Songs &bull; 4h 10m</span>
-              <span>Sunburn Picks</span>
+              <span>Party Mix</span>
             </div>
           </div>
         </article>
@@ -442,10 +540,10 @@
           <div class="playlist-body">
             <span class="playlist-tag">ACOUSTIC &amp; VOCAL</span>
             <h3 class="playlist-title">Indie Acoustic Sunset</h3>
-            <p class="playlist-desc">Organic folk, soulful Hindi ballads, and stripped-down guitar melodies for evening drives.</p>
+            <p class="playlist-desc">Soulful acoustic guitar ballads and evening driving melodies.</p>
             <div class="playlist-footer">
               <span>38 Songs &bull; 2h 18m</span>
-              <span>Soul Selections</span>
+              <span>Acoustic Mix</span>
             </div>
           </div>
         </article>
@@ -454,15 +552,15 @@
   </section>
 
   <!-- ======================================================================
-       05 / TRENDING ARTISTS (MANDATORY REQUIREMENT)
+       06 / FEATURED ARTISTS
        ====================================================================== -->
   <section class="section" id="artists">
     <div class="container">
       <div class="section-head">
         <div class="section-head__meta">
-          <span class="section-tag">// 05 &mdash; THE ARCHITECTS OF SOUND</span>
-          <h2 class="section-title">TRENDING ARTISTS</h2>
-          <p class="section-desc">Meet the visionaries defining modern Indian electronic, fusion, and indie music culture.</p>
+          <span class="section-tag">// 06 &mdash; CREATORS</span>
+          <h2 class="section-title">FEATURED ARTISTS</h2>
+          <p class="section-desc">Popular artists featured in the default music library.</p>
         </div>
       </div>
 
@@ -474,7 +572,7 @@
           </div>
           <h3 class="artist-name">Aarav Sen</h3>
           <div class="artist-genre">Electronic / Future Bass</div>
-          <div class="artist-followers">1,240,000 Monthly Listeners</div>
+          <div class="artist-followers">1,240,000 Listeners</div>
           <button class="btn-follow" type="button">Follow</button>
         </article>
 
@@ -484,8 +582,8 @@
             <img src="assets/images/artist_2.jpg" alt="Tara Krishnan" width="110" height="110" loading="lazy">
           </div>
           <h3 class="artist-name">Tara Krishnan</h3>
-          <div class="artist-genre">Neo-Soul / Lo-Fi</div>
-          <div class="artist-followers">892,400 Monthly Listeners</div>
+          <div class="artist-genre">Lo-Fi / Soul</div>
+          <div class="artist-followers">892,400 Listeners</div>
           <button class="btn-follow" type="button">Follow</button>
         </article>
 
@@ -495,8 +593,8 @@
             <img src="assets/images/artist_3.jpg" alt="Rishi & The Circuit" width="110" height="110" loading="lazy">
           </div>
           <h3 class="artist-name">Rishi &amp; The Circuit</h3>
-          <div class="artist-genre">Synthwave / Alt-Rock</div>
-          <div class="artist-followers">640,150 Monthly Listeners</div>
+          <div class="artist-genre">Synthwave / Rock</div>
+          <div class="artist-followers">640,150 Listeners</div>
           <button class="btn-follow" type="button">Follow</button>
         </article>
 
@@ -506,8 +604,8 @@
             <img src="assets/images/artist_4.jpg" alt="DJ Agni" width="110" height="110" loading="lazy">
           </div>
           <h3 class="artist-name">DJ Agni</h3>
-          <div class="artist-genre">Club EDM / Desi Bass</div>
-          <div class="artist-followers">2,180,900 Monthly Listeners</div>
+          <div class="artist-genre">Club EDM / Bass</div>
+          <div class="artist-followers">2,180,900 Listeners</div>
           <button class="btn-follow" type="button">Follow</button>
         </article>
       </div>
@@ -515,165 +613,7 @@
   </section>
 
   <!-- ======================================================================
-       06 / SUBSCRIPTION PLANS (INDIAN CURRENCY ₹ INR STRICT REQUIREMENT)
-       ====================================================================== -->
-  <section class="section" id="pricing">
-    <div class="container">
-      <div class="section-head">
-        <div class="section-head__meta">
-          <span class="section-tag">// 06 &mdash; TRANSPARENT INDIAN RUPEE (&#8377; INR) PRICING</span>
-          <h2 class="section-title">CHOOSE YOUR IGNITE PASS</h2>
-          <p class="section-desc">Stream millions of tracks with lossless master quality. Direct UPI, RuPay &amp; NetBanking supported.</p>
-        </div>
-      </div>
-
-      <div class="pricing-grid">
-        <!-- Plan 1: Free Starter -->
-        <div class="pricing-card">
-          <div>
-            <h3 class="plan-name">Free Starter</h3>
-            <p class="plan-desc">Essential streaming with occasional curated artist promotions.</p>
-            
-            <div class="plan-price-block">
-              <span class="plan-price"><span class="plan-currency">&#8377;</span>0</span>
-              <span class="plan-cycle">/ forever</span>
-            </div>
-
-            <ul class="plan-features">
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>Standard 160kbps MP3 audio</span>
-              </li>
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>Access to top 100 Indian charts</span>
-              </li>
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>Mobile &amp; Web app streaming</span>
-              </li>
-            </ul>
-          </div>
-
-          <button class="btn-plan btn-select-plan" data-plan="Free Starter" data-price="&#8377;0" data-period="/ forever" type="button">
-            Start Free
-          </button>
-        </div>
-
-        <!-- Plan 2: Student VIP (Popular) -->
-        <div class="pricing-card pricing-card--popular">
-          <div class="pricing-popular-badge">NRI UNIVERSITY SPECIAL</div>
-          <div>
-            <h3 class="plan-name">Student VIP</h3>
-            <p class="plan-desc">Exclusive college pricing for university students with verified ID.</p>
-            
-            <div class="plan-price-block">
-              <span class="plan-price"><span class="plan-currency">&#8377;</span>99</span>
-              <span class="plan-cycle">/ month</span>
-            </div>
-
-            <ul class="plan-features">
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>100% Ad-Free listening experience</span>
-              </li>
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>320kbps High-Definition audio</span>
-              </li>
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>Offline song downloads (up to 10k tracks)</span>
-              </li>
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>Unlimited skips &amp; synchronized lyrics</span>
-              </li>
-            </ul>
-          </div>
-
-          <button class="btn-plan btn-plan--primary btn-select-plan" data-plan="Student VIP" data-price="&#8377;99" data-period="/ month" type="button">
-            Claim Student Pass &bull; &#8377;99
-          </button>
-        </div>
-
-        <!-- Plan 3: Individual Hi-Fi -->
-        <div class="pricing-card">
-          <div>
-            <h3 class="plan-name">Individual Hi-Fi</h3>
-            <p class="plan-desc">For passionate audiophiles who demand bit-perfect studio acoustics.</p>
-            
-            <div class="plan-price-block">
-              <span class="plan-price"><span class="plan-currency">&#8377;</span>149</span>
-              <span class="plan-cycle">/ month</span>
-            </div>
-
-            <ul class="plan-features">
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>24-bit / 192kHz Lossless FLAC &amp; ALAC</span>
-              </li>
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>Dolby Atmos Spatial Audio immersion</span>
-              </li>
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>DJ Crossfade &amp; Parametric Equalizer</span>
-              </li>
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>Multi-device playback handoff</span>
-              </li>
-            </ul>
-          </div>
-
-          <button class="btn-plan btn-select-plan" data-plan="Individual Hi-Fi" data-price="&#8377;149" data-period="/ month" type="button">
-            Subscribe Hi-Fi &bull; &#8377;149
-          </button>
-        </div>
-
-        <!-- Plan 4: Family Pack -->
-        <div class="pricing-card">
-          <div>
-            <h3 class="plan-name">Family Pack</h3>
-            <p class="plan-desc">Complete lossless music freedom for up to 6 family members.</p>
-            
-            <div class="plan-price-block">
-              <span class="plan-price"><span class="plan-currency">&#8377;</span>249</span>
-              <span class="plan-cycle">/ month</span>
-            </div>
-
-            <ul class="plan-features">
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>6 Individual Hi-Fi premium accounts</span>
-              </li>
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>Shared Family Mix algorithmic playlist</span>
-              </li>
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>Explicit content filters for kids</span>
-              </li>
-              <li class="plan-feature-item">
-                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
-                <span>Smart TV, Android Auto &amp; Apple CarPlay</span>
-              </li>
-            </ul>
-          </div>
-
-          <button class="btn-plan btn-select-plan" data-plan="Family Pack" data-price="&#8377;249" data-period="/ month" type="button">
-            Get Family Pack &bull; &#8377;249
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       07 / PERSISTENT MUSIC PLAYER DOCK (MANDATORY REQUIREMENT)
+       07 / PERSISTENT MUSIC PLAYER DOCK WITH REAL AUDIO & CONTROLS
        ====================================================================== -->
   <aside class="player-dock" aria-label="Audio Player Controls">
     <div class="container player-inner">
@@ -686,160 +626,136 @@
           <div class="player-title" id="player-title">Inferno Nights</div>
           <div class="player-artist" id="player-artist">Aarav Sen &amp; Divine Pulse</div>
         </div>
+        <span class="player-format-pill" id="player-format-badge">FLAC</span>
       </div>
 
-      <!-- Center: Controls & Seek Bar -->
+      <!-- Center: Controls, Seek Bar, Repeat & Shuffle -->
       <div class="player-center">
         <div class="player-buttons">
-          <button class="ctrl-btn" type="button" aria-label="Shuffle mode">
+          <!-- Shuffle Button -->
+          <button class="ctrl-btn" id="player-shuffle-btn" type="button" aria-label="Toggle Shuffle Mode" title="Shuffle Mode">
             <i data-lucide="shuffle" class="icon-sm" aria-hidden="true"></i>
           </button>
-          <button class="ctrl-btn" id="player-prev-btn" type="button" aria-label="Previous Track">
+
+          <!-- Previous Track -->
+          <button class="ctrl-btn" id="player-prev-btn" type="button" aria-label="Previous Track" title="Previous Track">
             <i data-lucide="skip-back" class="icon-sm" aria-hidden="true"></i>
           </button>
-          <button class="ctrl-btn ctrl-btn--play" id="player-play-btn" type="button" aria-label="Play or Pause Track">
+
+          <!-- Play / Pause -->
+          <button class="ctrl-btn ctrl-btn--play" id="player-play-btn" type="button" aria-label="Play or Pause Track" title="Play / Pause">
             <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
           </button>
-          <button class="ctrl-btn" id="player-next-btn" type="button" aria-label="Next Track">
+
+          <!-- Next Track -->
+          <button class="ctrl-btn" id="player-next-btn" type="button" aria-label="Next Track" title="Next Track">
             <i data-lucide="skip-forward" class="icon-sm" aria-hidden="true"></i>
           </button>
-          <button class="ctrl-btn" type="button" aria-label="Repeat mode">
+
+          <!-- Repeat Button with indicator badge -->
+          <button class="ctrl-btn" id="player-repeat-btn" type="button" aria-label="Toggle Repeat Mode" title="Repeat Mode">
             <i data-lucide="repeat" class="icon-sm" aria-hidden="true"></i>
+            <span class="repeat-indicator-badge" id="repeat-badge" style="display:none">1</span>
           </button>
         </div>
 
+        <!-- Seek Bar -->
         <div class="player-progress-bar">
           <span class="time-stamp" id="player-current-time">0:00</span>
-          <div class="seek-bar-track" id="player-seek-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="35">
+          <div class="seek-bar-track" id="player-seek-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" title="Click to seek">
             <div class="seek-bar-fill" id="player-seek-fill"></div>
           </div>
           <span class="time-stamp" id="player-total-time">3:42</span>
         </div>
       </div>
 
-      <!-- Right: Extras & Volume -->
+      <!-- Right: Extras, Speed, Equalizer & Volume -->
       <div class="player-right">
-        <button class="track-like" type="button" aria-label="Favorite current track">
-          <i data-lucide="heart" class="icon-sm" aria-hidden="true"></i>
-        </button>
-        <button class="ctrl-btn" type="button" aria-label="Volume">
-          <i data-lucide="volume-2" class="icon-sm" aria-hidden="true"></i>
-        </button>
-        <div class="volume-bar" aria-label="Adjust Volume">
-          <div class="volume-fill"></div>
+        <!-- Live Audio Equalizer Bars -->
+        <div class="audio-visualizer" id="audio-visualizer" title="Dynamic Equalizer">
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
         </div>
+
+        <!-- Playback Speed Button -->
+        <button class="btn-speed" id="player-speed-btn" type="button" title="Playback Speed">1.0x</button>
+
+        <!-- SmoothUI Exposure Slider Master Volume Controller -->
+        <div id="player-exposure-slider"></div>
       </div>
     </div>
   </aside>
 
   <!-- ======================================================================
-       08 / INDIAN CURRENCY (₹ INR) CHECKOUT MODAL
-       ====================================================================== -->
-  <div class="modal-overlay" id="sub-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-card">
-      <button class="modal-close-btn" id="close-sub-modal" type="button" aria-label="Close modal">
-        <i data-lucide="x" class="icon-sm" aria-hidden="true"></i>
-      </button>
-
-      <div class="modal-header">
-        <span class="modal-badge">INSTANT UPI &bull; SECURE CHECKOUT</span>
-        <h3 class="modal-title" id="modal-title">Upgrade to IGNITE VIP</h3>
-        <p class="modal-desc">Instant activation across mobile, desktop &amp; high-res audio receivers.</p>
-      </div>
-
-      <div class="modal-plan-summary">
-        <div>
-          <div class="modal-plan-label">SELECTED PLAN</div>
-          <div class="modal-plan-name" id="modal-plan-name">Student VIP</div>
-        </div>
-        <div class="modal-plan-price" id="modal-plan-price">&#8377;99 / month</div>
-      </div>
-
-      <div class="modal-payment-methods">
-        <label class="modal-pm-option selected">
-          <input type="radio" name="payment" class="modal-pm-radio" checked>
-          <div class="modal-pm-info">UPI / QR Code</div>
-          <div class="modal-pm-badges">GPay &bull; PhonePe &bull; Paytm</div>
-        </label>
-
-        <label class="modal-pm-option">
-          <input type="radio" name="payment" class="modal-pm-radio">
-          <div class="modal-pm-info">Debit / Credit Card</div>
-          <div class="modal-pm-badges">RuPay &bull; Visa &bull; Mastercard</div>
-        </label>
-
-        <label class="modal-pm-option">
-          <input type="radio" name="payment" class="modal-pm-radio">
-          <div class="modal-pm-info">NetBanking</div>
-          <div class="modal-pm-badges">SBI &bull; HDFC &bull; ICICI &bull; Axis</div>
-        </label>
-      </div>
-
-      <button class="modal-confirm-btn" id="confirm-sub-btn" type="button">
-        Confirm &amp; Pay via UPI
-      </button>
-    </div>
-  </div>
-
-  <!-- ======================================================================
-       FOOTER & NRI UNIVERSITY ATTRIBUTION
+       FOOTER & NRI UNIVERSITY ATTRIBUTION WITH EXACT ORIGINKIT SCRAMBLE TEXT
        ====================================================================== -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="#hero" class="nav__brand">
-            <span class="brand-flame-icon">🔥</span>
-            <span class="brand-name">IGNITE</span>
-            <span class="brand-badge">HI-FI</span>
+            <div class="brand-flame-wrapper">
+              <i data-lucide="music" class="brand-flame-icon" aria-hidden="true"></i>
+            </div>
+            <span class="brand-name">Music Workspace</span>
+            <span class="brand-badge">Windows</span>
           </a>
           <p>
-            IGNITE MUSIC is a next-generation lossless music streaming platform crafted with mathematical ASCII fire physics and high-definition audio fidelity.
+            Windows Music Workspace is a local music player and audio workstation for Windows, crafted with procedural ASCII fire visuals and instant local file playback.
           </p>
         </div>
 
         <div class="footer-col">
-          <h4>Explore</h4>
+          <h4>Navigation</h4>
           <ul>
-            <li><a href="#recent">Recently Played</a></li>
-            <li><a href="#charts">Popular Tracks</a></li>
-            <li><a href="#albums">Featured Albums</a></li>
-            <li><a href="#playlists">Curated Playlists</a></li>
-            <li><a href="#artists">Trending Artists</a></li>
+            <li><a href="#library">My Library</a></li>
+            <li><a href="#recent">Recent Tracks</a></li>
+            <li><a href="#charts">Top Tracks</a></li>
+            <li><a href="#albums">Albums</a></li>
+            <li><a href="#playlists">Playlists</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
-          <h4>Audio Quality</h4>
+          <h4>Supported Files</h4>
           <ul>
-            <li><a href="#pricing">Studio Master FLAC</a></li>
-            <li><a href="#pricing">Dolby Atmos Spatial</a></li>
-            <li><a href="#pricing">Parametric EQ</a></li>
-            <li><a href="#pricing">Offline Mode</a></li>
+            <li>FLAC Audio (.FLAC)</li>
+            <li>Waveform Audio (.WAV)</li>
+            <li>MP3 Audio (.MP3)</li>
+            <li>Ogg Audio (.OGG)</li>
+            <li>AAC Audio (.AAC)</li>
           </ul>
         </div>
 
         <div class="footer-col">
-          <h4>Plans (&#8377; INR)</h4>
+          <h4>Windows Client</h4>
           <ul>
-            <li><a href="#pricing">Free Starter (&#8377;0)</a></li>
-            <li><a href="#pricing">Student VIP (&#8377;99/mo)</a></li>
-            <li><a href="#pricing">Individual Hi-Fi (&#8377;149/mo)</a></li>
-            <li><a href="#pricing">Family Pack (&#8377;249/mo)</a></li>
+            <li><a href="#" class="btn-download-win">Windows 11 / 10 (64-bit)</a></li>
+            <li>Version 2.4.0 Stable</li>
+            <li>Local Storage Playback</li>
+            <li>High Performance</li>
           </ul>
         </div>
       </div>
 
+      <!-- Bottom Bar with Exact Scramble Text Effect on Nagendra Varma -->
       <div class="footer-bottom">
         <div>
-          &copy; 2026 IGNITE MUSIC Platform. All rights reserved.
+          &copy; 2026 Windows Music Workspace. All rights reserved.
         </div>
         <div class="footer-credit-badge">
-          <span>Website developed for <strong>NRI University</strong> Web Assignment &bull; Made by <span class="credit-author">Nagendra Varma</span></span>
+          <span class="credit__univ">Website developed for NRI University Web Assignment</span>
+          <span class="credit__sep" aria-hidden="true">&bull;</span>
+          <span class="credit__author">Made by <span id="nagendra-scramble" class="scramble-author" data-text="Nagendra Varma">Nagendra Varma</span></span>
         </div>
       </div>
     </div>
   </footer>
+
+  <!-- Notification Toast Container -->
+  <div id="ignite-toast" class="ignite-toast" role="status" aria-live="polite"></div>
 
 </body>
 </html>

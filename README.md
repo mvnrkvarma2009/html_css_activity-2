@@ -1,4 +1,4 @@
-# IGNITE MUSIC — Activity 2
+# Windows Music Workspace — Activity 2
 
 > **Creative HTML & CSS Webpage Projects — Activity 2**  
 > **Topic:** Group 2, Project 7: Music Streaming Website  
@@ -7,39 +7,43 @@
 
 ---
 
-## 🌟 Overview
+## Overview
 
-**IGNITE MUSIC** is a high-fidelity music streaming platform designed with a fiery, dark-mode sonic aesthetic powered by a live, procedural **ASCII Fire Simulation (Originkit AsciiFlame)**.
+**Windows Music Workspace** is a clean, high-performance music player and local audio workspace designed for Windows. Powered by real-time mathematical **ASCII Fire visuals (Originkit AsciiFlame)** and centered **Hero 55** architecture, it allows users to import, organize, and play music files directly from their computer with zero cloud telemetry.
 
-Engineered with complete semantic HTML5, modern CSS Grid/Flexbox layouts, and dynamic Web Audio synthesizer capabilities, it fulfills all requirements from the assignment rubric:
+### Core Features
 
-1. **Procedural ASCII Flame Hero Canvas:**
-   - Real-time heat seeding, convective propagation, turbulence, embers, and sparks modeled via mathematical convection physics in monospace ASCII rendering at 30 FPS.
-2. **Recently Played Songs:**
-   - Instant-access history cards with album artwork, artist metadata, duration, and one-click playback.
-3. **Popular Tracks (Top Charts):**
-   - High-density chart table (#01 through #06) displaying play counts, track durations, interactive favorite hearts, and active song indicators.
-4. **Featured Albums:**
-   - 24-bit 192kHz studio master albums (*Neon Flame EP*, *Monsoon Melodies*, *Cyber Hyderabad*, *Ignite Volume 1*) with animated hover-elevation and play actions.
-5. **Curated Playlists:**
-   - Mood-based streaming playlists (*Bollywood Fire & Bass*, *Midnight Chai Lo-Fi*, *Inferno EDM Festival*, *Indie Acoustic Sunset*).
-6. **Trending Artists:**
-   - Profile cards featuring verified avatars, genres, monthly listener stats, and interactive follow toggles.
-7. **Transparent Indian Rupee (₹ INR) Pricing:**
-   - Tailored Indian pricing plans:
-     - **Free Starter:** ₹0 / forever
-     - **Student VIP:** ₹99 / month *(Special NRI University College Pass)*
-     - **Individual Hi-Fi:** ₹149 / month
-     - **Family Pack:** ₹249 / month
-   - Interactive checkout modal with instant Indian payment options (UPI, GPay, PhonePe, Paytm, RuPay, NetBanking).
-8. **Persistent Sticky Music Player Dock:**
-   - Fixed bottom player bar with live seek bar progress, Web Audio synthesizer chord playback on song selection, track navigation, and volume control.
-9. **NRI University Attribution:**
-   - Understated, professional footer attribution: `Website developed for NRI University Web Assignment • Made by Nagendra Varma`.
+1. **Simple Centered Hero Layout (Hero 55):**
+   - Full-viewport centered hero section with Windows 11/10 announcement strip.
+   - Live monospace ASCII flame dynamics running at 30 FPS with heat convection, turbulence, embers, and sparks.
+   - Direct download button for Windows (64-bit) and local file import button.
+2. **Local Music File Import & Playback:**
+   - Drag-and-drop import zone and file browser supporting `.FLAC`, `.WAV`, `.MP3`, `.OGG`, `.M4A`, and `.AAC`.
+   - Real-time `URL.createObjectURL` audio playback with zero cloud uploads.
+   - Dynamic imported tracks table with format badges, file size metadata, and queue controls.
+3. **Complete Music Controls:**
+   - **Play / Pause** with real HTML5 audio engine.
+   - **Shuffle Mode:** Randomizes playback queue.
+   - **Repeat Mode:** 3-state toggle (`Off` &rarr; `All` &rarr; `One` with indicator badge).
+   - **Scrubbable Seek Bar:** Interactive click-to-seek timeline with elapsed and total duration stamps.
+   - **Playback Speed Selector:** 0.75x, 1.0x, 1.25x, 1.5x, 2.0x playback rates.
+   - **Dynamic Audio Visualizer:** 4-bar equalizer that animates during active playback.
+   - **Volume & Mute Control:** Volume slider with responsive audio level icons.
+4. **Desktop Windows Client:**
+   - Integrated Windows installer download trigger (`WindowsMusicWorkspace-v2.4-Setup.exe`).
+5. **Full Group 2, Project 7 Requirements:**
+   - Recent Tracks
+   - Top Tracks (#01 to #06)
+   - Albums
+   - Playlists
+   - Featured Artists
+   - Persistent Bottom Sticky Player Dock
+6. **Originkit Scramble Text Attribution:**
+   - Cubic-bezier glitch wave text effect: `Website developed for NRI University Web Assignment • Made by Nagendra Varma`.
 
 ---
 
-## 🚀 Running Locally
+## Running Locally
 
 ```bash
 # Clone the repository
@@ -54,7 +58,7 @@ Open `http://localhost:8081` in any modern web browser.
 
 ---
 
-## 🏛️ Presented By
+## Presented By
 
 **NRI University**  
 *Website developed for NRI University Web Assignment • Made by Nagendra Varma*
