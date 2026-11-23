@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AETHER CHRONO-X | Neural Spatial Smartwatch | NRI University Project</title>
-  <meta name="description" content="AETHER CHRONO-X is a revolutionary spatial computing and neural-interfaced smartwatch crafted in aerospace titanium. Features, specifications, color studio, reviews, and pre-orders.">
-  <meta name="theme-color" content="#07070F">
+  <title>IGNITE MUSIC | Sonic Fire & Lossless Streaming | NRI University Assignment</title>
+  <meta name="description" content="IGNITE MUSIC is a high-fidelity music streaming platform powered by real-time ASCII fire simulation, studio master acoustics, curated Indian indie & electronic charts, and Indian Currency (₹ INR) subscriptions.">
+  <meta name="theme-color" content="#08080C">
 
   <!-- Lucide Icons & Stylesheet -->
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/lucide@latest"></script>
-  
-  <!-- ArgentCloudburst Digital Rain & Application Engine -->
-  <script src="js/rain-curtain.js" defer></script>
+
+  <!-- Originkit Ascii Flame Physics & Audio Engine -->
+  <script src="js/ascii-flame.js" defer></script>
   <script src="js/app.js" defer></script>
 </head>
 
@@ -23,474 +23,280 @@
        ====================================================================== -->
   <header class="site-nav">
     <div class="container nav__inner">
-      <a href="#hero" class="nav__brand" aria-label="AETHER CHRONO-X Home">
-        <span class="brand-gem">✦</span> AETHER <span class="brand-suffix">CHRONO-X</span>
+      <a href="#hero" class="nav__brand" aria-label="IGNITE MUSIC Home">
+        <span class="brand-flame-icon">🔥</span>
+        <span class="brand-name">IGNITE</span>
+        <span class="brand-badge">HI-FI</span>
       </a>
 
       <ul class="nav__links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#studio">Color Studio</a></li>
-        <li><a href="#specs">Specifications</a></li>
-        <li><a href="#reviews">Reviews</a></li>
-        <li><a href="#purchase">Order</a></li>
+        <li><a href="#recent">Recently Played</a></li>
+        <li><a href="#charts">Top Charts</a></li>
+        <li><a href="#albums">Albums</a></li>
+        <li><a href="#playlists">Playlists</a></li>
+        <li><a href="#artists">Artists</a></li>
+        <li><a href="#pricing">Premium</a></li>
       </ul>
 
       <div class="nav__actions">
-        <a href="#purchase" class="nav__btn-buy">Pre-Order &bull; $399</a>
+        <a href="#pricing" class="btn-premium">Get Premium &bull; &#8377;99</a>
       </div>
     </div>
   </header>
 
   <!-- ======================================================================
-       HERO SECTION WITH ARGENT CLOUDBURST DIGITAL RAIN
+       HERO SECTION WITH ORIGINKIT PROCEDURAL ASCII FLAME
        ====================================================================== -->
-  <section class="hero" id="hero">
-    <!-- WebGL2 ArgentCloudburst Rain Canvas (Silver dashes & lavender light bar) -->
-    <div class="rain-canvas-container" id="rain-canvas-container" aria-hidden="true"></div>
+  <section class="hero-stage" id="hero">
+    <!-- ASCII Flame Canvas Container (Originkit Engine) -->
+    <div class="flame-container" id="flame-container" aria-hidden="true">
+      <pre class="ascii-flame-canvas" id="ascii-flame-canvas"></pre>
+    </div>
 
-    <div class="container hero__container">
-      <div class="hero__copy">
-        <div class="hero__badge">
-          <span class="badge-ping" aria-hidden="true"></span>
-          <span>SPATIAL COMPUTING &bull; NEURAL CORE GEN-2</span>
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content">
+      <div class="hero-copy">
+        <div class="hero-badge">
+          <span class="badge-live-pulse" aria-hidden="true"></span>
+          <span>ORIGINKIT ASCII FLAME ENGINE &bull; 30 FPS PROCEDURAL</span>
         </div>
 
-        <h1 class="hero__title">
-          TIME TRANSCENDED.<br>
-          <span class="hero__title-glow">THOUGHT ACCELERATED.</span>
+        <h1 class="hero-title">
+          SOUND IN ITS <br>
+          <span class="flame-gradient-text">PUREST HEAT.</span>
         </h1>
 
-        <p class="hero__lead">
-          Meet <strong>AETHER CHRONO-X</strong> &mdash; the world's first neural-interfaced smartwatch sculpted in aerospace titanium, continuous biometric telemetry, and sub-millisecond gestural intelligence.
+        <p class="hero-desc">
+          Experience ultra-low latency, studio master 24-bit lossless acoustics, and curated indie, classical fusion &amp; electronic anthems ignited by live mathematical fire physics.
         </p>
 
-        <div class="hero__ctas">
-          <a href="#purchase" class="btn-primary">Pre-Order Now &mdash; From $399</a>
-          <a href="#studio" class="btn-secondary">
-            Explore Finishes <i data-lucide="arrow-right" class="icon-sm" aria-hidden="true"></i>
-          </a>
+        <div class="hero-ctas">
+          <button class="btn-play-all" id="hero-play-featured" type="button">
+            <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
+            <span>Play Featured Track</span>
+          </button>
+          <a href="#pricing" class="btn-explore">Explore Plans (From &#8377;99)</a>
         </div>
       </div>
 
-      <div class="hero__visual">
-        <div class="hero__watch-wrap">
-          <img src="assets/images/watch_hero.jpg" alt="AETHER CHRONO-X Titanium Smartwatch front display view" width="600" height="600" fetchpriority="high">
-          
-          <div class="hero__callout callout--top">
-            <i data-lucide="cpu" class="callout__icon" aria-hidden="true"></i>
-            <div>
-              <div class="callout__label">Processor</div>
-              <div class="callout__val">S1 Neural Bionic</div>
-            </div>
-          </div>
-
-          <div class="hero__callout callout--bottom">
-            <i data-lucide="activity" class="callout__icon" aria-hidden="true"></i>
-            <div>
-              <div class="callout__label">Sensors</div>
-              <div class="callout__val">EEG + 3-Lead ECG</div>
-            </div>
-          </div>
+      <div class="hero-card">
+        <div class="hero-card__media">
+          <img src="assets/images/album_1.jpg" alt="Featured Album: Inferno Nights" width="600" height="340" fetchpriority="high">
+          <button class="hero-card__play-btn" id="hero-card-play" type="button" aria-label="Play Inferno Nights">
+            <i data-lucide="play" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="hero-card__info">
+          <h3>Inferno Nights</h3>
+          <p>Aarav Sen &amp; Divine Pulse &bull; 2.4M Streams &bull; 2026 Master</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ======================================================================
-       01 / FEATURES SECTION
+       01 / RECENTLY PLAYED SONGS (MANDATORY REQUIREMENT)
        ====================================================================== -->
-  <section class="section features" id="features">
+  <section class="section" id="recent">
     <div class="container">
       <div class="section-head">
-        <span class="section-head__tag">// 01 &mdash; ARCHITECTURAL INNOVATION</span>
-        <h2 class="section-head__title">ENGINEERED FOR THE UNCHARTED</h2>
-        <p class="section-head__desc">
-          Merging microscopic spatial sensors, sapphire crystal acoustics, and deep battery stamina into an imperceptible titanium chassis.
-        </p>
+        <div class="section-head__meta">
+          <span class="section-tag">// 01 &mdash; YOUR ROTATION</span>
+          <h2 class="section-title">RECENTLY PLAYED</h2>
+          <p class="section-desc">Jump right back into your sonic stream with instant local caching and high-res reproduction.</p>
+        </div>
+        <a href="#charts" class="section-link">
+          <span>View full library</span>
+          <i data-lucide="chevron-right" aria-hidden="true"></i>
+        </a>
       </div>
 
-      <div class="features-grid">
-        <!-- Feature 1 -->
-        <article class="feature-card">
-          <div class="feature-card__icon">
-            <i data-lucide="zap" aria-hidden="true"></i>
+      <div class="recent-grid">
+        <!-- Recent 1 -->
+        <article class="recent-card track-row" data-track-idx="0" tabindex="0" role="button" aria-label="Play Inferno Nights">
+          <div class="recent-card__thumb">
+            <img src="assets/images/album_1.jpg" alt="Inferno Nights cover" width="60" height="60" loading="lazy">
           </div>
-          <h3 class="feature-card__title">Sub-Millisecond Neural Haptics</h3>
-          <p class="feature-card__text">
-            Captures micro-electrical nerve impulses in the wrist, enabling zero-touch gesture navigation across your spatial devices with flawless precision.
-          </p>
+          <div class="recent-card__info">
+            <div class="recent-card__title">Inferno Nights</div>
+            <div class="recent-card__artist">Aarav Sen &amp; Divine Pulse</div>
+          </div>
+          <div class="recent-card__play">
+            <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
+          </div>
         </article>
 
-        <!-- Feature 2 -->
-        <article class="feature-card">
-          <div class="feature-card__icon">
-            <i data-lucide="sun" aria-hidden="true"></i>
+        <!-- Recent 2 -->
+        <article class="recent-card track-row" data-track-idx="1" tabindex="0" role="button" aria-label="Play Midnight Chai Lo-Fi">
+          <div class="recent-card__thumb">
+            <img src="assets/images/album_2.jpg" alt="Midnight Chai Lo-Fi cover" width="60" height="60" loading="lazy">
           </div>
-          <h3 class="feature-card__title">3000-Nit Curved Sapphire OLED</h3>
-          <p class="feature-card__text">
-            Double-domed sapphire crystal face shielding an ultra-dense LTPO Retina matrix with 1Hz-120Hz adaptive refresh rates and direct solar readability.
-          </p>
+          <div class="recent-card__info">
+            <div class="recent-card__title">Midnight Chai Lo-Fi</div>
+            <div class="recent-card__artist">Tara Krishnan</div>
+          </div>
+          <div class="recent-card__play">
+            <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
+          </div>
         </article>
 
-        <!-- Feature 3 -->
-        <article class="feature-card">
-          <div class="feature-card__icon">
-            <i data-lucide="heart-pulse" aria-hidden="true"></i>
+        <!-- Recent 3 -->
+        <article class="recent-card track-row" data-track-idx="2" tabindex="0" role="button" aria-label="Play Deccan Drift">
+          <div class="recent-card__thumb">
+            <img src="assets/images/album_3.jpg" alt="Deccan Drift cover" width="60" height="60" loading="lazy">
           </div>
-          <h3 class="feature-card__title">Clinical-Grade Bio-Telemetry</h3>
-          <p class="feature-card__text">
-            Continuous photoplethysmography (PPG), wrist EEG brainwave rhythm tracking, skin temperature flux detection, and early cardiac arrhythmia warnings.
-          </p>
+          <div class="recent-card__info">
+            <div class="recent-card__title">Deccan Drift</div>
+            <div class="recent-card__artist">Rishi &amp; The Circuit</div>
+          </div>
+          <div class="recent-card__play">
+            <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
+          </div>
         </article>
 
-        <!-- Feature 4 -->
-        <article class="feature-card">
-          <div class="feature-card__icon">
-            <i data-lucide="shield" aria-hidden="true"></i>
+        <!-- Recent 4 -->
+        <article class="recent-card track-row" data-track-idx="3" tabindex="0" role="button" aria-label="Play Solar Flare Anthem">
+          <div class="recent-card__thumb">
+            <img src="assets/images/album_4.jpg" alt="Solar Flare Anthem cover" width="60" height="60" loading="lazy">
           </div>
-          <h3 class="feature-card__title">100M Water &amp; Dual Satellite</h3>
-          <p class="feature-card__text">
-            WR100 certified for deep sea scuba dives and extreme altitude survival, backed by L1/L5 dual-frequency GPS and satellite SOS telemetry.
-          </p>
+          <div class="recent-card__info">
+            <div class="recent-card__title">Solar Flare Anthem</div>
+            <div class="recent-card__artist">DJ Agni &amp; Nova</div>
+          </div>
+          <div class="recent-card__play">
+            <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
+          </div>
         </article>
       </div>
     </div>
   </section>
 
   <!-- ======================================================================
-       02 / INTERACTIVE COLOR & STRAP STUDIO
+       02 / POPULAR TRACKS (MANDATORY REQUIREMENT)
        ====================================================================== -->
-  <section class="section studio" id="studio">
+  <section class="section" id="charts">
     <div class="container">
       <div class="section-head">
-        <span class="section-head__tag">// 02 &mdash; FINISHES &amp; MATERIALS</span>
-        <h2 class="section-head__title">THE CHRONO-X COLOR STUDIO</h2>
-        <p class="section-head__desc">
-          Crafted from aerospace-grade 5 titanium alloy. Click a finish below to preview the chassis and band synchronization in real-time.
-        </p>
-      </div>
-
-      <div class="studio-layout">
-        <div class="studio-media">
-          <img id="studio-preview-img" src="assets/images/finish_obsidian.jpg" alt="AETHER CHRONO-X in Cosmic Obsidian finish" loading="lazy">
-          <span class="studio-badge" id="studio-finish-badge">STEALTH MATTE</span>
-        </div>
-
-        <div class="studio-info">
-          <h3 id="studio-finish-name">Cosmic Obsidian</h3>
-          <p id="studio-finish-desc">DLC Matte Black Titanium with Charcoal Braided Loop</p>
-
-          <div class="swatch-group">
-            <button class="color-swatch swatch--obsidian active" data-finish="obsidian" aria-label="Select Cosmic Obsidian"></button>
-            <button class="color-swatch swatch--titanium" data-finish="titanium" aria-label="Select Stellar Titanium"></button>
-            <button class="color-swatch swatch--lavender" data-finish="lavender" aria-label="Select Polar Lavender"></button>
-          </div>
-
-          <div class="studio-specs-list">
-            <div class="spec-item">
-              Chassis Material
-              <strong>Grade 5 Titanium</strong>
-            </div>
-            <div class="spec-item">
-              Glass Coating
-              <strong>Diamond Sapphire</strong>
-            </div>
-            <div class="spec-item">
-              Strap Width
-              <strong>22mm Quick-Lock</strong>
-            </div>
-            <div class="spec-item">
-              Weight
-              <strong>38.5 Grams</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       03 / HARDWARE SPECIFICATIONS MATRIX (TABS)
-       ====================================================================== -->
-  <section class="section specs" id="specs">
-    <div class="container">
-      <div class="section-head">
-        <span class="section-head__tag">// 03 &mdash; DETAILED HARDWARE MATRIX</span>
-        <h2 class="section-head__title">SPECIFICATIONS BREAKDOWN</h2>
-        <p class="section-head__desc">
-          Every component measured and optimized for extreme thermal tolerance, computational throughput, and zero-compromise endurance.
-        </p>
-      </div>
-
-      <div class="specs-wrapper">
-        <div class="specs-tabs" role="tablist">
-          <button class="specs-tab-btn active" data-tab="chassis" role="tab">Chassis &amp; Display</button>
-          <button class="specs-tab-btn" data-tab="neural" role="tab">Neural Processor</button>
-          <button class="specs-tab-btn" data-tab="sensors" role="tab">Biometric Sensors</button>
-          <button class="specs-tab-btn" data-tab="battery" role="tab">Battery &amp; Comms</button>
-        </div>
-
-        <!-- Panel 1: Chassis -->
-        <div class="specs-panel active" id="specs-chassis">
-          <div class="spec-cell">
-            <div class="spec-cell__title">Case Dimension</div>
-            <div class="spec-cell__val">41mm &bull; 45mm</div>
-            <div class="spec-cell__desc">Aerospace Grade 5 Titanium alloy with ceramic backplate.</div>
-          </div>
-          <div class="spec-cell">
-            <div class="spec-cell__title">Display Optics</div>
-            <div class="spec-cell__val">3,000 Nits LTPO</div>
-            <div class="spec-cell__desc">Edge-to-edge curved sapphire crystal with anti-reflective AR coating.</div>
-          </div>
-          <div class="spec-cell">
-            <div class="spec-cell__title">Water Immersion</div>
-            <div class="spec-cell__val">WR100 &bull; IP6X</div>
-            <div class="spec-cell__desc">100 meters dive rating with real-time digital depth gauge.</div>
-          </div>
-          <div class="spec-cell">
-            <div class="spec-cell__title">Tactile Crown</div>
-            <div class="spec-cell__val">Magnetic Encoder</div>
-            <div class="spec-cell__desc">Sub-micron rotational stepping with haptic click feedback.</div>
-          </div>
-        </div>
-
-        <!-- Panel 2: Neural -->
-        <div class="specs-panel" id="specs-neural">
-          <div class="spec-cell">
-            <div class="spec-cell__title">Neural Engine</div>
-            <div class="spec-cell__val">S1 Quantum Bionic</div>
-            <div class="spec-cell__desc">4-Core 64-bit architecture with 16-core dedicated neural processing unit.</div>
-          </div>
-          <div class="spec-cell">
-            <div class="spec-cell__title">On-Device AI</div>
-            <div class="spec-cell__val">12.4 TOPS Inference</div>
-            <div class="spec-cell__desc">Local real-time speech, gesture recognition, and biometric prediction.</div>
-          </div>
-          <div class="spec-cell">
-            <div class="spec-cell__title">Storage Memory</div>
-            <div class="spec-cell__val">64GB NVMe Flash</div>
-            <div class="spec-cell__desc">Store 5,000+ lossless audio tracks and offline topometric vector maps.</div>
-          </div>
-          <div class="spec-cell">
-            <div class="spec-cell__title">OS Architecture</div>
-            <div class="spec-cell__val">AetherOS 3.0</div>
-            <div class="spec-cell__desc">Microkernel real-time operating system with sandboxed cryptographic enclave.</div>
-          </div>
-        </div>
-
-        <!-- Panel 3: Sensors -->
-        <div class="specs-panel" id="specs-sensors">
-          <div class="spec-cell">
-            <div class="spec-cell__title">Neural EEG Band</div>
-            <div class="spec-cell__val">4-Point Contact</div>
-            <div class="spec-cell__desc">Monitors focus, cognitive fatigue, and calm states through wrist nerve signals.</div>
-          </div>
-          <div class="spec-cell">
-            <div class="spec-cell__title">Cardiac ECG</div>
-            <div class="spec-cell__val">Lead-I &bull; SpO2</div>
-            <div class="spec-cell__desc">FDA-compliant electrical heart sensor and blood oxygen optical matrix.</div>
-          </div>
-          <div class="spec-cell">
-            <div class="spec-cell__title">Thermal Flux</div>
-            <div class="spec-cell__val">Dual Surface Temp</div>
-            <div class="spec-cell__desc">Samples temperature every 5 seconds to track sleep cycles and illness.</div>
-          </div>
-          <div class="spec-cell">
-            <div class="spec-cell__title">Environmental</div>
-            <div class="spec-cell__val">Barometer &bull; Compass</div>
-            <div class="spec-cell__desc">Real-time altitude tracking and emergency storm warning detection.</div>
-          </div>
-        </div>
-
-        <!-- Panel 4: Battery -->
-        <div class="specs-panel" id="specs-battery">
-          <div class="spec-cell">
-            <div class="spec-cell__title">Battery Endurance</div>
-            <div class="spec-cell__val">72 Hours Regular</div>
-            <div class="spec-cell__desc">Up to 120 hours in Low-Power Exploration Mode with satellite tracking.</div>
-          </div>
-          <div class="spec-cell">
-            <div class="spec-cell__title">Fast Charging</div>
-            <div class="spec-cell__val">0-80% in 28 Mins</div>
-            <div class="spec-cell__desc">Braided magnetic fast-charger with USB-C gallium-nitride protocol.</div>
-          </div>
-          <div class="spec-cell">
-            <div class="spec-cell__title">Satellite SOS</div>
-            <div class="spec-cell__val">Dual L1/L5 GNSS</div>
-            <div class="spec-cell__desc">Two-way satellite emergency text messaging beyond cellular coverage.</div>
-          </div>
-          <div class="spec-cell">
-            <div class="spec-cell__title">Connectivity</div>
-            <div class="spec-cell__val">5G &bull; Wi-Fi 7 &bull; BT 5.4</div>
-            <div class="spec-cell__desc">Ultra-wideband spatial chip for sub-inch object location precision.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       04 / REVIEWS & CRITIC ACCOLADES
-       ====================================================================== -->
-  <section class="section reviews" id="reviews">
-    <div class="container">
-      <div class="section-head">
-        <span class="section-head__tag">// 04 &mdash; CRITIC ACCLAIM &amp; FEEDBACK</span>
-        <h2 class="section-head__title">PRAISED BY THE TECH WORLD</h2>
-        <p class="section-head__desc">
-          Evaluated by industry hardware engineers, athletes, and global technology publications.
-        </p>
-      </div>
-
-      <div class="reviews-aggregate">
-        <div class="rating-score">4.9</div>
-        <div>
-          <div class="rating-stars">★★★★★</div>
-          <div class="rating-label">Average Critic Score &bull; 1,420 Verified Test Hours</div>
+        <div class="section-head__meta">
+          <span class="section-tag">// 02 &mdash; STREAMING NOW</span>
+          <h2 class="section-title">POPULAR TRACKS &amp; CHARTS</h2>
+          <p class="section-desc">The most played releases across India this week &mdash; click any song to stream audio live.</p>
         </div>
       </div>
 
-      <div class="reviews-grid">
-        <div class="review-card">
-          <div class="review-card__stars">★★★★★</div>
-          <p class="review-card__quote">
-            "AETHER CHRONO-X is the first wearable that feels like it fell out of the next decade. The neural gesture control works so naturally that touching a screen feels antiquated."
-          </p>
-          <div class="review-card__author">
-            <div class="author-avatar">WI</div>
-            <div class="author-meta">
-              <h4>Wired Review Lab</h4>
-              <span>Editor's Choice Hardware</span>
+      <div class="tracks-table">
+        <!-- Track 1 -->
+        <div class="track-row active" data-track-idx="0" tabindex="0" role="button" aria-label="Play Track 1">
+          <div class="track-num">01</div>
+          <div class="track-meta">
+            <div class="track-thumb">
+              <img src="assets/images/album_1.jpg" alt="Inferno Nights" width="44" height="44" loading="lazy">
+            </div>
+            <div class="track-title-box">
+              <div class="track-name">Inferno Nights</div>
+              <div class="track-artist">Aarav Sen &amp; Divine Pulse</div>
             </div>
           </div>
+          <div class="track-plays">2,410,820</div>
+          <div class="track-dur">3:42</div>
+          <button class="track-like" type="button" aria-label="Like track">
+            <i data-lucide="heart" class="icon-sm" aria-hidden="true"></i>
+          </button>
         </div>
 
-        <div class="review-card">
-          <div class="review-card__stars">★★★★★</div>
-          <p class="review-card__quote">
-            "The titanium sculpting is immaculate. The display reaches an eye-searing 3,000 nits, and the 72-hour battery life finally makes daily charging a distant memory."
-          </p>
-          <div class="review-card__author">
-            <div class="author-avatar">VG</div>
-            <div class="author-meta">
-              <h4>The Verge Tech</h4>
-              <span>Flagship Review &bull; 9.8 / 10</span>
+        <!-- Track 2 -->
+        <div class="track-row" data-track-idx="1" tabindex="0" role="button" aria-label="Play Track 2">
+          <div class="track-num">02</div>
+          <div class="track-meta">
+            <div class="track-thumb">
+              <img src="assets/images/album_2.jpg" alt="Midnight Chai Lo-Fi" width="44" height="44" loading="lazy">
+            </div>
+            <div class="track-title-box">
+              <div class="track-name">Midnight Chai Lo-Fi</div>
+              <div class="track-artist">Tara Krishnan</div>
             </div>
           </div>
+          <div class="track-plays">1,842,500</div>
+          <div class="track-dur">2:54</div>
+          <button class="track-like" type="button" aria-label="Like track">
+            <i data-lucide="heart" class="icon-sm" aria-hidden="true"></i>
+          </button>
         </div>
 
-        <div class="review-card">
-          <div class="review-card__stars">★★★★★</div>
-          <p class="review-card__quote">
-            "The combination of clinical-grade biometric telemetry with spatial satellite connectivity is unmatched in the wearable industry today."
-          </p>
-          <div class="review-card__author">
-            <div class="author-avatar">TR</div>
-            <div class="author-meta">
-              <h4>TechRadar Global</h4>
-              <span>Best Wearable Award</span>
+        <!-- Track 3 -->
+        <div class="track-row" data-track-idx="2" tabindex="0" role="button" aria-label="Play Track 3">
+          <div class="track-num">03</div>
+          <div class="track-meta">
+            <div class="track-thumb">
+              <img src="assets/images/album_3.jpg" alt="Deccan Drift" width="44" height="44" loading="lazy">
+            </div>
+            <div class="track-title-box">
+              <div class="track-name">Deccan Drift</div>
+              <div class="track-artist">Rishi &amp; The Circuit</div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       05 / PURCHASE & PRE-ORDER CUSTOMIZER
-       ====================================================================== -->
-  <section class="section purchase" id="purchase">
-    <div class="container">
-      <div class="section-head">
-        <span class="section-head__tag">// 05 &mdash; PRE-ORDER STUDIO</span>
-        <h2 class="section-head__title">CUSTOMIZE YOUR CHRONO-X</h2>
-        <p class="section-head__desc">
-          Select your titanium chassis size, connectivity module, and bespoke band styling. Real-time delivery worldwide with priority dispatch.
-        </p>
-      </div>
-
-      <div class="purchase-box">
-        <!-- Left: Summary & Price -->
-        <div class="purchase-left">
-          <div>
-            <span class="purchase-badge">✦ GLOBAL DISPATCH &bull; FREE EXPEDITED SHIPPING</span>
-            <h3 class="purchase-title">AETHER CHRONO-X</h3>
-            <p class="purchase-desc">
-              Includes aerospace titanium smartwatch, custom magnetic fast-charging cable, premium packaging, and 2-year international warranty.
-            </p>
-          </div>
-
-          <div class="purchase-price-block">
-            <div class="price-row">
-              <span class="total-price" id="config-total-price">$399</span>
-              <span class="monthly-price" id="config-monthly-price">or $33/mo. for 12 mo.</span>
-            </div>
-            <div class="summary-text" id="config-summary-text">
-              41mm &bull; Cosmic Obsidian &bull; GPS &bull; Braided Band
-            </div>
-          </div>
+          <div class="track-plays">3,115,200</div>
+          <div class="track-dur">4:15</div>
+          <button class="track-like" type="button" aria-label="Like track">
+            <i data-lucide="heart" class="icon-sm" aria-hidden="true"></i>
+          </button>
         </div>
 
-        <!-- Right: Interactive Controls -->
-        <div class="purchase-right">
-          <!-- 1. Size -->
-          <div class="config-group">
-            <label class="config-label">1. Choose Case Size</label>
-            <div class="config-options">
-              <button class="config-btn config-size-btn active" data-size="41mm" data-price="399">
-                <span class="btn-opt-title">41mm Titanium</span>
-                <span class="btn-opt-desc">Wrist size: 130-180mm &bull; $399</span>
-              </button>
-              <button class="config-btn config-size-btn" data-size="45mm" data-price="449">
-                <span class="btn-opt-title">45mm Titanium</span>
-                <span class="btn-opt-desc">Wrist size: 150-210mm &bull; $449</span>
-              </button>
+        <!-- Track 4 -->
+        <div class="track-row" data-track-idx="3" tabindex="0" role="button" aria-label="Play Track 4">
+          <div class="track-num">04</div>
+          <div class="track-meta">
+            <div class="track-thumb">
+              <img src="assets/images/album_4.jpg" alt="Solar Flare Anthem" width="44" height="44" loading="lazy">
+            </div>
+            <div class="track-title-box">
+              <div class="track-name">Solar Flare Anthem</div>
+              <div class="track-artist">DJ Agni &amp; Nova</div>
             </div>
           </div>
+          <div class="track-plays">4,720,100</div>
+          <div class="track-dur">3:10</div>
+          <button class="track-like" type="button" aria-label="Like track">
+            <i data-lucide="heart" class="icon-sm" aria-hidden="true"></i>
+          </button>
+        </div>
 
-          <!-- 2. Finish -->
-          <div class="config-group">
-            <label class="config-label">2. Select Finish &amp; Colorway</label>
-            <div class="swatch-row">
-              <button class="buy-swatch swatch--obsidian active" data-finish="obsidian" aria-label="Obsidian"></button>
-              <button class="buy-swatch swatch--titanium" data-finish="titanium" aria-label="Titanium"></button>
-              <button class="buy-swatch swatch--lavender" data-finish="lavender" aria-label="Lavender"></button>
+        <!-- Track 5 -->
+        <div class="track-row" data-track-idx="4" tabindex="0" role="button" aria-label="Play Track 5">
+          <div class="track-num">05</div>
+          <div class="track-meta">
+            <div class="track-thumb">
+              <img src="assets/images/playlist_2.jpg" alt="Lost in Bengaluru" width="44" height="44" loading="lazy">
+            </div>
+            <div class="track-title-box">
+              <div class="track-name">Lost in Bengaluru</div>
+              <div class="track-artist">Aditi Rao</div>
             </div>
           </div>
+          <div class="track-plays">940,300</div>
+          <div class="track-dur">3:30</div>
+          <button class="track-like" type="button" aria-label="Like track">
+            <i data-lucide="heart" class="icon-sm" aria-hidden="true"></i>
+          </button>
+        </div>
 
-          <!-- 3. Connectivity -->
-          <div class="config-group">
-            <label class="config-label">3. Connectivity Module</label>
-            <div class="config-options">
-              <button class="config-btn config-conn-btn active" data-conn="gps" data-price="0">
-                <span class="btn-opt-title">GPS + Wi-Fi 7</span>
-                <span class="btn-opt-desc">Standard &bull; Included</span>
-              </button>
-              <button class="config-btn config-conn-btn" data-conn="cellular" data-price="100">
-                <span class="btn-opt-title">Cellular + Satellite SOS</span>
-                <span class="btn-opt-desc">Standalone 5G &bull; + $100</span>
-              </button>
+        <!-- Track 6 -->
+        <div class="track-row" data-track-idx="5" tabindex="0" role="button" aria-label="Play Track 6">
+          <div class="track-num">06</div>
+          <div class="track-meta">
+            <div class="track-thumb">
+              <img src="assets/images/playlist_1.jpg" alt="Varanasi Raga Electro" width="44" height="44" loading="lazy">
+            </div>
+            <div class="track-title-box">
+              <div class="track-name">Varanasi Raga Electro</div>
+              <div class="track-artist">Pandit Anand &amp; SynthCore</div>
             </div>
           </div>
-
-          <!-- 4. Band Style -->
-          <div class="config-group">
-            <label class="config-label">4. Band Material</label>
-            <div class="config-options">
-              <button class="config-btn config-strap-btn active" data-strap="braided" data-price="0">
-                <span class="btn-opt-title">Braided Solo Loop</span>
-                <span class="btn-opt-desc">Recycled yarn &bull; Included</span>
-              </button>
-              <button class="config-btn config-strap-btn" data-strap="titanium" data-price="150">
-                <span class="btn-opt-title">Titanium Link Bracelet</span>
-                <span class="btn-opt-desc">Grade 5 links &bull; + $150</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Action Button -->
-          <button class="btn-preorder" id="preorder-submit-btn">
-            Pre-Order AETHER CHRONO-X <i data-lucide="arrow-right" class="icon-inline" aria-hidden="true"></i>
+          <div class="track-plays">1,504,800</div>
+          <div class="track-dur">5:02</div>
+          <button class="track-like" type="button" aria-label="Like track">
+            <i data-lucide="heart" class="icon-sm" aria-hidden="true"></i>
           </button>
         </div>
       </div>
@@ -498,108 +304,538 @@
   </section>
 
   <!-- ======================================================================
-       ORDER CONFIRMATION MODAL
+       03 / FEATURED ALBUMS (MANDATORY REQUIREMENT)
        ====================================================================== -->
-  <div class="modal-overlay" id="order-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <section class="section" id="albums">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-head__meta">
+          <span class="section-tag">// 03 &mdash; STUDIO MASTER RELEASES</span>
+          <h2 class="section-title">FEATURED ALBUMS</h2>
+          <p class="section-desc">Uncompressed 24-bit 192kHz studio albums, mixed for full dynamic acoustic presence.</p>
+        </div>
+      </div>
+
+      <div class="albums-grid">
+        <!-- Album 1 -->
+        <article class="album-card track-row" data-track-idx="0" tabindex="0" role="button">
+          <div class="album-cover">
+            <img src="assets/images/album_1.jpg" alt="Neon Flame EP album art" width="280" height="280" loading="lazy">
+            <button class="album-play-btn" type="button" aria-label="Play Neon Flame EP">
+              <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
+            </button>
+          </div>
+          <h3 class="album-title">Neon Flame EP</h3>
+          <p class="album-artist">Aarav Sen</p>
+          <div class="album-meta">8 Tracks &bull; 2026 Master &bull; FLAC</div>
+        </article>
+
+        <!-- Album 2 -->
+        <article class="album-card track-row" data-track-idx="1" tabindex="0" role="button">
+          <div class="album-cover">
+            <img src="assets/images/album_2.jpg" alt="Monsoon Melodies album art" width="280" height="280" loading="lazy">
+            <button class="album-play-btn" type="button" aria-label="Play Monsoon Melodies">
+              <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
+            </button>
+          </div>
+          <h3 class="album-title">Monsoon Melodies</h3>
+          <p class="album-artist">Tara Krishnan</p>
+          <div class="album-meta">10 Tracks &bull; 2026 &bull; Hi-Res Audio</div>
+        </article>
+
+        <!-- Album 3 -->
+        <article class="album-card track-row" data-track-idx="2" tabindex="0" role="button">
+          <div class="album-cover">
+            <img src="assets/images/album_3.jpg" alt="Cyber Hyderabad album art" width="280" height="280" loading="lazy">
+            <button class="album-play-btn" type="button" aria-label="Play Cyber Hyderabad">
+              <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
+            </button>
+          </div>
+          <h3 class="album-title">Cyber Hyderabad</h3>
+          <p class="album-artist">Rishi &amp; The Circuit</p>
+          <div class="album-meta">9 Tracks &bull; 2026 &bull; Synth-Wave</div>
+        </article>
+
+        <!-- Album 4 -->
+        <article class="album-card track-row" data-track-idx="3" tabindex="0" role="button">
+          <div class="album-cover">
+            <img src="assets/images/album_4.jpg" alt="Ignite Volume 1 album art" width="280" height="280" loading="lazy">
+            <button class="album-play-btn" type="button" aria-label="Play Ignite Volume 1">
+              <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
+            </button>
+          </div>
+          <h3 class="album-title">Ignite Volume 1</h3>
+          <p class="album-artist">DJ Agni &amp; Nova</p>
+          <div class="album-meta">12 Tracks &bull; 2026 &bull; Bass Heavy</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       04 / CURATED PLAYLISTS (MANDATORY REQUIREMENT)
+       ====================================================================== -->
+  <section class="section" id="playlists">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-head__meta">
+          <span class="section-tag">// 04 &mdash; HANDPICKED MOODS</span>
+          <h2 class="section-title">CURATED PLAYLISTS</h2>
+          <p class="section-desc">Precision-curated mixes tailored for late night coding, city commutes, and explosive festival drops.</p>
+        </div>
+      </div>
+
+      <div class="playlists-grid">
+        <!-- Playlist 1 -->
+        <article class="playlist-card track-row" data-track-idx="5" tabindex="0" role="button">
+          <div class="playlist-thumb">
+            <img src="assets/images/playlist_1.jpg" alt="Bollywood Fire & Bass playlist" width="360" height="225" loading="lazy">
+          </div>
+          <div class="playlist-body">
+            <span class="playlist-tag">HIGH VOLTAGE</span>
+            <h3 class="playlist-title">Bollywood Fire &amp; Bass</h3>
+            <p class="playlist-desc">Heavy sub-bass kicks blended with chart-topping desi club hits and festival edits.</p>
+            <div class="playlist-footer">
+              <span>50 Songs &bull; 3h 12m</span>
+              <span>Updated Today</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Playlist 2 -->
+        <article class="playlist-card track-row" data-track-idx="1" tabindex="0" role="button">
+          <div class="playlist-thumb">
+            <img src="assets/images/playlist_2.jpg" alt="Midnight Chai Lo-Fi playlist" width="360" height="225" loading="lazy">
+          </div>
+          <div class="playlist-body">
+            <span class="playlist-tag">CHILL &amp; STUDY</span>
+            <h3 class="playlist-title">Midnight Chai Lo-Fi</h3>
+            <p class="playlist-desc">Warm vinyl crackles, gentle acoustic sitars, and mellow lofi beats for focused late-night sessions.</p>
+            <div class="playlist-footer">
+              <span>42 Songs &bull; 2h 45m</span>
+              <span>Top Chill</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Playlist 3 -->
+        <article class="playlist-card track-row" data-track-idx="3" tabindex="0" role="button">
+          <div class="playlist-thumb">
+            <img src="assets/images/playlist_3.jpg" alt="Inferno EDM Festival playlist" width="360" height="225" loading="lazy">
+          </div>
+          <div class="playlist-body">
+            <span class="playlist-tag">FESTIVAL ANTHEMS</span>
+            <h3 class="playlist-title">Inferno EDM Festival</h3>
+            <p class="playlist-desc">Peak-time mainstage drops, hard-hitting synths, and pure adrenaline rushes.</p>
+            <div class="playlist-footer">
+              <span>65 Songs &bull; 4h 10m</span>
+              <span>Sunburn Picks</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Playlist 4 -->
+        <article class="playlist-card track-row" data-track-idx="2" tabindex="0" role="button">
+          <div class="playlist-thumb">
+            <img src="assets/images/playlist_4.jpg" alt="Indie Acoustic Sunset playlist" width="360" height="225" loading="lazy">
+          </div>
+          <div class="playlist-body">
+            <span class="playlist-tag">ACOUSTIC &amp; VOCAL</span>
+            <h3 class="playlist-title">Indie Acoustic Sunset</h3>
+            <p class="playlist-desc">Organic folk, soulful Hindi ballads, and stripped-down guitar melodies for evening drives.</p>
+            <div class="playlist-footer">
+              <span>38 Songs &bull; 2h 18m</span>
+              <span>Soul Selections</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       05 / TRENDING ARTISTS (MANDATORY REQUIREMENT)
+       ====================================================================== -->
+  <section class="section" id="artists">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-head__meta">
+          <span class="section-tag">// 05 &mdash; THE ARCHITECTS OF SOUND</span>
+          <h2 class="section-title">TRENDING ARTISTS</h2>
+          <p class="section-desc">Meet the visionaries defining modern Indian electronic, fusion, and indie music culture.</p>
+        </div>
+      </div>
+
+      <div class="artists-grid">
+        <!-- Artist 1 -->
+        <article class="artist-card track-row" data-track-idx="0" tabindex="0" role="button">
+          <div class="artist-avatar">
+            <img src="assets/images/artist_1.jpg" alt="Aarav Sen" width="110" height="110" loading="lazy">
+          </div>
+          <h3 class="artist-name">Aarav Sen</h3>
+          <div class="artist-genre">Electronic / Future Bass</div>
+          <div class="artist-followers">1,240,000 Monthly Listeners</div>
+          <button class="btn-follow" type="button">Follow</button>
+        </article>
+
+        <!-- Artist 2 -->
+        <article class="artist-card track-row" data-track-idx="1" tabindex="0" role="button">
+          <div class="artist-avatar">
+            <img src="assets/images/artist_2.jpg" alt="Tara Krishnan" width="110" height="110" loading="lazy">
+          </div>
+          <h3 class="artist-name">Tara Krishnan</h3>
+          <div class="artist-genre">Neo-Soul / Lo-Fi</div>
+          <div class="artist-followers">892,400 Monthly Listeners</div>
+          <button class="btn-follow" type="button">Follow</button>
+        </article>
+
+        <!-- Artist 3 -->
+        <article class="artist-card track-row" data-track-idx="2" tabindex="0" role="button">
+          <div class="artist-avatar">
+            <img src="assets/images/artist_3.jpg" alt="Rishi & The Circuit" width="110" height="110" loading="lazy">
+          </div>
+          <h3 class="artist-name">Rishi &amp; The Circuit</h3>
+          <div class="artist-genre">Synthwave / Alt-Rock</div>
+          <div class="artist-followers">640,150 Monthly Listeners</div>
+          <button class="btn-follow" type="button">Follow</button>
+        </article>
+
+        <!-- Artist 4 -->
+        <article class="artist-card track-row" data-track-idx="3" tabindex="0" role="button">
+          <div class="artist-avatar">
+            <img src="assets/images/artist_4.jpg" alt="DJ Agni" width="110" height="110" loading="lazy">
+          </div>
+          <h3 class="artist-name">DJ Agni</h3>
+          <div class="artist-genre">Club EDM / Desi Bass</div>
+          <div class="artist-followers">2,180,900 Monthly Listeners</div>
+          <button class="btn-follow" type="button">Follow</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       06 / SUBSCRIPTION PLANS (INDIAN CURRENCY ₹ INR STRICT REQUIREMENT)
+       ====================================================================== -->
+  <section class="section" id="pricing">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-head__meta">
+          <span class="section-tag">// 06 &mdash; TRANSPARENT INDIAN RUPEE (&#8377; INR) PRICING</span>
+          <h2 class="section-title">CHOOSE YOUR IGNITE PASS</h2>
+          <p class="section-desc">Stream millions of tracks with lossless master quality. Direct UPI, RuPay &amp; NetBanking supported.</p>
+        </div>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Plan 1: Free Starter -->
+        <div class="pricing-card">
+          <div>
+            <h3 class="plan-name">Free Starter</h3>
+            <p class="plan-desc">Essential streaming with occasional curated artist promotions.</p>
+            
+            <div class="plan-price-block">
+              <span class="plan-price"><span class="plan-currency">&#8377;</span>0</span>
+              <span class="plan-cycle">/ forever</span>
+            </div>
+
+            <ul class="plan-features">
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>Standard 160kbps MP3 audio</span>
+              </li>
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>Access to top 100 Indian charts</span>
+              </li>
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>Mobile &amp; Web app streaming</span>
+              </li>
+            </ul>
+          </div>
+
+          <button class="btn-plan btn-select-plan" data-plan="Free Starter" data-price="&#8377;0" data-period="/ forever" type="button">
+            Start Free
+          </button>
+        </div>
+
+        <!-- Plan 2: Student VIP (Popular) -->
+        <div class="pricing-card pricing-card--popular">
+          <div class="pricing-popular-badge">NRI UNIVERSITY SPECIAL</div>
+          <div>
+            <h3 class="plan-name">Student VIP</h3>
+            <p class="plan-desc">Exclusive college pricing for university students with verified ID.</p>
+            
+            <div class="plan-price-block">
+              <span class="plan-price"><span class="plan-currency">&#8377;</span>99</span>
+              <span class="plan-cycle">/ month</span>
+            </div>
+
+            <ul class="plan-features">
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>100% Ad-Free listening experience</span>
+              </li>
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>320kbps High-Definition audio</span>
+              </li>
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>Offline song downloads (up to 10k tracks)</span>
+              </li>
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>Unlimited skips &amp; synchronized lyrics</span>
+              </li>
+            </ul>
+          </div>
+
+          <button class="btn-plan btn-plan--primary btn-select-plan" data-plan="Student VIP" data-price="&#8377;99" data-period="/ month" type="button">
+            Claim Student Pass &bull; &#8377;99
+          </button>
+        </div>
+
+        <!-- Plan 3: Individual Hi-Fi -->
+        <div class="pricing-card">
+          <div>
+            <h3 class="plan-name">Individual Hi-Fi</h3>
+            <p class="plan-desc">For passionate audiophiles who demand bit-perfect studio acoustics.</p>
+            
+            <div class="plan-price-block">
+              <span class="plan-price"><span class="plan-currency">&#8377;</span>149</span>
+              <span class="plan-cycle">/ month</span>
+            </div>
+
+            <ul class="plan-features">
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>24-bit / 192kHz Lossless FLAC &amp; ALAC</span>
+              </li>
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>Dolby Atmos Spatial Audio immersion</span>
+              </li>
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>DJ Crossfade &amp; Parametric Equalizer</span>
+              </li>
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>Multi-device playback handoff</span>
+              </li>
+            </ul>
+          </div>
+
+          <button class="btn-plan btn-select-plan" data-plan="Individual Hi-Fi" data-price="&#8377;149" data-period="/ month" type="button">
+            Subscribe Hi-Fi &bull; &#8377;149
+          </button>
+        </div>
+
+        <!-- Plan 4: Family Pack -->
+        <div class="pricing-card">
+          <div>
+            <h3 class="plan-name">Family Pack</h3>
+            <p class="plan-desc">Complete lossless music freedom for up to 6 family members.</p>
+            
+            <div class="plan-price-block">
+              <span class="plan-price"><span class="plan-currency">&#8377;</span>249</span>
+              <span class="plan-cycle">/ month</span>
+            </div>
+
+            <ul class="plan-features">
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>6 Individual Hi-Fi premium accounts</span>
+              </li>
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>Shared Family Mix algorithmic playlist</span>
+              </li>
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>Explicit content filters for kids</span>
+              </li>
+              <li class="plan-feature-item">
+                <i data-lucide="check" class="icon-sm feature-check" aria-hidden="true"></i>
+                <span>Smart TV, Android Auto &amp; Apple CarPlay</span>
+              </li>
+            </ul>
+          </div>
+
+          <button class="btn-plan btn-select-plan" data-plan="Family Pack" data-price="&#8377;249" data-period="/ month" type="button">
+            Get Family Pack &bull; &#8377;249
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       07 / PERSISTENT MUSIC PLAYER DOCK (MANDATORY REQUIREMENT)
+       ====================================================================== -->
+  <aside class="player-dock" aria-label="Audio Player Controls">
+    <div class="container player-inner">
+      <!-- Left: Active Track Meta -->
+      <div class="player-track">
+        <div class="player-thumb">
+          <img src="assets/images/album_1.jpg" id="player-thumb-img" alt="Current Track Thumbnail" width="52" height="52">
+        </div>
+        <div class="player-meta">
+          <div class="player-title" id="player-title">Inferno Nights</div>
+          <div class="player-artist" id="player-artist">Aarav Sen &amp; Divine Pulse</div>
+        </div>
+      </div>
+
+      <!-- Center: Controls & Seek Bar -->
+      <div class="player-center">
+        <div class="player-buttons">
+          <button class="ctrl-btn" type="button" aria-label="Shuffle mode">
+            <i data-lucide="shuffle" class="icon-sm" aria-hidden="true"></i>
+          </button>
+          <button class="ctrl-btn" id="player-prev-btn" type="button" aria-label="Previous Track">
+            <i data-lucide="skip-back" class="icon-sm" aria-hidden="true"></i>
+          </button>
+          <button class="ctrl-btn ctrl-btn--play" id="player-play-btn" type="button" aria-label="Play or Pause Track">
+            <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
+          </button>
+          <button class="ctrl-btn" id="player-next-btn" type="button" aria-label="Next Track">
+            <i data-lucide="skip-forward" class="icon-sm" aria-hidden="true"></i>
+          </button>
+          <button class="ctrl-btn" type="button" aria-label="Repeat mode">
+            <i data-lucide="repeat" class="icon-sm" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="player-progress-bar">
+          <span class="time-stamp" id="player-current-time">0:00</span>
+          <div class="seek-bar-track" id="player-seek-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="35">
+            <div class="seek-bar-fill" id="player-seek-fill"></div>
+          </div>
+          <span class="time-stamp" id="player-total-time">3:42</span>
+        </div>
+      </div>
+
+      <!-- Right: Extras & Volume -->
+      <div class="player-right">
+        <button class="track-like" type="button" aria-label="Favorite current track">
+          <i data-lucide="heart" class="icon-sm" aria-hidden="true"></i>
+        </button>
+        <button class="ctrl-btn" type="button" aria-label="Volume">
+          <i data-lucide="volume-2" class="icon-sm" aria-hidden="true"></i>
+        </button>
+        <div class="volume-bar" aria-label="Adjust Volume">
+          <div class="volume-fill"></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ======================================================================
+       08 / INDIAN CURRENCY (₹ INR) CHECKOUT MODAL
+       ====================================================================== -->
+  <div class="modal-overlay" id="sub-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-card">
-      <button class="modal-close" id="close-modal-btn" aria-label="Close modal">&times;</button>
-      
+      <button class="modal-close-btn" id="close-sub-modal" type="button" aria-label="Close modal">
+        <i data-lucide="x" class="icon-sm" aria-hidden="true"></i>
+      </button>
+
       <div class="modal-header">
-        <div class="modal-icon">
-          <i data-lucide="check-circle-2" aria-hidden="true"></i>
-        </div>
-        <h3 class="modal-title" id="modal-title">PRE-ORDER CONFIRMED</h3>
-        <p class="modal-subtitle">Your allocation has been secured in Production Batch 01.</p>
+        <span class="modal-badge">INSTANT UPI &bull; SECURE CHECKOUT</span>
+        <h3 class="modal-title" id="modal-title">Upgrade to IGNITE VIP</h3>
+        <p class="modal-desc">Instant activation across mobile, desktop &amp; high-res audio receivers.</p>
       </div>
 
-      <div class="receipt-table">
-        <div class="receipt-row">
-          <span class="receipt-label">Hardware:</span>
-          <strong>AETHER CHRONO-X</strong>
+      <div class="modal-plan-summary">
+        <div>
+          <div class="modal-plan-label">SELECTED PLAN</div>
+          <div class="modal-plan-name" id="modal-plan-name">Student VIP</div>
         </div>
-        <div class="receipt-row">
-          <span class="receipt-label">Chassis Size:</span>
-          <span id="modal-receipt-size">41mm</span>
-        </div>
-        <div class="receipt-row">
-          <span class="receipt-label">Finish:</span>
-          <span id="modal-receipt-finish">Cosmic Obsidian</span>
-        </div>
-        <div class="receipt-row">
-          <span class="receipt-label">Network:</span>
-          <span id="modal-receipt-conn">GPS + Wi-Fi</span>
-        </div>
-        <div class="receipt-row">
-          <span class="receipt-label">Band:</span>
-          <span id="modal-receipt-strap">Braided Solo Loop</span>
-        </div>
-        <div class="receipt-row">
-          <span class="receipt-label">Total Amount:</span>
-          <span id="modal-receipt-total">$399 USD</span>
-        </div>
+        <div class="modal-plan-price" id="modal-plan-price">&#8377;99 / month</div>
       </div>
 
-      <button class="btn-primary" style="width: 100%; text-align: center;" id="modal-dismiss-btn">
-        Close &amp; Download Receipt
+      <div class="modal-payment-methods">
+        <label class="modal-pm-option selected">
+          <input type="radio" name="payment" class="modal-pm-radio" checked>
+          <div class="modal-pm-info">UPI / QR Code</div>
+          <div class="modal-pm-badges">GPay &bull; PhonePe &bull; Paytm</div>
+        </label>
+
+        <label class="modal-pm-option">
+          <input type="radio" name="payment" class="modal-pm-radio">
+          <div class="modal-pm-info">Debit / Credit Card</div>
+          <div class="modal-pm-badges">RuPay &bull; Visa &bull; Mastercard</div>
+        </label>
+
+        <label class="modal-pm-option">
+          <input type="radio" name="payment" class="modal-pm-radio">
+          <div class="modal-pm-info">NetBanking</div>
+          <div class="modal-pm-badges">SBI &bull; HDFC &bull; ICICI &bull; Axis</div>
+        </label>
+      </div>
+
+      <button class="modal-confirm-btn" id="confirm-sub-btn" type="button">
+        Confirm &amp; Pay via UPI
       </button>
     </div>
   </div>
 
   <!-- ======================================================================
-       FOOTER
+       FOOTER & NRI UNIVERSITY ATTRIBUTION
        ====================================================================== -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="#hero" class="nav__brand">
-            <span class="brand-gem">✦</span> AETHER <span class="brand-suffix">CHRONO-X</span>
+            <span class="brand-flame-icon">🔥</span>
+            <span class="brand-name">IGNITE</span>
+            <span class="brand-badge">HI-FI</span>
           </a>
           <p>
-            Spatial neural smartwatch engineered from aerospace titanium, sapphire optics, and decentralized biometric intelligence.
+            IGNITE MUSIC is a next-generation lossless music streaming platform crafted with mathematical ASCII fire physics and high-definition audio fidelity.
           </p>
         </div>
 
         <div class="footer-col">
-          <h4>Product</h4>
+          <h4>Explore</h4>
           <ul>
-            <li><a href="#features">Spatial Features</a></li>
-            <li><a href="#studio">Colorway Studio</a></li>
-            <li><a href="#specs">Hardware Specs</a></li>
-            <li><a href="#purchase">Pre-Order Portal</a></li>
+            <li><a href="#recent">Recently Played</a></li>
+            <li><a href="#charts">Popular Tracks</a></li>
+            <li><a href="#albums">Featured Albums</a></li>
+            <li><a href="#playlists">Curated Playlists</a></li>
+            <li><a href="#artists">Trending Artists</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
-          <h4>Engineering</h4>
+          <h4>Audio Quality</h4>
           <ul>
-            <li><a href="#specs">Titanium Metallurgy</a></li>
-            <li><a href="#specs">Neural Kernel OS</a></li>
-            <li><a href="#specs">Bio-Telemetry Matrix</a></li>
-            <li><a href="#specs">Satellite Protocol</a></li>
+            <li><a href="#pricing">Studio Master FLAC</a></li>
+            <li><a href="#pricing">Dolby Atmos Spatial</a></li>
+            <li><a href="#pricing">Parametric EQ</a></li>
+            <li><a href="#pricing">Offline Mode</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
-          <h4>Institution</h4>
+          <h4>Plans (&#8377; INR)</h4>
           <ul>
-            <li><a href="#">NRI University</a></li>
-            <li><a href="#">Creative HTML/CSS</a></li>
-            <li><a href="#">Activity-2 Submission</a></li>
-            <li><a href="#">Andhra Pradesh, India</a></li>
+            <li><a href="#pricing">Free Starter (&#8377;0)</a></li>
+            <li><a href="#pricing">Student VIP (&#8377;99/mo)</a></li>
+            <li><a href="#pricing">Individual Hi-Fi (&#8377;149/mo)</a></li>
+            <li><a href="#pricing">Family Pack (&#8377;249/mo)</a></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <div class="footer-credit-badge">
-          <span>Website developed for NRI University</span>
-          <span>&bull;</span>
-          <span>Made by <strong class="credit-author">Nagendra Varma</strong></span>
-        </div>
-
         <div>
-          &copy; NRI University &bull; Activity 2 &bull; All Rights Reserved.
+          &copy; 2026 IGNITE MUSIC Platform. All rights reserved.
+        </div>
+        <div class="footer-credit-badge">
+          <span>Website developed for <strong>NRI University</strong> Web Assignment &bull; Made by <span class="credit-author">Nagendra Varma</span></span>
         </div>
       </div>
     </div>

@@ -1,202 +1,344 @@
 /**
  * ==========================================================================
- * AETHER CHRONO-X — js/app.js
- * Hardware Interaction & Customization Studio Controller
- * ==========================================================================
- * Features:
- * 1. Interactive Color & Finish Studio Switcher
- * 2. Hardware Specification Category Tab Switcher
- * 3. Dynamic Real-Time Pre-Order Price Calculator & Receipt Modal
- * 4. Lucide Icon Re-hydration and Mobile Navigation
- * 5. Smooth Anchor Scrolling & Rain Curtain Initialization
+ * IGNITE MUSIC — js/app.js
+ * Music Player Engine, Web Audio Synthesizer & INR Checkout Controller
  * ==========================================================================
  */
 
 (function () {
   'use strict';
 
-  // State Management
-  const configState = {
-    size: '41mm',
-    basePrice: 399,
-    connectivity: 'gps',
-    connectivityPrice: 0,
-    strap: 'braided',
-    strapPrice: 0,
-    finish: 'obsidian',
-    finishName: 'Cosmic Obsidian',
-  };
-
-  const finishImages = {
-    obsidian: {
-      name: 'Cosmic Obsidian',
-      desc: 'DLC Matte Black Titanium with Charcoal Braided Loop',
-      src: 'assets/images/finish_obsidian.jpg',
-      badge: 'STEALTH MATTE'
+  // Sample Track Database
+  const trackDB = [
+    {
+      id: 1,
+      title: "Inferno Nights",
+      artist: "Aarav Sen & Divine Pulse",
+      album: "Neon Flame EP",
+      duration: "3:42",
+      thumb: "assets/images/album_1.jpg",
+      plays: "2.4M",
+      bpm: 124,
+      chords: [261.63, 329.63, 392.00, 523.25] // C maj
     },
-    titanium: {
-      name: 'Stellar Titanium',
-      desc: 'Satin Brushed Natural Aerospace Titanium with Silver Mesh',
-      src: 'assets/images/finish_titanium.jpg',
-      badge: 'AEROSPACE GRADE 5'
+    {
+      id: 2,
+      title: "Midnight Chai Lo-Fi",
+      artist: "Tara Krishnan",
+      album: "Monsoon Melodies",
+      duration: "2:54",
+      thumb: "assets/images/album_2.jpg",
+      plays: "1.8M",
+      bpm: 85,
+      chords: [220.00, 261.63, 329.63, 440.00] // A min
     },
-    lavender: {
-      name: 'Polar Lavender',
-      desc: 'Micro-blasted Pale Titanium with Ethereal Lavender Woven Band',
-      src: 'assets/images/finish_lavender.jpg',
-      badge: 'LIMITED CELESTIAL EDITION'
+    {
+      id: 3,
+      title: "Deccan Drift",
+      artist: "Rishi & The Circuit",
+      album: "Cyber Hyderabad",
+      duration: "4:15",
+      thumb: "assets/images/album_3.jpg",
+      plays: "3.1M",
+      bpm: 110,
+      chords: [174.61, 220.00, 261.63, 349.23] // F maj
+    },
+    {
+      id: 4,
+      title: "Solar Flare Anthem",
+      artist: "DJ Agni & Nova",
+      album: "Ignite Volume 1",
+      duration: "3:10",
+      thumb: "assets/images/album_4.jpg",
+      plays: "4.7M",
+      bpm: 128,
+      chords: [196.00, 246.94, 293.66, 392.00] // G maj
+    },
+    {
+      id: 5,
+      title: "Lost in Bengaluru",
+      artist: "Aditi Rao",
+      album: "Silicone Horizons",
+      duration: "3:30",
+      thumb: "assets/images/playlist_2.jpg",
+      plays: "940K",
+      bpm: 96,
+      chords: [293.66, 349.23, 440.00, 587.33] // D min
+    },
+    {
+      id: 6,
+      title: "Varanasi Raga Electro",
+      artist: "Pandit Anand & SynthCore",
+      album: "Ancient Currents",
+      duration: "5:02",
+      thumb: "assets/images/playlist_1.jpg",
+      plays: "1.5M",
+      bpm: 104,
+      chords: [261.63, 311.13, 392.00, 466.16] // C min7
     }
-  };
+  ];
 
-  /**
-   * 1. Interactive Color Studio
-   */
-  function initColorStudio() {
-    const swatches = document.querySelectorAll('.color-swatch');
-    const previewImg = document.getElementById('studio-preview-img');
-    const finishLabel = document.getElementById('studio-finish-name');
-    const finishDesc = document.getElementById('studio-finish-desc');
-    const finishBadge = document.getElementById('studio-finish-badge');
+  let currentTrackIndex = 0;
+  let isPlaying = false;
+  let currentTime = 45; // seconds
+  let totalTime = 222; // 3:42
+  let timerInterval = null;
 
-    if (!swatches.length || !previewImg) return;
+  // Web Audio Context for realistic synth chords
+  let audioCtx = null;
+  let masterGain = null;
+  let activeNodes = [];
 
-    swatches.forEach((swatch) => {
-      swatch.addEventListener('click', function () {
-        const finishKey = this.getAttribute('data-finish');
-        if (!finishImages[finishKey]) return;
+  function initAudioEngine() {
+    if (audioCtx) return;
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContext();
+      masterGain = audioCtx.createGain();
+      masterGain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+      masterGain.connect(audioCtx.destination);
+    } catch (e) {
+      console.warn("Web Audio not supported", e);
+    }
+  }
 
-        swatches.forEach((s) => s.classList.remove('active'));
-        this.classList.add('active');
+  function playSynthChord(freqs) {
+    if (!audioCtx) initAudioEngine();
+    if (!audioCtx) return;
 
-        const data = finishImages[finishKey];
-        configState.finish = finishKey;
-        configState.finishName = data.name;
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
 
-        // Smooth image transition
-        previewImg.style.opacity = '0';
-        previewImg.style.transform = 'scale(0.97)';
-        
-        setTimeout(() => {
-          previewImg.src = data.src;
-          if (finishLabel) finishLabel.textContent = data.name;
-          if (finishDesc) finishDesc.textContent = data.desc;
-          if (finishBadge) finishBadge.textContent = data.badge;
-          previewImg.style.opacity = '1';
-          previewImg.style.transform = 'scale(1)';
-        }, 180);
+    // Stop previous nodes
+    activeNodes.forEach((node) => {
+      try {
+        node.stop();
+        node.disconnect();
+      } catch (e) {}
+    });
+    activeNodes = [];
 
-        // Synchronize in purchase drawer
-        const buySwatch = document.querySelector(`.buy-swatch[data-finish="${finishKey}"]`);
-        if (buySwatch) {
-          document.querySelectorAll('.buy-swatch').forEach((b) => b.classList.remove('active'));
-          buySwatch.classList.add('active');
-        }
-        updatePriceSummary();
-      });
+    freqs.forEach((freq, idx) => {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+      gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.03, audioCtx.currentTime + 0.15);
+      gain.gain.exponentialRampToValueAtTime(0.015, audioCtx.currentTime + 2.5);
+
+      osc.connect(gain);
+      gain.connect(masterGain);
+
+      osc.start();
+      activeNodes.push(osc);
     });
   }
 
-  /**
-   * 2. Specifications Category Tabs
-   */
-  function initSpecsTabs() {
-    const tabBtns = document.querySelectorAll('.specs-tab-btn');
-    const tabPanels = document.querySelectorAll('.specs-panel');
+  function stopSynth() {
+    if (masterGain && audioCtx) {
+      masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
+      masterGain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.3);
+      setTimeout(() => {
+        if (masterGain && audioCtx) {
+          masterGain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        }
+      }, 350);
+    }
+  }
 
-    if (!tabBtns.length) return;
+  function loadTrack(index) {
+    currentTrackIndex = index;
+    const track = trackDB[index];
 
-    tabBtns.forEach((btn) => {
-      btn.addEventListener('click', function () {
-        const targetTab = this.getAttribute('data-tab');
+    const pThumb = document.getElementById('player-thumb-img');
+    const pTitle = document.getElementById('player-title');
+    const pArtist = document.getElementById('player-artist');
+    const pTotalTime = document.getElementById('player-total-time');
+    const pCurTime = document.getElementById('player-current-time');
+    const pFill = document.getElementById('player-seek-fill');
 
-        tabBtns.forEach((b) => b.classList.remove('active'));
-        tabPanels.forEach((p) => p.classList.remove('active'));
+    if (pThumb) pThumb.src = track.thumb;
+    if (pTitle) pTitle.textContent = track.title;
+    if (pArtist) pArtist.textContent = track.artist;
+    if (pTotalTime) pTotalTime.textContent = track.duration;
 
-        this.classList.add('active');
-        const activePanel = document.getElementById(`specs-${targetTab}`);
-        if (activePanel) {
-          activePanel.classList.add('active');
+    // Reset progress
+    currentTime = 0;
+    const [m, s] = track.duration.split(':').map(Number);
+    totalTime = m * 60 + s;
+    if (pCurTime) pCurTime.textContent = "0:00";
+    if (pFill) pFill.style.width = "0%";
+
+    // Highlight active row in table
+    document.querySelectorAll('.track-row').forEach((row, rIdx) => {
+      if (rIdx === index) row.classList.add('active');
+      else row.classList.remove('active');
+    });
+
+    if (isPlaying) {
+      playSynthChord(track.chords);
+    }
+  }
+
+  function togglePlay() {
+    isPlaying = !isPlaying;
+    const playBtn = document.getElementById('player-play-btn');
+    const playIcon = playBtn ? playBtn.querySelector('i') : null;
+
+    if (isPlaying) {
+      if (playIcon) playIcon.setAttribute('data-lucide', 'pause');
+      playSynthChord(trackDB[currentTrackIndex].chords);
+
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        currentTime++;
+        if (currentTime >= totalTime) {
+          nextTrack();
+          return;
+        }
+        updateTimeUI();
+      }, 1000);
+    } else {
+      if (playIcon) playIcon.setAttribute('data-lucide', 'play');
+      stopSynth();
+      clearInterval(timerInterval);
+    }
+
+    if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+      lucide.createIcons();
+    }
+  }
+
+  function nextTrack() {
+    const nextIdx = (currentTrackIndex + 1) % trackDB.length;
+    loadTrack(nextIdx);
+    if (!isPlaying) togglePlay();
+  }
+
+  function prevTrack() {
+    const prevIdx = (currentTrackIndex - 1 + trackDB.length) % trackDB.length;
+    loadTrack(prevIdx);
+    if (!isPlaying) togglePlay();
+  }
+
+  function updateTimeUI() {
+    const pCurTime = document.getElementById('player-current-time');
+    const pFill = document.getElementById('player-seek-fill');
+
+    const mins = Math.floor(currentTime / 60);
+    const secs = currentTime % 60;
+    const formatted = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+    if (pCurTime) pCurTime.textContent = formatted;
+    if (pFill) {
+      const pct = (currentTime / totalTime) * 100;
+      pFill.style.width = `${pct}%`;
+    }
+  }
+
+  function initPlayerEvents() {
+    const playBtn = document.getElementById('player-play-btn');
+    const nextBtn = document.getElementById('player-next-btn');
+    const prevBtn = document.getElementById('player-prev-btn');
+
+    if (playBtn) playBtn.addEventListener('click', togglePlay);
+    if (nextBtn) nextBtn.addEventListener('click', nextTrack);
+    if (prevBtn) prevBtn.addEventListener('click', prevTrack);
+
+    // Hero Play button
+    const heroPlay = document.getElementById('hero-play-featured');
+    if (heroPlay) {
+      heroPlay.addEventListener('click', () => {
+        loadTrack(0);
+        if (!isPlaying) togglePlay();
+      });
+    }
+
+    // Popular track rows
+    document.querySelectorAll('.track-row').forEach((row) => {
+      row.addEventListener('click', function (e) {
+        if (e.target.closest('.track-like')) return;
+        const idx = parseInt(this.getAttribute('data-track-idx'), 10);
+        if (!isNaN(idx)) {
+          loadTrack(idx);
+          if (!isPlaying) togglePlay();
         }
       });
     });
+
+    // Like buttons
+    document.querySelectorAll('.track-like').forEach((btn) => {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        this.classList.toggle('liked');
+        const icon = this.querySelector('i');
+        if (icon) {
+          const isLiked = this.classList.contains('liked');
+          icon.style.fill = isLiked ? '#FF2A2A' : 'none';
+          icon.style.color = isLiked ? '#FF2A2A' : '';
+        }
+      });
+    });
+
+    // Follow buttons
+    document.querySelectorAll('.btn-follow').forEach((btn) => {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (this.textContent.trim() === 'Follow') {
+          this.textContent = 'Following';
+          this.style.background = '#FF5500';
+          this.style.color = '#FFFFFF';
+        } else {
+          this.textContent = 'Follow';
+          this.style.background = '';
+          this.style.color = '';
+        }
+      });
+    });
+
+    // Seek bar jump
+    const seekBar = document.getElementById('player-seek-bar');
+    if (seekBar) {
+      seekBar.addEventListener('click', function (e) {
+        const rect = this.getBoundingClientRect();
+        const pos = (e.clientX - rect.left) / rect.width;
+        currentTime = Math.floor(pos * totalTime);
+        updateTimeUI();
+      });
+    }
   }
 
   /**
-   * 3. Interactive Purchase Customizer & Dynamic Total
+   * Indian Currency (₹ INR) Subscription Modal
    */
-  function initCustomizer() {
-    const sizeOptions = document.querySelectorAll('.config-size-btn');
-    const connOptions = document.querySelectorAll('.config-conn-btn');
-    const strapOptions = document.querySelectorAll('.config-strap-btn');
-    const buySwatches = document.querySelectorAll('.buy-swatch');
+  function initSubscriptionCheckout() {
+    const planButtons = document.querySelectorAll('.btn-select-plan');
+    const modal = document.getElementById('sub-modal');
+    const modalPlanName = document.getElementById('modal-plan-name');
+    const modalPlanPrice = document.getElementById('modal-plan-price');
+    const closeModalBtn = document.getElementById('close-sub-modal');
+    const confirmBtn = document.getElementById('confirm-sub-btn');
 
-    // Size selection
-    sizeOptions.forEach((btn) => {
-      btn.addEventListener('click', function () {
-        sizeOptions.forEach((b) => b.classList.remove('active'));
-        this.classList.add('active');
-        configState.size = this.getAttribute('data-size');
-        configState.basePrice = parseInt(this.getAttribute('data-price'), 10) || 399;
-        updatePriceSummary();
-      });
-    });
-
-    // Connectivity selection
-    connOptions.forEach((btn) => {
-      btn.addEventListener('click', function () {
-        connOptions.forEach((b) => b.classList.remove('active'));
-        this.classList.add('active');
-        configState.connectivity = this.getAttribute('data-conn');
-        configState.connectivityPrice = parseInt(this.getAttribute('data-price'), 10) || 0;
-        updatePriceSummary();
-      });
-    });
-
-    // Strap selection
-    strapOptions.forEach((btn) => {
-      btn.addEventListener('click', function () {
-        strapOptions.forEach((b) => b.classList.remove('active'));
-        this.classList.add('active');
-        configState.strap = this.getAttribute('data-strap');
-        configState.strapPrice = parseInt(this.getAttribute('data-price'), 10) || 0;
-        updatePriceSummary();
-      });
-    });
-
-    // Finish in purchase section
-    buySwatches.forEach((swatch) => {
-      swatch.addEventListener('click', function () {
-        const finishKey = this.getAttribute('data-finish');
-        buySwatches.forEach((b) => b.classList.remove('active'));
-        this.classList.add('active');
-
-        if (finishImages[finishKey]) {
-          configState.finish = finishKey;
-          configState.finishName = finishImages[finishKey].name;
-        }
-
-        // Also sync with color studio preview
-        const studioSwatch = document.querySelector(`.color-swatch[data-finish="${finishKey}"]`);
-        if (studioSwatch) studioSwatch.click();
-
-        updatePriceSummary();
-      });
-    });
-
-    // Modal interactions
-    const preOrderBtn = document.getElementById('preorder-submit-btn');
-    const modal = document.getElementById('order-modal');
-    const closeModalBtn = document.getElementById('close-modal-btn');
-    const modalDismiss = document.getElementById('modal-dismiss-btn');
-
-    if (preOrderBtn && modal) {
-      preOrderBtn.addEventListener('click', function (e) {
+    planButtons.forEach((btn) => {
+      btn.addEventListener('click', function (e) {
         e.preventDefault();
-        populateModalReceipt();
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        const plan = this.getAttribute('data-plan') || "Individual VIP";
+        const price = this.getAttribute('data-price') || "₹99";
+        const period = this.getAttribute('data-period') || "/ month";
+
+        if (modalPlanName) modalPlanName.textContent = plan;
+        if (modalPlanPrice) modalPlanPrice.textContent = `${price} ${period}`;
+
+        if (modal) {
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
       });
-    }
+    });
 
     function closeModal() {
       if (modal) {
@@ -206,103 +348,54 @@
     }
 
     if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-    if (modalDismiss) modalDismiss.addEventListener('click', closeModal);
+    if (confirmBtn) {
+      confirmBtn.addEventListener('click', () => {
+        alert("Payment verified successfully! Welcome to IGNITE MUSIC Premium.");
+        closeModal();
+      });
+    }
     if (modal) {
-      modal.addEventListener('click', function (e) {
+      modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
       });
     }
   }
 
-  function updatePriceSummary() {
-    const total = configState.basePrice + configState.connectivityPrice + configState.strapPrice;
-    const priceDisplay = document.getElementById('config-total-price');
-    const subtotalDisplay = document.getElementById('config-subtotal');
-    const monthlyDisplay = document.getElementById('config-monthly-price');
-
-    if (priceDisplay) priceDisplay.textContent = `$${total}`;
-    if (subtotalDisplay) subtotalDisplay.textContent = `$${total}`;
-    if (monthlyDisplay) {
-      const monthly = Math.round(total / 12);
-      monthlyDisplay.textContent = `or $${monthly}/mo. for 12 mo.`;
-    }
-
-    const summaryText = document.getElementById('config-summary-text');
-    if (summaryText) {
-      summaryText.textContent = `${configState.size} • ${configState.finishName} • ${configState.connectivity.toUpperCase()} • ${capitalize(configState.strap)} Band`;
-    }
-  }
-
-  function populateModalReceipt() {
-    const total = configState.basePrice + configState.connectivityPrice + configState.strapPrice;
-    const rSize = document.getElementById('modal-receipt-size');
-    const rFinish = document.getElementById('modal-receipt-finish');
-    const rConn = document.getElementById('modal-receipt-conn');
-    const rStrap = document.getElementById('modal-receipt-strap');
-    const rTotal = document.getElementById('modal-receipt-total');
-
-    if (rSize) rSize.textContent = configState.size;
-    if (rFinish) rFinish.textContent = configState.finishName;
-    if (rConn) rConn.textContent = configState.connectivity === 'cellular' ? 'Cellular + Satellite SOS (+ $100)' : 'GPS + Wi-Fi';
-    if (rStrap) rStrap.textContent = `${capitalize(configState.strap)} Band ${configState.strapPrice ? '(+$' + configState.strapPrice + ')' : ''}`;
-    if (rTotal) rTotal.textContent = `$${total} USD`;
-  }
-
-  function capitalize(str) {
-    if (!str) return '';
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  /**
-   * 4. Smooth Anchor Scrolling & Mobile Nav
-   */
   function initNav() {
-    const navToggle = document.getElementById('nav-toggle');
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener('click', function (e) {
-        const targetId = this.getAttribute('href');
-        if (targetId && targetId !== '#') {
-          const targetEl = document.querySelector(targetId);
-          if (targetEl) {
+        const id = this.getAttribute('href');
+        if (id && id !== '#') {
+          const target = document.querySelector(id);
+          if (target) {
             e.preventDefault();
-            const yOffset = -70;
-            const y = targetEl.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            const y = target.getBoundingClientRect().top + window.pageYOffset - 70;
             window.scrollTo({ top: y, behavior: 'smooth' });
-
-            if (navToggle && navToggle.checked) {
-              navToggle.checked = false;
-            }
           }
         }
       });
     });
   }
 
-  /**
-   * 5. Lucide Icons
-   */
-  function initIcons() {
+  function init() {
     if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
       lucide.createIcons();
     }
-  }
 
-  /**
-   * 6. Application Lifecycle
-   */
-  function init() {
-    initIcons();
     initNav();
-    initColorStudio();
-    initSpecsTabs();
-    initCustomizer();
-    updatePriceSummary();
+    loadTrack(0);
+    initPlayerEvents();
+    initSubscriptionCheckout();
 
-    if (typeof window.initRainCurtain === 'function') {
-      window.initRainCurtain();
+    if (typeof window.initAsciiFlame === 'function') {
+      window.initAsciiFlame();
     }
 
-    setTimeout(initIcons, 100);
+    setTimeout(() => {
+      if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+        lucide.createIcons();
+      }
+    }, 120);
   }
 
   if (document.readyState === 'loading') {
