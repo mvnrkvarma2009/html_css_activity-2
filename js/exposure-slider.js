@@ -263,6 +263,19 @@
       this.value = newVal;
       const targetOffset = -this.valueToOffset(this.value);
 
+      // Immediate synchronous update for text, SVG ring, and onChange listeners
+      if (this.valText) {
+        this.valText.textContent = `${this.value}${this.unit}`;
+      }
+      if (this.ringFill) {
+        const pct = (this.value - this.min) / (this.max - this.min);
+        const offset = this.circumference * (1 - pct);
+        this.ringFill.style.strokeDashoffset = offset;
+      }
+      if (typeof this.onChange === 'function') {
+        this.onChange(this.value);
+      }
+
       if (this.prefersReducedMotion) {
         this.currentOffset = targetOffset;
         this.update(true);

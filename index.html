@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Windows Music Workspace | NRI University Web Assignment</title>
-  <meta name="description" content="Windows Music Workspace is a clean, high-fidelity music player for importing, organizing, and streaming local audio files on Windows.">
-  <meta name="theme-color" content="#07070A">
+  <meta name="description" content="Windows Music Workspace is a clean, Spotify-grade music player for importing, organizing, and streaming local audio files on Windows with custom playlists.">
+  <meta name="theme-color" content="#121212">
 
   <!-- Lucide Icons & Stylesheet -->
   <link rel="stylesheet" href="style.css">
@@ -20,607 +20,227 @@
 
 <body>
 
-  <!-- Hidden File Input for Local System Audio Import -->
+  <!-- Hidden File Input for System Audio Import -->
   <input type="file" id="local-audio-input" accept="audio/*,.mp3,.wav,.flac,.ogg,.m4a,.aac" multiple aria-hidden="true" style="display:none">
 
-  <!-- ======================================================================
-       HEADER & NAVIGATION (CLEAN, SIMPLE, NO EMOJIS)
-       ====================================================================== -->
-  <header class="site-nav">
-    <div class="container nav__inner">
-      <a href="#hero" class="nav__brand" aria-label="Windows Music Workspace Home">
-        <div class="brand-flame-wrapper">
-          <i data-lucide="music" class="brand-flame-icon" aria-hidden="true"></i>
+  <!-- App Wrapper: Spotify Grid Layout -->
+  <div class="spotify-app-layout">
+
+    <!-- ======================================================================
+         LEFT SIDEBAR — SPOTIFY NAVIGATION & PLAYLISTS
+         ====================================================================== -->
+    <aside class="spotify-sidebar" aria-label="Main Navigation">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <div class="sidebar-flame-icon">
+            <i data-lucide="music" class="icon-sm" aria-hidden="true"></i>
+          </div>
+          <span class="sidebar-title">Music Workspace</span>
         </div>
-        <span class="brand-name">Music Workspace</span>
-        <span class="brand-badge">Windows</span>
-      </a>
+      </div>
 
-      <ul class="nav__links">
-        <li><a href="#library">My Library</a></li>
-        <li><a href="#recent">Recent Tracks</a></li>
-        <li><a href="#charts">Top Tracks</a></li>
-        <li><a href="#albums">Albums</a></li>
-        <li><a href="#playlists">Playlists</a></li>
-        <li><a href="#artists">Artists</a></li>
-      </ul>
-
-      <div class="nav__actions">
-        <button class="btn-import-header btn-trigger-import" type="button">
+      <!-- Main Navigation Links -->
+      <nav class="sidebar-nav">
+        <a href="#main-view" class="sidebar-nav-item active" id="nav-home">
+          <i data-lucide="home" class="icon-sm" aria-hidden="true"></i>
+          <span>Home Library</span>
+        </a>
+        <button class="sidebar-nav-item btn-trigger-import" type="button">
           <i data-lucide="folder-plus" class="icon-sm" aria-hidden="true"></i>
-          <span>Import Music</span>
+          <span>Import from PC</span>
         </button>
-        <button class="btn-download-header btn-download-win" type="button">
+      </nav>
+
+      <!-- Custom Playlists Section -->
+      <div class="sidebar-playlists-section">
+        <div class="sidebar-section-header">
+          <span class="section-label">YOUR PLAYLISTS</span>
+          <button class="btn-create-pl btn-open-create-playlist" type="button" title="Create New Playlist">
+            <i data-lucide="plus" class="icon-sm" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <button class="btn-create-playlist-row btn-open-create-playlist" type="button">
+          <div class="create-pl-icon">
+            <i data-lucide="plus" class="icon-sm" aria-hidden="true"></i>
+          </div>
+          <span>Create Playlist</span>
+        </button>
+
+        <div class="sidebar-playlists-list" id="sidebar-playlists-list">
+          <!-- Dynamically populated playlists -->
+        </div>
+      </div>
+
+      <!-- Windows Desktop App Card -->
+      <div class="sidebar-footer-card">
+        <div class="footer-card-tag">WINDOWS 11 / 10</div>
+        <div class="footer-card-title">Desktop Client</div>
+        <p class="footer-card-desc">Hardware-accelerated bit-perfect local playback.</p>
+        <button class="btn-sidebar-win btn-download-win" type="button">
           <i data-lucide="download" class="icon-sm" aria-hidden="true"></i>
-          <span>Download for Windows</span>
+          <span>Download (x64)</span>
         </button>
       </div>
-    </div>
-  </header>
+    </aside>
 
-  <!-- ======================================================================
-       HERO SECTION — WINDOWS MUSIC WORKSPACE (HERO 55 LAYOUT)
-       ====================================================================== -->
-  <section class="hero-stage" id="hero">
-    <!-- ASCII Flame Canvas Container (Originkit Engine) -->
-    <div class="flame-container" id="flame-container" aria-hidden="true">
-      <pre class="ascii-flame-canvas" id="ascii-flame-canvas"></pre>
-    </div>
+    <!-- ======================================================================
+         MAIN CONTENT AREA
+         ====================================================================== -->
+    <main class="spotify-main" id="main-view">
 
-    <div class="hero-overlay"></div>
-
-    <div class="container hero-content-centered">
-      <!-- Announcement Strip -->
-      <a href="#library" class="hero-announcement" aria-label="Open Local Music Library">
-        <span class="announcement-badge">Windows 11 / 10</span>
-        <span class="announcement-text">Local Music Player &amp; Audio Workspace</span>
-        <i data-lucide="chevron-right" class="announcement-arrow" aria-hidden="true"></i>
-      </a>
-
-      <!-- Headline -->
-      <h1 class="hero-title">
-        WINDOWS MUSIC <br>
-        <span class="flame-gradient-text">WORKSPACE.</span>
-      </h1>
-
-      <!-- Description -->
-      <p class="hero-desc">
-        A clean, high-performance workspace for playing and managing music files directly from your computer. Drag and drop any FLAC, MP3, WAV, or AAC song to play instantly with repeat, shuffle, and smooth visual dynamics.
-      </p>
-
-      <!-- Paired Action Buttons -->
-      <div class="hero-ctas">
-        <button class="btn-hero-primary btn-download-win" type="button">
-          <i data-lucide="download" class="icon-sm" aria-hidden="true"></i>
-          <span>Download for Windows</span>
-          <span class="btn-badge">v2.4 &bull; 64-bit</span>
-        </button>
-
-        <button class="btn-hero-secondary btn-trigger-import" type="button">
-          <i data-lucide="folder-open" class="icon-sm" aria-hidden="true"></i>
-          <span>Import Music Files</span>
-        </button>
-      </div>
-
-      <!-- Quick Specs -->
-      <div class="hero-meta-row">
-        <div class="meta-item">
-          <i data-lucide="hard-drive" class="meta-icon" aria-hidden="true"></i>
-          <span>Plays from Local Disk</span>
+      <!-- Top Action Bar -->
+      <header class="main-topbar">
+        <div class="search-box">
+          <i data-lucide="search" class="search-icon" aria-hidden="true"></i>
+          <input type="text" id="search-tracks-input" placeholder="Search songs, formats (.FLAC, .MP3), or files..." aria-label="Search local tracks">
         </div>
-        <div class="meta-sep">&bull;</div>
-        <div class="meta-item">
-          <i data-lucide="repeat" class="meta-icon" aria-hidden="true"></i>
-          <span>Shuffle &amp; Repeat Modes</span>
-        </div>
-        <div class="meta-sep">&bull;</div>
-        <div class="meta-item">
-          <i data-lucide="sliders" class="meta-icon" aria-hidden="true"></i>
-          <span>Adjustable Speed &amp; Volume</span>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ======================================================================
-       01 / LOCAL MUSIC LIBRARY & DROPZONE
-       ====================================================================== -->
-  <section class="section" id="library">
-    <div class="container">
-      <div class="section-head">
-        <div class="section-head__meta">
-          <span class="section-tag">// 01 &mdash; LOCAL FILES</span>
-          <h2 class="section-title">LOCAL MUSIC LIBRARY</h2>
-          <p class="section-desc">Open audio files directly from your computer folders. Everything plays smoothly in your browser or desktop.</p>
-        </div>
-        <div class="section-head__actions">
-          <button class="btn-pill-action btn-trigger-import" type="button">
-            <i data-lucide="folder-plus" class="icon-sm" aria-hidden="true"></i>
-            <span>Add Music Files</span>
+        <div class="topbar-actions">
+          <button class="topbar-btn btn-trigger-import" type="button">
+            <i data-lucide="upload" class="icon-sm" aria-hidden="true"></i>
+            <span>Import Files</span>
+          </button>
+          <button class="topbar-btn topbar-btn--primary btn-download-win" type="button">
+            <i data-lucide="download" class="icon-sm" aria-hidden="true"></i>
+            <span>Download for Windows</span>
           </button>
         </div>
-      </div>
+      </header>
 
-      <!-- Drag & Drop Zone -->
-      <div class="import-zone" id="import-dropzone">
-        <div class="import-zone__icon">
-          <i data-lucide="upload-cloud" aria-hidden="true"></i>
-        </div>
-        <h3 class="import-zone__title">Drag and drop audio files here</h3>
-        <p class="import-zone__subtitle">or click browse to select songs from your Windows folders</p>
-        
-        <button class="btn-browse btn-trigger-import" type="button">
-          <i data-lucide="folder-open" class="icon-sm" aria-hidden="true"></i>
-          <span>Browse Device Folders</span>
-        </button>
-
-        <div class="import-formats">
-          <span class="format-pill">.FLAC</span>
-          <span class="format-pill">.WAV</span>
-          <span class="format-pill">.MP3</span>
-          <span class="format-pill">.OGG</span>
-          <span class="format-pill">.M4A</span>
-          <span class="format-pill">.AAC</span>
-        </div>
-      </div>
-
-      <!-- Imported Tracks List -->
-      <div class="imported-section" id="imported-section">
-        <div class="imported-header">
-          <div class="imported-header__title">
-            <i data-lucide="disc" class="icon-sm" aria-hidden="true"></i>
-            <span>IMPORTED SONGS</span>
-          </div>
-          <span class="imported-count-badge" id="imported-count-badge">0 TRACKS</span>
+      <!-- Hero Welcome Stage with Real ASCII Flame Engine -->
+      <section class="main-hero">
+        <div class="flame-container" id="flame-container" aria-hidden="true">
+          <pre class="ascii-flame-canvas" id="ascii-flame-canvas"></pre>
         </div>
 
-        <div class="imported-empty-state" id="imported-empty-state">
-          <i data-lucide="music-2" class="empty-icon" aria-hidden="true"></i>
-          <h4>No songs imported yet</h4>
-          <p>Drag audio files into the dropzone above or click "Browse Device Folders" to start playing.</p>
-        </div>
+        <div class="main-hero-overlay"></div>
 
-        <div class="imported-tracks-list" id="imported-tracks-list" style="display:none">
-          <!-- Dynamically populated rows -->
-        </div>
-      </div>
+        <div class="main-hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot" aria-hidden="true"></span>
+            <span>WINDOWS MUSIC WORKSPACE &bull; LOCAL HIGH-FIDELITY</span>
+          </div>
 
-      <!-- Studio Exposure Slider Monitoring Station -->
-      <div class="exposure-studio-card">
-        <div class="exposure-studio-meta">
-          <span class="exposure-studio-tag">// STUDIO EXPOSURE MONITORING</span>
-          <h3 class="exposure-studio-title">Master Volume Exposure Dial</h3>
-          <p class="exposure-studio-desc">Drag the ticker left or right to dial in bit-perfect output levels with spring-physics snapping, circular SVG progress ring, and proximity notch animation.</p>
-        </div>
-        <div id="workspace-exposure-slider"></div>
-      </div>
-    </div>
-  </section>
+          <h1 class="main-hero-title">
+            PLAY YOUR LOCAL MUSIC <br>
+            <span class="flame-text">WITH STUDIO CLARITY.</span>
+          </h1>
 
-  <!-- ======================================================================
-       02 / RECENT TRACKS
-       ====================================================================== -->
-  <section class="section" id="recent">
-    <div class="container">
-      <div class="section-head">
-        <div class="section-head__meta">
-          <span class="section-tag">// 02 &mdash; HISTORY</span>
-          <h2 class="section-title">RECENT TRACKS</h2>
-          <p class="section-desc">Quickly return to previously played songs and default music selections.</p>
-        </div>
-      </div>
+          <p class="main-hero-desc">
+            Direct drag-and-drop playback from your computer. No cloud lag, zero trackers, custom user playlists, and smooth hardware exposure volume dynamics.
+          </p>
 
-      <div class="recent-grid">
-        <!-- Recent 1 -->
-        <article class="recent-card track-row" data-track-idx="0" tabindex="0" role="button" aria-label="Play Inferno Nights">
-          <div class="recent-card__thumb">
-            <img src="assets/images/album_1.jpg" alt="Inferno Nights cover" width="60" height="60" loading="lazy">
-          </div>
-          <div class="recent-card__info">
-            <div class="recent-card__title">Inferno Nights</div>
-            <div class="recent-card__artist">Aarav Sen &amp; Divine Pulse</div>
-          </div>
-          <div class="recent-card__play">
-            <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
-          </div>
-        </article>
-
-        <!-- Recent 2 -->
-        <article class="recent-card track-row" data-track-idx="1" tabindex="0" role="button" aria-label="Play Midnight Chai Lo-Fi">
-          <div class="recent-card__thumb">
-            <img src="assets/images/album_2.jpg" alt="Midnight Chai Lo-Fi cover" width="60" height="60" loading="lazy">
-          </div>
-          <div class="recent-card__info">
-            <div class="recent-card__title">Midnight Chai Lo-Fi</div>
-            <div class="recent-card__artist">Tara Krishnan</div>
-          </div>
-          <div class="recent-card__play">
-            <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
-          </div>
-        </article>
-
-        <!-- Recent 3 -->
-        <article class="recent-card track-row" data-track-idx="2" tabindex="0" role="button" aria-label="Play Deccan Drift">
-          <div class="recent-card__thumb">
-            <img src="assets/images/album_3.jpg" alt="Deccan Drift cover" width="60" height="60" loading="lazy">
-          </div>
-          <div class="recent-card__info">
-            <div class="recent-card__title">Deccan Drift</div>
-            <div class="recent-card__artist">Rishi &amp; The Circuit</div>
-          </div>
-          <div class="recent-card__play">
-            <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
-          </div>
-        </article>
-
-        <!-- Recent 4 -->
-        <article class="recent-card track-row" data-track-idx="3" tabindex="0" role="button" aria-label="Play Solar Flare Anthem">
-          <div class="recent-card__thumb">
-            <img src="assets/images/album_4.jpg" alt="Solar Flare Anthem cover" width="60" height="60" loading="lazy">
-          </div>
-          <div class="recent-card__info">
-            <div class="recent-card__title">Solar Flare Anthem</div>
-            <div class="recent-card__artist">DJ Agni &amp; Nova</div>
-          </div>
-          <div class="recent-card__play">
-            <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       03 / TOP TRACKS
-       ====================================================================== -->
-  <section class="section" id="charts">
-    <div class="container">
-      <div class="section-head">
-        <div class="section-head__meta">
-          <span class="section-tag">// 03 &mdash; CHARTS</span>
-          <h2 class="section-title">TOP TRACKS</h2>
-          <p class="section-desc">Popular songs available in the workspace library &mdash; click any song to play.</p>
-        </div>
-      </div>
-
-      <div class="tracks-table">
-        <!-- Track 1 -->
-        <div class="track-row active" data-track-idx="0" tabindex="0" role="button" aria-label="Play Track 1">
-          <div class="track-num">01</div>
-          <div class="track-meta">
-            <div class="track-thumb">
-              <img src="assets/images/album_1.jpg" alt="Inferno Nights" width="44" height="44" loading="lazy">
-            </div>
-            <div class="track-title-box">
-              <div class="track-name">Inferno Nights</div>
-              <div class="track-artist">Aarav Sen &amp; Divine Pulse</div>
-            </div>
-          </div>
-          <div class="track-plays">2,410,820</div>
-          <div class="track-dur">3:42</div>
-          <button class="track-like" type="button" aria-label="Like track">
-            <i data-lucide="heart" class="icon-sm" aria-hidden="true"></i>
-          </button>
-        </div>
-
-        <!-- Track 2 -->
-        <div class="track-row" data-track-idx="1" tabindex="0" role="button" aria-label="Play Track 2">
-          <div class="track-num">02</div>
-          <div class="track-meta">
-            <div class="track-thumb">
-              <img src="assets/images/album_2.jpg" alt="Midnight Chai Lo-Fi" width="44" height="44" loading="lazy">
-            </div>
-            <div class="track-title-box">
-              <div class="track-name">Midnight Chai Lo-Fi</div>
-              <div class="track-artist">Tara Krishnan</div>
-            </div>
-          </div>
-          <div class="track-plays">1,842,500</div>
-          <div class="track-dur">2:54</div>
-          <button class="track-like" type="button" aria-label="Like track">
-            <i data-lucide="heart" class="icon-sm" aria-hidden="true"></i>
-          </button>
-        </div>
-
-        <!-- Track 3 -->
-        <div class="track-row" data-track-idx="2" tabindex="0" role="button" aria-label="Play Track 3">
-          <div class="track-num">03</div>
-          <div class="track-meta">
-            <div class="track-thumb">
-              <img src="assets/images/album_3.jpg" alt="Deccan Drift" width="44" height="44" loading="lazy">
-            </div>
-            <div class="track-title-box">
-              <div class="track-name">Deccan Drift</div>
-              <div class="track-artist">Rishi &amp; The Circuit</div>
-            </div>
-          </div>
-          <div class="track-plays">3,115,200</div>
-          <div class="track-dur">4:15</div>
-          <button class="track-like" type="button" aria-label="Like track">
-            <i data-lucide="heart" class="icon-sm" aria-hidden="true"></i>
-          </button>
-        </div>
-
-        <!-- Track 4 -->
-        <div class="track-row" data-track-idx="3" tabindex="0" role="button" aria-label="Play Track 4">
-          <div class="track-num">04</div>
-          <div class="track-meta">
-            <div class="track-thumb">
-              <img src="assets/images/album_4.jpg" alt="Solar Flare Anthem" width="44" height="44" loading="lazy">
-            </div>
-            <div class="track-title-box">
-              <div class="track-name">Solar Flare Anthem</div>
-              <div class="track-artist">DJ Agni &amp; Nova</div>
-            </div>
-          </div>
-          <div class="track-plays">4,720,100</div>
-          <div class="track-dur">3:10</div>
-          <button class="track-like" type="button" aria-label="Like track">
-            <i data-lucide="heart" class="icon-sm" aria-hidden="true"></i>
-          </button>
-        </div>
-
-        <!-- Track 5 -->
-        <div class="track-row" data-track-idx="4" tabindex="0" role="button" aria-label="Play Track 5">
-          <div class="track-num">05</div>
-          <div class="track-meta">
-            <div class="track-thumb">
-              <img src="assets/images/playlist_2.jpg" alt="Lost in Bengaluru" width="44" height="44" loading="lazy">
-            </div>
-            <div class="track-title-box">
-              <div class="track-name">Lost in Bengaluru</div>
-              <div class="track-artist">Aditi Rao</div>
-            </div>
-          </div>
-          <div class="track-plays">940,300</div>
-          <div class="track-dur">3:30</div>
-          <button class="track-like" type="button" aria-label="Like track">
-            <i data-lucide="heart" class="icon-sm" aria-hidden="true"></i>
-          </button>
-        </div>
-
-        <!-- Track 6 -->
-        <div class="track-row" data-track-idx="5" tabindex="0" role="button" aria-label="Play Track 6">
-          <div class="track-num">06</div>
-          <div class="track-meta">
-            <div class="track-thumb">
-              <img src="assets/images/playlist_1.jpg" alt="Varanasi Raga Electro" width="44" height="44" loading="lazy">
-            </div>
-            <div class="track-title-box">
-              <div class="track-name">Varanasi Raga Electro</div>
-              <div class="track-artist">Pandit Anand &amp; SynthCore</div>
-            </div>
-          </div>
-          <div class="track-plays">1,504,800</div>
-          <div class="track-dur">5:02</div>
-          <button class="track-like" type="button" aria-label="Like track">
-            <i data-lucide="heart" class="icon-sm" aria-hidden="true"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       04 / ALBUMS
-       ====================================================================== -->
-  <section class="section" id="albums">
-    <div class="container">
-      <div class="section-head">
-        <div class="section-head__meta">
-          <span class="section-tag">// 04 &mdash; COLLECTIONS</span>
-          <h2 class="section-title">ALBUMS</h2>
-          <p class="section-desc">Sample albums included with Windows Music Workspace.</p>
-        </div>
-      </div>
-
-      <div class="albums-grid">
-        <!-- Album 1 -->
-        <article class="album-card track-row" data-track-idx="0" tabindex="0" role="button">
-          <div class="album-cover">
-            <img src="assets/images/album_1.jpg" alt="Neon Flame EP album art" width="280" height="280" loading="lazy">
-            <button class="album-play-btn" type="button" aria-label="Play Neon Flame EP">
-              <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
+          <div class="main-hero-actions">
+            <button class="hero-btn-primary btn-trigger-import" type="button">
+              <i data-lucide="folder-open" class="icon-sm" aria-hidden="true"></i>
+              <span>Open Local Folders</span>
+            </button>
+            <button class="hero-btn-secondary btn-open-create-playlist" type="button">
+              <i data-lucide="plus-circle" class="icon-sm" aria-hidden="true"></i>
+              <span>New Playlist</span>
             </button>
           </div>
-          <h3 class="album-title">Neon Flame EP</h3>
-          <p class="album-artist">Aarav Sen</p>
-          <div class="album-meta">8 Tracks &bull; 2026 Master</div>
-        </article>
-
-        <!-- Album 2 -->
-        <article class="album-card track-row" data-track-idx="1" tabindex="0" role="button">
-          <div class="album-cover">
-            <img src="assets/images/album_2.jpg" alt="Monsoon Melodies album art" width="280" height="280" loading="lazy">
-            <button class="album-play-btn" type="button" aria-label="Play Monsoon Melodies">
-              <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
-            </button>
-          </div>
-          <h3 class="album-title">Monsoon Melodies</h3>
-          <p class="album-artist">Tara Krishnan</p>
-          <div class="album-meta">10 Tracks &bull; 2026</div>
-        </article>
-
-        <!-- Album 3 -->
-        <article class="album-card track-row" data-track-idx="2" tabindex="0" role="button">
-          <div class="album-cover">
-            <img src="assets/images/album_3.jpg" alt="Cyber Hyderabad album art" width="280" height="280" loading="lazy">
-            <button class="album-play-btn" type="button" aria-label="Play Cyber Hyderabad">
-              <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
-            </button>
-          </div>
-          <h3 class="album-title">Cyber Hyderabad</h3>
-          <p class="album-artist">Rishi &amp; The Circuit</p>
-          <div class="album-meta">9 Tracks &bull; 2026</div>
-        </article>
-
-        <!-- Album 4 -->
-        <article class="album-card track-row" data-track-idx="3" tabindex="0" role="button">
-          <div class="album-cover">
-            <img src="assets/images/album_4.jpg" alt="Ignite Volume 1 album art" width="280" height="280" loading="lazy">
-            <button class="album-play-btn" type="button" aria-label="Play Ignite Volume 1">
-              <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
-            </button>
-          </div>
-          <h3 class="album-title">Ignite Volume 1</h3>
-          <p class="album-artist">DJ Agni &amp; Nova</p>
-          <div class="album-meta">12 Tracks &bull; 2026</div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       05 / PLAYLISTS
-       ====================================================================== -->
-  <section class="section" id="playlists">
-    <div class="container">
-      <div class="section-head">
-        <div class="section-head__meta">
-          <span class="section-tag">// 05 &mdash; MIXES</span>
-          <h2 class="section-title">PLAYLISTS</h2>
-          <p class="section-desc">Curated playlists for study, focus, workout, and relaxation.</p>
         </div>
-      </div>
+      </section>
 
-      <div class="playlists-grid">
-        <!-- Playlist 1 -->
-        <article class="playlist-card track-row" data-track-idx="5" tabindex="0" role="button">
-          <div class="playlist-thumb">
-            <img src="assets/images/playlist_1.jpg" alt="Bollywood Fire & Bass playlist" width="360" height="225" loading="lazy">
+      <!-- Drag & Drop Audio Upload Zone -->
+      <section class="dropzone-section">
+        <div class="spotify-dropzone" id="import-dropzone">
+          <div class="dropzone-icon-box">
+            <i data-lucide="upload-cloud" class="icon-lg" aria-hidden="true"></i>
           </div>
-          <div class="playlist-body">
-            <span class="playlist-tag">HIGH VOLTAGE</span>
-            <h3 class="playlist-title">Bollywood Fire &amp; Bass</h3>
-            <p class="playlist-desc">High-energy basslines and chart-topping desi club edits.</p>
-            <div class="playlist-footer">
-              <span>50 Songs &bull; 3h 12m</span>
-              <span>Workspace Mix</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Playlist 2 -->
-        <article class="playlist-card track-row" data-track-idx="1" tabindex="0" role="button">
-          <div class="playlist-thumb">
-            <img src="assets/images/playlist_2.jpg" alt="Midnight Chai Lo-Fi playlist" width="360" height="225" loading="lazy">
-          </div>
-          <div class="playlist-body">
-            <span class="playlist-tag">CHILL &amp; STUDY</span>
-            <h3 class="playlist-title">Midnight Chai Lo-Fi</h3>
-            <p class="playlist-desc">Vinyl crackles and chill beats designed for late night study sessions.</p>
-            <div class="playlist-footer">
-              <span>42 Songs &bull; 2h 45m</span>
-              <span>Focus Mix</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Playlist 3 -->
-        <article class="playlist-card track-row" data-track-idx="3" tabindex="0" role="button">
-          <div class="playlist-thumb">
-            <img src="assets/images/playlist_3.jpg" alt="Inferno EDM Festival playlist" width="360" height="225" loading="lazy">
-          </div>
-          <div class="playlist-body">
-            <span class="playlist-tag">FESTIVAL ANTHEMS</span>
-            <h3 class="playlist-title">Inferno EDM Festival</h3>
-            <p class="playlist-desc">Peak-time festival anthems and hard-hitting synth drops.</p>
-            <div class="playlist-footer">
-              <span>65 Songs &bull; 4h 10m</span>
-              <span>Party Mix</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Playlist 4 -->
-        <article class="playlist-card track-row" data-track-idx="2" tabindex="0" role="button">
-          <div class="playlist-thumb">
-            <img src="assets/images/playlist_4.jpg" alt="Indie Acoustic Sunset playlist" width="360" height="225" loading="lazy">
-          </div>
-          <div class="playlist-body">
-            <span class="playlist-tag">ACOUSTIC &amp; VOCAL</span>
-            <h3 class="playlist-title">Indie Acoustic Sunset</h3>
-            <p class="playlist-desc">Soulful acoustic guitar ballads and evening driving melodies.</p>
-            <div class="playlist-footer">
-              <span>38 Songs &bull; 2h 18m</span>
-              <span>Acoustic Mix</span>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       06 / FEATURED ARTISTS
-       ====================================================================== -->
-  <section class="section" id="artists">
-    <div class="container">
-      <div class="section-head">
-        <div class="section-head__meta">
-          <span class="section-tag">// 06 &mdash; CREATORS</span>
-          <h2 class="section-title">FEATURED ARTISTS</h2>
-          <p class="section-desc">Popular artists featured in the default music library.</p>
+          <h3 class="dropzone-title">Drag &amp; drop audio files from your system</h3>
+          <p class="dropzone-desc">Supports uncompressed .FLAC, .WAV, .MP3, .OGG, .M4A, and .AAC files</p>
+          <button class="btn-dropzone-browse btn-trigger-import" type="button">
+            <i data-lucide="folder-open" class="icon-sm" aria-hidden="true"></i>
+            <span>Browse Device Folders</span>
+          </button>
         </div>
-      </div>
+      </section>
 
-      <div class="artists-grid">
-        <!-- Artist 1 -->
-        <article class="artist-card track-row" data-track-idx="0" tabindex="0" role="button">
-          <div class="artist-avatar">
-            <img src="assets/images/artist_1.jpg" alt="Aarav Sen" width="110" height="110" loading="lazy">
+      <!-- Songs & Playlists Workspace View -->
+      <section class="tracks-section">
+        <!-- Playlist Filter Tabs -->
+        <div class="tracks-toolbar">
+          <div class="playlist-filter-tabs" id="playlist-filter-tabs">
+            <!-- Dynamically populated filter pills -->
           </div>
-          <h3 class="artist-name">Aarav Sen</h3>
-          <div class="artist-genre">Electronic / Future Bass</div>
-          <div class="artist-followers">1,240,000 Listeners</div>
-          <button class="btn-follow" type="button">Follow</button>
-        </article>
 
-        <!-- Artist 2 -->
-        <article class="artist-card track-row" data-track-idx="1" tabindex="0" role="button">
-          <div class="artist-avatar">
-            <img src="assets/images/artist_2.jpg" alt="Tara Krishnan" width="110" height="110" loading="lazy">
-          </div>
-          <h3 class="artist-name">Tara Krishnan</h3>
-          <div class="artist-genre">Lo-Fi / Soul</div>
-          <div class="artist-followers">892,400 Listeners</div>
-          <button class="btn-follow" type="button">Follow</button>
-        </article>
+          <button class="btn-create-pill btn-open-create-playlist" type="button">
+            <i data-lucide="plus" class="icon-sm" aria-hidden="true"></i>
+            <span>New Playlist</span>
+          </button>
+        </div>
 
-        <!-- Artist 3 -->
-        <article class="artist-card track-row" data-track-idx="2" tabindex="0" role="button">
-          <div class="artist-avatar">
-            <img src="assets/images/artist_3.jpg" alt="Rishi & The Circuit" width="110" height="110" loading="lazy">
-          </div>
-          <h3 class="artist-name">Rishi &amp; The Circuit</h3>
-          <div class="artist-genre">Synthwave / Rock</div>
-          <div class="artist-followers">640,150 Listeners</div>
-          <button class="btn-follow" type="button">Follow</button>
-        </article>
+        <!-- Current View Header -->
+        <div class="view-header">
+          <h2 class="view-title" id="current-view-title">All Songs</h2>
+          <span class="view-count" id="current-view-count">2 songs</span>
+        </div>
 
-        <!-- Artist 4 -->
-        <article class="artist-card track-row" data-track-idx="3" tabindex="0" role="button">
-          <div class="artist-avatar">
-            <img src="assets/images/artist_4.jpg" alt="DJ Agni" width="110" height="110" loading="lazy">
+        <!-- Spotify Track Table -->
+        <div class="spotify-table-container" id="spotify-table-container">
+          <div class="spotify-table-header">
+            <div class="col-num">#</div>
+            <div class="col-title">TITLE</div>
+            <div class="col-album">ALBUM / SOURCE</div>
+            <div class="col-format">FORMAT</div>
+            <div class="col-dur">
+              <i data-lucide="clock" class="icon-sm" aria-hidden="true"></i>
+            </div>
+            <div class="col-actions">ACTIONS</div>
           </div>
-          <h3 class="artist-name">DJ Agni</h3>
-          <div class="artist-genre">Club EDM / Bass</div>
-          <div class="artist-followers">2,180,900 Listeners</div>
-          <button class="btn-follow" type="button">Follow</button>
-        </article>
-      </div>
-    </div>
-  </section>
+
+          <div class="spotify-track-rows" id="spotify-track-rows">
+            <!-- Dynamically populated Spotify rows -->
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="spotify-empty-state" id="spotify-empty-state" style="display:none">
+          <i data-lucide="disc-3" class="empty-icon" aria-hidden="true"></i>
+          <h3>No songs found</h3>
+          <p>Import songs from your computer or switch to another playlist.</p>
+          <button class="btn-empty-import btn-trigger-import" type="button">Import Audio Files</button>
+        </div>
+      </section>
+
+      <!-- Studio Exposure Slider Master Monitoring Station -->
+      <section class="exposure-station-section">
+        <div class="exposure-studio-card">
+          <div class="exposure-studio-meta">
+            <span class="exposure-studio-tag">// MASTER MONITORING STATION</span>
+            <h3 class="exposure-studio-title">SmoothUI Exposure Volume Dial</h3>
+            <p class="exposure-studio-desc">
+              Drag the ticker left or right to dial in bit-perfect output levels with spring-physics snapping, animated proximity notches, and real-time circular SVG ring telemetry.
+            </p>
+          </div>
+          <div id="workspace-exposure-slider"></div>
+        </div>
+      </section>
+
+      <!-- Footer with Originkit Scramble Text Attribution -->
+      <footer class="spotify-footer">
+        <div class="footer-credit-badge">
+          <span class="credit__univ">Website developed for NRI University Web Assignment</span>
+          <span class="credit__sep" aria-hidden="true">&bull;</span>
+          <span class="credit__author">Made by <span id="nagendra-scramble" class="scramble-author" data-text="Nagendra Varma">Nagendra Varma</span></span>
+        </div>
+      </footer>
+
+    </main>
+  </div>
 
   <!-- ======================================================================
-       07 / PERSISTENT MUSIC PLAYER DOCK WITH REAL AUDIO & CONTROLS
+       BOTTOM STICKY MUSIC PLAYER DOCK WITH SMOOTHUI EXPOSURE SLIDER
        ====================================================================== -->
   <aside class="player-dock" aria-label="Audio Player Controls">
-    <div class="container player-inner">
+    <div class="player-inner">
       <!-- Left: Active Track Meta -->
       <div class="player-track">
         <div class="player-thumb">
-          <img src="assets/images/album_1.jpg" id="player-thumb-img" alt="Current Track Thumbnail" width="52" height="52">
+          <img src="assets/images/album_1.jpg" id="player-thumb-img" alt="Current Track" width="52" height="52">
         </div>
         <div class="player-meta">
           <div class="player-title" id="player-title">Inferno Nights</div>
@@ -632,34 +252,24 @@
       <!-- Center: Controls, Seek Bar, Repeat & Shuffle -->
       <div class="player-center">
         <div class="player-buttons">
-          <!-- Shuffle Button -->
           <button class="ctrl-btn" id="player-shuffle-btn" type="button" aria-label="Toggle Shuffle Mode" title="Shuffle Mode">
             <i data-lucide="shuffle" class="icon-sm" aria-hidden="true"></i>
           </button>
-
-          <!-- Previous Track -->
           <button class="ctrl-btn" id="player-prev-btn" type="button" aria-label="Previous Track" title="Previous Track">
             <i data-lucide="skip-back" class="icon-sm" aria-hidden="true"></i>
           </button>
-
-          <!-- Play / Pause -->
           <button class="ctrl-btn ctrl-btn--play" id="player-play-btn" type="button" aria-label="Play or Pause Track" title="Play / Pause">
             <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
           </button>
-
-          <!-- Next Track -->
           <button class="ctrl-btn" id="player-next-btn" type="button" aria-label="Next Track" title="Next Track">
             <i data-lucide="skip-forward" class="icon-sm" aria-hidden="true"></i>
           </button>
-
-          <!-- Repeat Button with indicator badge -->
           <button class="ctrl-btn" id="player-repeat-btn" type="button" aria-label="Toggle Repeat Mode" title="Repeat Mode">
             <i data-lucide="repeat" class="icon-sm" aria-hidden="true"></i>
             <span class="repeat-indicator-badge" id="repeat-badge" style="display:none">1</span>
           </button>
         </div>
 
-        <!-- Seek Bar -->
         <div class="player-progress-bar">
           <span class="time-stamp" id="player-current-time">0:00</span>
           <div class="seek-bar-track" id="player-seek-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" title="Click to seek">
@@ -669,7 +279,7 @@
         </div>
       </div>
 
-      <!-- Right: Extras, Speed, Equalizer & Volume -->
+      <!-- Right: Extras, Speed, Equalizer & Exposure Slider -->
       <div class="player-right">
         <!-- Live Audio Equalizer Bars -->
         <div class="audio-visualizer" id="audio-visualizer" title="Dynamic Equalizer">
@@ -689,70 +299,30 @@
   </aside>
 
   <!-- ======================================================================
-       FOOTER & NRI UNIVERSITY ATTRIBUTION WITH EXACT ORIGINKIT SCRAMBLE TEXT
+       CREATE PLAYLIST MODAL
        ====================================================================== -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="#hero" class="nav__brand">
-            <div class="brand-flame-wrapper">
-              <i data-lucide="music" class="brand-flame-icon" aria-hidden="true"></i>
-            </div>
-            <span class="brand-name">Music Workspace</span>
-            <span class="brand-badge">Windows</span>
-          </a>
-          <p>
-            Windows Music Workspace is a local music player and audio workstation for Windows, crafted with procedural ASCII fire visuals and instant local file playback.
-          </p>
-        </div>
+  <div class="modal-overlay" id="create-playlist-modal" role="dialog" aria-modal="true" aria-labelledby="modal-pl-title">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="close-playlist-modal" type="button" aria-label="Close modal">
+        <i data-lucide="x" class="icon-sm" aria-hidden="true"></i>
+      </button>
 
-        <div class="footer-col">
-          <h4>Navigation</h4>
-          <ul>
-            <li><a href="#library">My Library</a></li>
-            <li><a href="#recent">Recent Tracks</a></li>
-            <li><a href="#charts">Top Tracks</a></li>
-            <li><a href="#albums">Albums</a></li>
-            <li><a href="#playlists">Playlists</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Supported Files</h4>
-          <ul>
-            <li>FLAC Audio (.FLAC)</li>
-            <li>Waveform Audio (.WAV)</li>
-            <li>MP3 Audio (.MP3)</li>
-            <li>Ogg Audio (.OGG)</li>
-            <li>AAC Audio (.AAC)</li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Windows Client</h4>
-          <ul>
-            <li><a href="#" class="btn-download-win">Windows 11 / 10 (64-bit)</a></li>
-            <li>Version 2.4.0 Stable</li>
-            <li>Local Storage Playback</li>
-            <li>High Performance</li>
-          </ul>
-        </div>
+      <div class="modal-header">
+        <span class="modal-badge">WORKSPACE PLAYLIST</span>
+        <h3 class="modal-title" id="modal-pl-title">Create New Playlist</h3>
+        <p class="modal-desc">Give your playlist a name to organize your imported local music.</p>
       </div>
 
-      <!-- Bottom Bar with Exact Scramble Text Effect on Nagendra Varma -->
-      <div class="footer-bottom">
-        <div>
-          &copy; 2026 Windows Music Workspace. All rights reserved.
-        </div>
-        <div class="footer-credit-badge">
-          <span class="credit__univ">Website developed for NRI University Web Assignment</span>
-          <span class="credit__sep" aria-hidden="true">&bull;</span>
-          <span class="credit__author">Made by <span id="nagendra-scramble" class="scramble-author" data-text="Nagendra Varma">Nagendra Varma</span></span>
-        </div>
+      <div class="modal-input-group">
+        <label for="new-playlist-input" class="modal-label">Playlist Name</label>
+        <input type="text" id="new-playlist-input" class="modal-text-input" placeholder="e.g. Midnight Beats, Workout Focus..." autofocus>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-btn-confirm" id="confirm-create-playlist" type="button">Create Playlist</button>
       </div>
     </div>
-  </footer>
+  </div>
 
   <!-- Notification Toast Container -->
   <div id="ignite-toast" class="ignite-toast" role="status" aria-live="polite"></div>
