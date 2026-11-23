@@ -108,7 +108,7 @@
         </div>
       </header>
 
-      <!-- Hero Welcome Stage with Real ASCII Flame Engine -->
+      <!-- Hero Welcome Stage with Real ASCII Flame Engine & Integrated Import Station -->
       <section class="main-hero">
         <div class="flame-container" id="flame-container" aria-hidden="true">
           <pre class="ascii-flame-canvas" id="ascii-flame-canvas"></pre>
@@ -128,34 +128,38 @@
           </h1>
 
           <p class="main-hero-desc">
-            Direct drag-and-drop playback from your computer. No cloud lag, zero trackers, custom user playlists, and smooth hardware exposure volume dynamics.
+            Direct drag-and-drop playback from your computer. Pure lossless audio, custom user playlists, and hardware exposure volume dynamics.
           </p>
 
-          <div class="main-hero-actions">
-            <button class="hero-btn-primary btn-trigger-import" type="button">
-              <i data-lucide="folder-open" class="icon-sm" aria-hidden="true"></i>
-              <span>Open Local Folders</span>
-            </button>
-            <button class="hero-btn-secondary btn-open-create-playlist" type="button">
-              <i data-lucide="plus-circle" class="icon-sm" aria-hidden="true"></i>
-              <span>New Playlist</span>
-            </button>
+          <!-- Integrated Interactive Import & Action Hub -->
+          <div class="hero-import-hub" id="import-dropzone">
+            <div class="import-hub__inner">
+              <div class="import-hub__icon">
+                <i data-lucide="folder-music" class="icon-md" aria-hidden="true"></i>
+              </div>
+              <div class="import-hub__text">
+                <div class="import-hub__title">Drag &amp; drop audio files anywhere, or browse folders</div>
+                <div class="import-hub__formats">
+                  <span class="format-tag">FLAC</span>
+                  <span class="format-tag">WAV</span>
+                  <span class="format-tag">MP3</span>
+                  <span class="format-tag">M4A</span>
+                  <span class="format-tag">OGG</span>
+                  <span class="format-tag">AAC</span>
+                </div>
+              </div>
+              <div class="import-hub__actions">
+                <button class="hero-btn-primary btn-trigger-import" type="button" title="Select audio files from your PC">
+                  <i data-lucide="folder-open" class="icon-sm" aria-hidden="true"></i>
+                  <span>Open Audio Files</span>
+                </button>
+                <button class="hero-btn-secondary btn-open-create-playlist" type="button" title="Create a new custom playlist">
+                  <i data-lucide="plus" class="icon-sm" aria-hidden="true"></i>
+                  <span>New Playlist</span>
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <!-- Drag & Drop Audio Upload Zone -->
-      <section class="dropzone-section">
-        <div class="spotify-dropzone" id="import-dropzone">
-          <div class="dropzone-icon-box">
-            <i data-lucide="upload-cloud" class="icon-lg" aria-hidden="true"></i>
-          </div>
-          <h3 class="dropzone-title">Drag &amp; drop audio files from your system</h3>
-          <p class="dropzone-desc">Supports uncompressed .FLAC, .WAV, .MP3, .OGG, .M4A, and .AAC files</p>
-          <button class="btn-dropzone-browse btn-trigger-import" type="button">
-            <i data-lucide="folder-open" class="icon-sm" aria-hidden="true"></i>
-            <span>Browse Device Folders</span>
-          </button>
         </div>
       </section>
 
@@ -176,7 +180,7 @@
         <!-- Current View Header -->
         <div class="view-header">
           <h2 class="view-title" id="current-view-title">All Songs</h2>
-          <span class="view-count" id="current-view-count">2 songs</span>
+          <span class="view-count" id="current-view-count">0 songs</span>
         </div>
 
         <!-- Spotify Track Table -->
@@ -198,25 +202,18 @@
         </div>
 
         <!-- Empty State -->
-        <div class="spotify-empty-state" id="spotify-empty-state" style="display:none">
-          <i data-lucide="disc-3" class="empty-icon" aria-hidden="true"></i>
-          <h3>No songs found</h3>
-          <p>Import songs from your computer or switch to another playlist.</p>
-          <button class="btn-empty-import btn-trigger-import" type="button">Import Audio Files</button>
-        </div>
-      </section>
-
-      <!-- Studio Exposure Slider Master Monitoring Station -->
-      <section class="exposure-station-section">
-        <div class="exposure-studio-card">
-          <div class="exposure-studio-meta">
-            <span class="exposure-studio-tag">// MASTER MONITORING STATION</span>
-            <h3 class="exposure-studio-title">SmoothUI Exposure Volume Dial</h3>
-            <p class="exposure-studio-desc">
-              Drag the ticker left or right to dial in bit-perfect output levels with spring-physics snapping, animated proximity notches, and real-time circular SVG ring telemetry.
-            </p>
+        <div class="spotify-empty-state" id="spotify-empty-state">
+          <div class="empty-icon-wrap">
+            <i data-lucide="disc-3" class="empty-icon" aria-hidden="true"></i>
           </div>
-          <div id="workspace-exposure-slider"></div>
+          <h3>Your Library is Empty</h3>
+          <p>Import songs from your computer or drag &amp; drop audio files here to start playing.</p>
+          <div class="empty-actions">
+            <button class="btn-empty-import btn-trigger-import" type="button">
+              <i data-lucide="upload" class="icon-sm" aria-hidden="true"></i>
+              <span>Select Audio Files</span>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -240,13 +237,15 @@
       <!-- Left: Active Track Meta -->
       <div class="player-track">
         <div class="player-thumb">
-          <img src="assets/images/album_1.jpg" id="player-thumb-img" alt="Current Track" width="52" height="52">
+          <div class="player-thumb-placeholder" id="player-thumb-img">
+            <i data-lucide="music" class="icon-sm" aria-hidden="true"></i>
+          </div>
         </div>
         <div class="player-meta">
-          <div class="player-title" id="player-title">Inferno Nights</div>
-          <div class="player-artist" id="player-artist">Aarav Sen &amp; Divine Pulse</div>
+          <div class="player-title" id="player-title">No Track Loaded</div>
+          <div class="player-artist" id="player-artist">Import audio files from PC</div>
         </div>
-        <span class="player-format-pill" id="player-format-badge">FLAC</span>
+        <span class="player-format-pill" id="player-format-badge">--</span>
       </div>
 
       <!-- Center: Controls, Seek Bar, Repeat & Shuffle -->

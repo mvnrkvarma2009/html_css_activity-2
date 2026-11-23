@@ -9,3 +9,4 @@ Thumbs.db
 # Temp files
 *.log
 scratch*
+.originkit/

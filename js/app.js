@@ -16,44 +16,19 @@
   // 1. DATA MODELS & STATE
   // --------------------------------------------------------------------------
 
-  // Initial Reference Tracks for instant audio testing
-  const INITIAL_REFERENCE_TRACKS = [
-    {
-      id: "ref-1",
-      title: "Inferno Nights",
-      artist: "Aarav Sen & Divine Pulse",
-      album: "Neon Flame EP",
-      format: "FLAC",
-      duration: "3:42",
-      durationSec: 222,
-      thumb: "assets/images/album_1.jpg",
-      isLocal: false,
-      chords: [261.63, 329.63, 392.00, 523.25]
-    },
-    {
-      id: "ref-2",
-      title: "Midnight Chai Lo-Fi",
-      artist: "Tara Krishnan",
-      album: "Monsoon Melodies",
-      format: "320K",
-      duration: "2:54",
-      durationSec: 174,
-      thumb: "assets/images/album_2.jpg",
-      isLocal: false,
-      chords: [220.00, 261.63, 329.63, 440.00]
-    }
-  ];
+  // Initial Reference Tracks — completely empty default per user instructions (all songs imported from PC)
+  const INITIAL_REFERENCE_TRACKS = [];
 
-  let allTracks = [...INITIAL_REFERENCE_TRACKS];
-  let favoriteTrackIds = new Set(["ref-1"]);
+  let allTracks = [];
+  let favoriteTrackIds = new Set();
   let currentView = "all"; // "all" | "local" | "favorites" | custom playlist ID
-  let currentTrackIndex = 0;
+  let currentTrackIndex = -1;
   let isPlaying = false;
   let isShuffled = false;
   let repeatMode = 0; // 0: Off, 1: All, 2: One
   let playbackSpeed = 1.0;
   let currentTime = 0;
-  let totalDuration = 222;
+  let totalDuration = 0;
 
   // Custom User Playlists
   const PLAYLISTS_STORAGE_KEY = "wmw_custom_playlists";
@@ -66,8 +41,8 @@
         customPlaylists = JSON.parse(stored);
       } else {
         customPlaylists = [
-          { id: "pl-chill", name: "Late Night Coding", trackIds: ["ref-1", "ref-2"] },
-          { id: "pl-synth", name: "High Focus Session", trackIds: ["ref-1"] }
+          { id: "pl-chill", name: "Late Night Coding", trackIds: [] },
+          { id: "pl-synth", name: "High Focus Session", trackIds: [] }
         ];
         savePlaylists();
       }
@@ -597,8 +572,40 @@
   // --------------------------------------------------------------------------
   let playbackInterval = null;
 
+  function resetPlayerToEmpty() {
+    currentTrackIndex = -1;
+    isPlaying = false;
+    if (playbackInterval) clearInterval(playbackInterval);
+    stopSynthPlayback();
+
+    const thumb = document.getElementById("player-thumb-img");
+    const title = document.getElementById("player-title");
+    const artist = document.getElementById("player-artist");
+    const formatBadge = document.getElementById("player-format-badge");
+    const totalTimeEl = document.getElementById("player-total-time");
+    const currentTimeEl = document.getElementById("player-current-time");
+    const seekFill = document.getElementById("player-seek-fill");
+    const playBtn = document.getElementById("player-play-btn");
+    const playIcon = playBtn ? playBtn.querySelector("i") : null;
+    const visualizer = document.getElementById("audio-visualizer");
+
+    if (thumb) thumb.innerHTML = '<i data-lucide="music" class="icon-sm" aria-hidden="true"></i>';
+    if (title) title.textContent = "No Track Loaded";
+    if (artist) artist.textContent = "Import audio files from PC";
+    if (formatBadge) formatBadge.textContent = "--";
+    if (totalTimeEl) totalTimeEl.textContent = "0:00";
+    if (currentTimeEl) currentTimeEl.textContent = "0:00";
+    if (seekFill) seekFill.style.width = "0%";
+    if (playIcon) playIcon.setAttribute("data-lucide", "play");
+    if (visualizer) visualizer.classList.remove("active");
+    if (typeof lucide !== "undefined") lucide.createIcons();
+  }
+
   function loadTrack(index) {
-    if (index < 0 || index >= allTracks.length) return;
+    if (index < 0 || index >= allTracks.length) {
+      resetPlayerToEmpty();
+      return;
+    }
     currentTrackIndex = index;
     const track = allTracks[currentTrackIndex];
 
@@ -610,16 +617,22 @@
     const currentTimeEl = document.getElementById("player-current-time");
     const seekFill = document.getElementById("player-seek-fill");
 
-    if (thumb) thumb.src = track.thumb || "assets/images/album_1.jpg";
+    if (thumb) {
+      if (track.thumb) {
+        thumb.innerHTML = `<img src="${escapeHtml(track.thumb)}" alt="${escapeHtml(track.title)}" width="52" height="52">`;
+      } else {
+        thumb.innerHTML = `<i data-lucide="music" class="icon-sm" aria-hidden="true"></i>`;
+      }
+    }
     if (title) title.textContent = track.title;
     if (artist) artist.textContent = track.artist;
-    if (formatBadge) formatBadge.textContent = track.format || "FLAC";
-    if (totalTimeEl) totalTimeEl.textContent = track.duration || "3:42";
+    if (formatBadge) formatBadge.textContent = track.format || "LOCAL";
+    if (totalTimeEl) totalTimeEl.textContent = track.duration || "0:00";
     if (currentTimeEl) currentTimeEl.textContent = "0:00";
     if (seekFill) seekFill.style.width = "0%";
 
     currentTime = 0;
-    totalDuration = track.durationSec || 222;
+    totalDuration = track.durationSec || 180;
 
     if (track.isLocal && track.fileUrl) {
       htmlAudio.src = track.fileUrl;
@@ -628,10 +641,18 @@
       htmlAudio.src = "";
     }
 
+    if (typeof lucide !== "undefined") lucide.createIcons();
     renderTrackTable();
   }
 
   function togglePlay() {
+    if (allTracks.length === 0 || currentTrackIndex === -1) {
+      showToast("Please import audio files from your PC first");
+      const fileInput = document.getElementById("local-audio-input");
+      if (fileInput) fileInput.click();
+      return;
+    }
+
     initAudioContext();
     const track = allTracks[currentTrackIndex];
     if (!track) return;
@@ -852,9 +873,8 @@
       });
     }
 
-    // SmoothUI Exposure Slider Integration
+    // SmoothUI Exposure Slider Integration (Player Dock)
     let playerSlider = null;
-    let workspaceSlider = null;
 
     function setVolume(val, syncSliders = false) {
       val = Math.max(0, Math.min(1, val));
@@ -865,13 +885,11 @@
       if (syncSliders) {
         const intVal = Math.round(val * 100);
         if (playerSlider && playerSlider.value !== intVal) playerSlider.setValue(intVal);
-        if (workspaceSlider && workspaceSlider.value !== intVal) workspaceSlider.setValue(intVal);
       }
     }
 
     if (typeof window.ExposureSlider === "function") {
       const playerEl = document.getElementById("player-exposure-slider");
-      const workspaceEl = document.getElementById("workspace-exposure-slider");
 
       if (playerEl) {
         playerSlider = new window.ExposureSlider(playerEl, {
@@ -885,32 +903,9 @@
           majorInterval: 20,
           onChange: (val) => {
             setVolume(val / 100, false);
-            if (workspaceSlider && workspaceSlider.value !== val) {
-              workspaceSlider.setValue(val);
-            }
           }
         });
         window.playerExposureSlider = playerSlider;
-      }
-
-      if (workspaceEl) {
-        workspaceSlider = new window.ExposureSlider(workspaceEl, {
-          min: 0,
-          max: 100,
-          step: 1,
-          defaultValue: 80,
-          unit: "%",
-          pixelsPerUnit: 5.8,
-          notchInterval: 2,
-          majorInterval: 10,
-          onChange: (val) => {
-            setVolume(val / 100, false);
-            if (playerSlider && playerSlider.value !== val) {
-              playerSlider.setValue(val);
-            }
-          }
-        });
-        window.workspaceExposureSlider = workspaceSlider;
       }
 
       // Initial volume synchronization
@@ -926,7 +921,7 @@
     initFileImport();
     initModals();
     initPlayerEvents();
-    loadTrack(0);
+    resetPlayerToEmpty();
 
     renderViewHeader();
     renderSidebarPlaylists();

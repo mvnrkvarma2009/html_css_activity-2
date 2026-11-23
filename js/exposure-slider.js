@@ -133,10 +133,36 @@
 
     attachEvents() {
       const vp = this.viewportEl;
+      const ringBox = this.container.querySelector('.exposure-ring-box');
 
+      // Click circular ring to toggle mute/unmute
+      if (ringBox) {
+        ringBox.style.cursor = 'pointer';
+        ringBox.setAttribute('title', 'Click to Mute / Unmute');
+        
+        const toggleMute = (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          if (this.value > 0) {
+            this.lastUnmutedValue = this.value;
+            this.setValue(0);
+          } else {
+            this.setValue(this.lastUnmutedValue || 80);
+          }
+        };
+
+        ringBox.addEventListener('click', toggleMute);
+        ringBox.addEventListener('pointerdown', (e) => e.stopPropagation());
+      }
+
+      // Pointer down for click & drag
       vp.addEventListener('pointerdown', (e) => {
         this.isDragging = true;
+        this.hasMoved = false;
         this.pointerStartX = e.clientX;
+        this.dragStartValue = this.value;
         this.dragStartOffset = this.currentOffset;
         this.lastPointerX = e.clientX;
         this.lastPointerTime = performance.now();
@@ -150,7 +176,13 @@
       vp.addEventListener('pointermove', (e) => {
         if (!this.isDragging) return;
         const dx = e.clientX - this.pointerStartX;
-        let nextOffset = this.dragStartOffset + dx;
+        if (Math.abs(dx) > 3) {
+          this.hasMoved = true;
+        }
+
+        // Natural slider physics: dragging right (dx > 0) increases volume!
+        // Track offset is negative of value offset, so moving to higher value shifts offset left (-dx)
+        let nextOffset = this.dragStartOffset - dx;
 
         // Soft elastic limits
         const minOffset = -this.valueToOffset(this.max);
@@ -164,7 +196,7 @@
 
         const now = performance.now();
         const dt = Math.max(1, now - this.lastPointerTime);
-        this.velocity = (e.clientX - this.lastPointerX) / dt;
+        this.velocity = -(e.clientX - this.lastPointerX) / dt;
         this.lastPointerX = e.clientX;
         this.lastPointerTime = now;
 
@@ -178,6 +210,16 @@
         this.isDragging = false;
         this.container.classList.remove('is-dragging');
         try { vp.releasePointerCapture(e.pointerId); } catch (err) {}
+
+        // If it was just a quick click without dragging, jump directly to clicked ratio
+        if (!this.hasMoved) {
+          const rect = vp.getBoundingClientRect();
+          const clickX = e.clientX - rect.left;
+          const ratio = Math.max(0, Math.min(1, clickX / rect.width));
+          const clickVal = Math.round(this.min + ratio * (this.max - this.min));
+          this.setValue(clickVal);
+          return;
+        }
 
         if (this.prefersReducedMotion) {
           // Instant snap
@@ -193,11 +235,12 @@
       vp.addEventListener('pointerup', onPointerEnd);
       vp.addEventListener('pointercancel', onPointerEnd);
 
-      // Wheel / Trackpad horizontal scroll
+      // Wheel / Trackpad horizontal & vertical scroll
       vp.addEventListener('wheel', (e) => {
         e.preventDefault();
         const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-        const stepChange = (delta > 0 ? -1 : 1) * this.step;
+        // Natural wheel: scrolling up / right increases volume
+        const stepChange = (delta > 0 ? -1 : 1) * this.step * 2;
         this.setValue(this.value + stepChange);
       }, { passive: false });
 
