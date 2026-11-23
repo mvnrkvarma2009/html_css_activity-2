@@ -910,6 +910,15 @@
       // Initial volume synchronization
       setVolume(0.8, false);
     }
+    // Expose helpers for external triggers & automated verification
+    window.allTracks = allTracks;
+    window.loadTrack = loadTrack;
+    window.togglePlay = togglePlay;
+    window.resetPlayerToEmpty = resetPlayerToEmpty;
+    window.handleAudioFiles = handleFiles;
+    window.renderTracks = renderTrackTable;
+    window.customPlaylists = customPlaylists;
+    window.switchView = switchView;
   }
 
   // --------------------------------------------------------------------------
