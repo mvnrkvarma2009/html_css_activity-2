@@ -3,328 +3,217 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aura Audio Studio | NRI University Web Assignment</title>
-  <meta name="description" content="Aura Audio Studio is a bit-perfect local music workspace with drag-and-drop system audio playback, custom playlists, and hardware exposure volume dynamics.">
-  <meta name="theme-color" content="#121212">
+  <title>Windows Music Workspace | Studio Local Audio</title>
+  <meta name="description" content="Windows Music Workspace: A lightweight, bit-perfect music player for local audio playback with hardware exposure volume dynamics.">
+  <meta name="theme-color" content="#0a0c10">
 
   <!-- Lucide Icons & Stylesheet -->
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Originkit Scramble Text & Ascii Flame Physics & SmoothUI Exposure Slider & Audio Engine -->
-  <script src="js/scramble.js" defer></script>
-  <script src="js/ascii-flame.js" defer></script>
+  <!-- Scripts -->
   <script src="js/exposure-slider.js" defer></script>
   <script src="js/app.js" defer></script>
 </head>
-
 <body>
 
-  <!-- Hidden File Input for System Audio Import -->
-  <input type="file" id="local-audio-input" accept="audio/*,.mp3,.wav,.flac,.ogg,.m4a,.aac" multiple aria-hidden="true" style="display:none">
+  <!-- Hidden File Input -->
+  <input type="file" id="audio-file-input" accept="audio/*,.mp3,.wav,.flac,.ogg,.m4a,.aac" multiple style="display:none">
 
-  <!-- App Wrapper: Spotify Grid Layout -->
-  <div class="spotify-app-layout">
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <div class="brand-icon">
+        <i data-lucide="music" class="icon-sm"></i>
+      </div>
+      <span class="brand-title">Windows Music Workspace</span>
+    </div>
 
-    <!-- ======================================================================
-         LEFT SIDEBAR — SPOTIFY NAVIGATION & PLAYLISTS
-         ====================================================================== -->
-    <aside class="spotify-sidebar" aria-label="Main Navigation">
-      <div class="sidebar-header">
-        <div class="sidebar-logo">
-          <div class="sidebar-flame-icon">
-            <i data-lucide="music" class="icon-sm" aria-hidden="true"></i>
-          </div>
-          <span class="sidebar-title">Aura Studio</span>
-        </div>
+    <div class="nav-actions">
+      <button type="button" class="btn btn-secondary" id="btn-import-top">
+        <i data-lucide="folder-plus" class="icon-sm"></i>
+        <span>Open Audio Files</span>
+      </button>
+      <button type="button" class="btn btn-primary" id="btn-download-win">
+        <i data-lucide="download" class="icon-sm"></i>
+        <span>Download for Windows (x64)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+
+    <!-- Hero Section with Dropzone -->
+    <section class="hero-section">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>WINDOWS 11 / 10 &bull; BIT-PERFECT LOCAL AUDIO</span>
       </div>
 
-      <!-- Main Navigation Links -->
-      <nav class="sidebar-nav">
-        <a href="#main-view" class="sidebar-nav-item active" id="nav-home">
-          <i data-lucide="home" class="icon-sm" aria-hidden="true"></i>
-          <span>Home Library</span>
-        </a>
-        <button class="sidebar-nav-item btn-trigger-import" type="button">
-          <i data-lucide="folder-plus" class="icon-sm" aria-hidden="true"></i>
-          <span>Import from PC</span>
-        </button>
-      </nav>
+      <h1 class="hero-title">
+        PLAY YOUR LOCAL MUSIC <br>
+        <span class="gradient-text">WITH STUDIO CLARITY.</span>
+      </h1>
 
-      <!-- Custom Playlists Section -->
-      <div class="sidebar-playlists-section">
-        <div class="sidebar-section-header">
-          <span class="section-label">YOUR PLAYLISTS</span>
-          <button class="btn-create-pl btn-open-create-playlist" type="button" title="Create New Playlist">
-            <i data-lucide="plus" class="icon-sm" aria-hidden="true"></i>
+      <p class="hero-desc">
+        Direct drag-and-drop playback from your computer. Pure lossless audio, custom playlists, and hardware-calibrated exposure volume dynamics.
+      </p>
+
+      <!-- Import Dropzone Hub -->
+      <div class="dropzone" id="dropzone">
+        <div class="dropzone-icon">
+          <i data-lucide="upload-cloud" class="icon-lg"></i>
+        </div>
+        <div class="dropzone-text">
+          <h3>Drag &amp; drop audio files anywhere, or browse folders</h3>
+          <p>Supports bit-perfect FLAC, WAV, MP3, M4A, OGG, and AAC files</p>
+        </div>
+        <div class="dropzone-actions">
+          <button type="button" class="btn btn-primary" id="btn-dropzone-open">
+            <i data-lucide="folder-open" class="icon-sm"></i>
+            <span>Browse Audio Files</span>
           </button>
-        </div>
-
-        <button class="btn-create-playlist-row btn-open-create-playlist" type="button">
-          <div class="create-pl-icon">
-            <i data-lucide="plus" class="icon-sm" aria-hidden="true"></i>
-          </div>
-          <span>Create Playlist</span>
-        </button>
-
-        <div class="sidebar-playlists-list" id="sidebar-playlists-list">
-          <!-- Dynamically populated playlists -->
-        </div>
-      </div>
-
-      <!-- Windows Desktop App Card -->
-      <div class="sidebar-footer-card">
-        <div class="footer-card-tag">WINDOWS 11 / 10</div>
-        <div class="footer-card-title">Desktop Client</div>
-        <p class="footer-card-desc">Hardware-accelerated bit-perfect local playback.</p>
-        <button class="btn-sidebar-win btn-download-win" type="button">
-          <i data-lucide="download" class="icon-sm" aria-hidden="true"></i>
-          <span>Download (x64)</span>
-        </button>
-      </div>
-    </aside>
-
-    <!-- ======================================================================
-         MAIN CONTENT AREA
-         ====================================================================== -->
-    <main class="spotify-main" id="main-view">
-
-      <!-- Top Action Bar -->
-      <header class="main-topbar">
-        <div class="search-box">
-          <i data-lucide="search" class="search-icon" aria-hidden="true"></i>
-          <input type="text" id="search-tracks-input" placeholder="Search songs, formats (.FLAC, .MP3), or files..." aria-label="Search local tracks">
-        </div>
-
-        <div class="topbar-actions">
-          <button class="topbar-btn btn-trigger-import" type="button">
-            <i data-lucide="upload" class="icon-sm" aria-hidden="true"></i>
-            <span>Import Files</span>
-          </button>
-          <button class="topbar-btn topbar-btn--primary btn-download-win" type="button">
-            <i data-lucide="download" class="icon-sm" aria-hidden="true"></i>
-            <span>Download for Windows</span>
-          </button>
-        </div>
-      </header>
-
-      <!-- Hero Welcome Stage with Real ASCII Flame Engine & Integrated Import Station -->
-      <section class="main-hero">
-        <div class="flame-container" id="flame-container" aria-hidden="true">
-          <pre class="ascii-flame-canvas" id="ascii-flame-canvas"></pre>
-        </div>
-
-        <div class="main-hero-overlay"></div>
-
-        <div class="main-hero-content">
-          <div class="hero-badge">
-            <span class="badge-dot" aria-hidden="true"></span>
-            <span>AURA AUDIO STUDIO &bull; LOCAL HIGH-FIDELITY</span>
-          </div>
-
-          <h1 class="main-hero-title">
-            PLAY YOUR LOCAL MUSIC <br>
-            <span class="flame-text">WITH STUDIO CLARITY.</span>
-          </h1>
-
-          <p class="main-hero-desc">
-            Direct drag-and-drop playback from your computer. Pure lossless audio, custom user playlists, and hardware exposure volume dynamics.
-          </p>
-
-          <!-- Integrated Interactive Import & Action Hub -->
-          <div class="hero-import-hub" id="import-dropzone">
-            <div class="import-hub__inner">
-              <div class="import-hub__icon">
-                <i data-lucide="music" class="icon-md" aria-hidden="true"></i>
-              </div>
-              <div class="import-hub__text">
-                <div class="import-hub__title">Drag &amp; drop audio files anywhere, or browse folders</div>
-                <div class="import-hub__formats">
-                  <span class="format-tag">FLAC</span>
-                  <span class="format-tag">WAV</span>
-                  <span class="format-tag">MP3</span>
-                  <span class="format-tag">M4A</span>
-                  <span class="format-tag">OGG</span>
-                  <span class="format-tag">AAC</span>
-                </div>
-              </div>
-              <div class="import-hub__actions">
-                <button class="hero-btn-primary btn-trigger-import" type="button" title="Select audio files from your PC">
-                  <i data-lucide="folder-open" class="icon-sm" aria-hidden="true"></i>
-                  <span>Open Audio Files</span>
-                </button>
-                <button class="hero-btn-secondary btn-open-create-playlist" type="button" title="Create a new custom playlist">
-                  <i data-lucide="plus" class="icon-sm" aria-hidden="true"></i>
-                  <span>New Playlist</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Songs & Playlists Workspace View -->
-      <section class="tracks-section">
-        <!-- Playlist Filter Tabs -->
-        <div class="tracks-toolbar">
-          <div class="playlist-filter-tabs" id="playlist-filter-tabs">
-            <!-- Dynamically populated filter pills -->
-          </div>
-
-          <button class="btn-create-pill btn-open-create-playlist" type="button">
-            <i data-lucide="plus" class="icon-sm" aria-hidden="true"></i>
+          <button type="button" class="btn btn-secondary" id="btn-new-playlist-hero">
+            <i data-lucide="plus" class="icon-sm"></i>
             <span>New Playlist</span>
           </button>
         </div>
+      </div>
+    </section>
 
-        <!-- Current View Header -->
-        <div class="view-header">
-          <h2 class="view-title" id="current-view-title">All Songs</h2>
-          <span class="view-count" id="current-view-count">0 songs</span>
+    <!-- Workspace Library Section -->
+    <section class="library-section">
+      <!-- Toolbar -->
+      <div class="library-toolbar">
+        <div class="playlist-pills" id="playlist-pills">
+          <button type="button" class="pill active" data-view="all">
+            <i data-lucide="layers" class="icon-xs"></i>
+            <span>All Songs (<span id="count-all">0</span>)</span>
+          </button>
+          <button type="button" class="pill" data-view="favorites">
+            <i data-lucide="heart" class="icon-xs"></i>
+            <span>Favorites (<span id="count-fav">0</span>)</span>
+          </button>
         </div>
 
-        <!-- Spotify Track Table -->
-        <div class="spotify-table-container" id="spotify-table-container">
-          <div class="spotify-table-header">
-            <div class="col-num">#</div>
-            <div class="col-title">TITLE</div>
-            <div class="col-album">ALBUM / SOURCE</div>
-            <div class="col-format">FORMAT</div>
-            <div class="col-dur">
-              <i data-lucide="clock" class="icon-sm" aria-hidden="true"></i>
-            </div>
-            <div class="col-actions">ACTIONS</div>
-          </div>
+        <button type="button" class="btn btn-sm btn-secondary" id="btn-add-playlist">
+          <i data-lucide="plus" class="icon-xs"></i>
+          <span>Add Playlist</span>
+        </button>
+      </div>
 
-          <div class="spotify-track-rows" id="spotify-track-rows">
-            <!-- Dynamically populated Spotify rows -->
+      <!-- Tracks Table -->
+      <div class="tracks-card">
+        <div class="table-header">
+          <div class="col-num">#</div>
+          <div class="col-title">TITLE / ARTIST</div>
+          <div class="col-format">FORMAT</div>
+          <div class="col-dur">
+            <i data-lucide="clock" class="icon-xs"></i>
           </div>
+          <div class="col-actions">ACTIONS</div>
+        </div>
+
+        <div class="table-rows" id="track-rows">
+          <!-- Dynamically populated rows -->
         </div>
 
         <!-- Empty State -->
-        <div class="spotify-empty-state" id="spotify-empty-state">
-          <div class="empty-icon-wrap">
-            <i data-lucide="disc-3" class="empty-icon" aria-hidden="true"></i>
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon-box">
+            <i data-lucide="disc-3" class="icon-lg"></i>
           </div>
-          <h3>Your Library is Empty</h3>
-          <p>Import songs from your computer or drag &amp; drop audio files here to start playing.</p>
-          <div class="empty-actions">
-            <button class="btn-empty-import btn-trigger-import" type="button">
-              <i data-lucide="upload" class="icon-sm" aria-hidden="true"></i>
-              <span>Select Audio Files</span>
-            </button>
-          </div>
+          <h4>No songs imported yet</h4>
+          <p>Drop audio files onto the workspace or click "Browse Audio Files" above to begin playback.</p>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Footer with Originkit Scramble Text Attribution -->
-      <footer class="spotify-footer">
-        <div class="footer-credit-badge">
-          <span class="credit__univ">Website developed for NRI University Web Assignment</span>
-          <span class="credit__sep" aria-hidden="true">&bull;</span>
-          <span class="credit__author">Made by <span id="nagendra-scramble" class="scramble-author" data-text="Nagendra Varma">Nagendra Varma</span></span>
-        </div>
-      </footer>
+    <!-- Footer Attribution -->
+    <footer class="footer">
+      <div class="footer-badge">
+        <span>Website developed for NRI University Web Assignment</span>
+        <span class="sep">&bull;</span>
+        <span>Made by <strong id="nagendra-scramble" class="scramble-name" data-text="NAGENDRA VARMA">NAGENDRA VARMA</strong></span>
+      </div>
+    </footer>
 
-    </main>
-  </div>
+  </main>
 
-  <!-- ======================================================================
-       BOTTOM STICKY MUSIC PLAYER DOCK WITH SMOOTHUI EXPOSURE SLIDER
-       ====================================================================== -->
-  <aside class="player-dock" aria-label="Audio Player Controls">
-    <div class="player-inner">
-      <!-- Left: Active Track Meta -->
-      <div class="player-track">
+  <!-- Sticky Bottom Player Dock (Hidden until a song is loaded) -->
+  <aside class="player-dock" id="player-dock" aria-label="Playback Controls">
+    <div class="player-dock-inner">
+      <!-- Track Meta -->
+      <div class="player-meta">
         <div class="player-thumb">
-          <div class="player-thumb-placeholder" id="player-thumb-img">
-            <i data-lucide="music" class="icon-sm" aria-hidden="true"></i>
-          </div>
+          <i data-lucide="music" class="icon-sm"></i>
         </div>
-        <div class="player-meta">
-          <div class="player-title" id="player-title">No Track Loaded</div>
-          <div class="player-artist" id="player-artist">Import audio files from PC</div>
+        <div class="player-info">
+          <div class="player-title" id="player-title">No Track Selected</div>
+          <div class="player-sub" id="player-artist">Ready to play</div>
         </div>
-        <span class="player-format-pill" id="player-format-badge">--</span>
+        <span class="format-badge" id="player-format">AUDIO</span>
       </div>
 
-      <!-- Center: Controls, Seek Bar, Repeat & Shuffle -->
+      <!-- Center Controls & Seekbar -->
       <div class="player-center">
-        <div class="player-buttons">
-          <button class="ctrl-btn" id="player-shuffle-btn" type="button" aria-label="Toggle Shuffle Mode" title="Shuffle Mode">
-            <i data-lucide="shuffle" class="icon-sm" aria-hidden="true"></i>
+        <div class="player-controls">
+          <button type="button" class="btn-ctrl" id="btn-shuffle" title="Shuffle Mode">
+            <i data-lucide="shuffle" class="icon-xs"></i>
           </button>
-          <button class="ctrl-btn" id="player-prev-btn" type="button" aria-label="Previous Track" title="Previous Track">
-            <i data-lucide="skip-back" class="icon-sm" aria-hidden="true"></i>
+          <button type="button" class="btn-ctrl" id="btn-prev" title="Previous Track">
+            <i data-lucide="skip-back" class="icon-sm"></i>
           </button>
-          <button class="ctrl-btn ctrl-btn--play" id="player-play-btn" type="button" aria-label="Play or Pause Track" title="Play / Pause">
-            <i data-lucide="play" class="icon-sm" aria-hidden="true"></i>
+          <button type="button" class="btn-ctrl btn-play" id="btn-play" title="Play / Pause">
+            <i data-lucide="play" class="icon-sm" id="play-icon"></i>
           </button>
-          <button class="ctrl-btn" id="player-next-btn" type="button" aria-label="Next Track" title="Next Track">
-            <i data-lucide="skip-forward" class="icon-sm" aria-hidden="true"></i>
+          <button type="button" class="btn-ctrl" id="btn-next" title="Next Track">
+            <i data-lucide="skip-forward" class="icon-sm"></i>
           </button>
-          <button class="ctrl-btn" id="player-repeat-btn" type="button" aria-label="Toggle Repeat Mode" title="Repeat Mode">
-            <i data-lucide="repeat" class="icon-sm" aria-hidden="true"></i>
-            <span class="repeat-indicator-badge" id="repeat-badge" style="display:none">1</span>
+          <button type="button" class="btn-ctrl" id="btn-repeat" title="Repeat Mode">
+            <i data-lucide="repeat" class="icon-xs"></i>
+            <span class="repeat-badge" id="repeat-badge" style="display:none">1</span>
           </button>
         </div>
 
-        <div class="player-progress-bar">
-          <span class="time-stamp" id="player-current-time">0:00</span>
-          <div class="seek-bar-track" id="player-seek-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" title="Click to seek">
-            <div class="seek-bar-fill" id="player-seek-fill"></div>
+        <div class="player-progress">
+          <span class="time" id="time-current">0:00</span>
+          <div class="seek-track" id="seek-track" title="Click to seek">
+            <div class="seek-fill" id="seek-fill"></div>
           </div>
-          <span class="time-stamp" id="player-total-time">3:42</span>
+          <span class="time" id="time-total">0:00</span>
         </div>
       </div>
 
-      <!-- Right: Extras, Speed, Equalizer & Exposure Slider -->
+      <!-- Right: Speed & Exposure Slider -->
       <div class="player-right">
-        <!-- Live Audio Equalizer Bars -->
-        <div class="audio-visualizer" id="audio-visualizer" title="Dynamic Equalizer">
-          <span class="eq-bar"></span>
-          <span class="eq-bar"></span>
-          <span class="eq-bar"></span>
-          <span class="eq-bar"></span>
-        </div>
-
-        <!-- Playback Speed Button -->
-        <button class="btn-speed" id="player-speed-btn" type="button" title="Playback Speed">1.0x</button>
-
-        <!-- SmoothUI Exposure Slider Master Volume Controller -->
-        <div id="player-exposure-slider"></div>
+        <button type="button" class="btn-speed" id="btn-speed" title="Playback Speed">1.0x</button>
+        <div class="exposure-slider-mount" id="player-exposure-slider"></div>
       </div>
     </div>
   </aside>
 
-  <!-- ======================================================================
-       CREATE PLAYLIST MODAL
-       ====================================================================== -->
-  <div class="modal-overlay" id="create-playlist-modal" role="dialog" aria-modal="true" aria-labelledby="modal-pl-title">
-    <div class="modal-card">
-      <button class="modal-close-btn" id="close-playlist-modal" type="button" aria-label="Close modal">
-        <i data-lucide="x" class="icon-sm" aria-hidden="true"></i>
-      </button>
-
+  <!-- Create Playlist Modal -->
+  <div class="modal" id="playlist-modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
       <div class="modal-header">
-        <span class="modal-badge">WORKSPACE PLAYLIST</span>
-        <h3 class="modal-title" id="modal-pl-title">Create New Playlist</h3>
-        <p class="modal-desc">Give your playlist a name to organize your imported local music.</p>
+        <h3>Create New Playlist</h3>
+        <button type="button" class="modal-close" id="btn-close-modal">&times;</button>
       </div>
-
-      <div class="modal-input-group">
-        <label for="new-playlist-input" class="modal-label">Playlist Name</label>
-        <input type="text" id="new-playlist-input" class="modal-text-input" placeholder="e.g. Midnight Beats, Workout Focus..." autofocus>
+      <div class="modal-body">
+        <label for="playlist-name-input">Playlist Name</label>
+        <input type="text" id="playlist-name-input" placeholder="e.g. Chill Beats, Coding Session">
       </div>
-
-      <div class="modal-actions">
-        <button class="modal-btn-confirm" id="confirm-create-playlist" type="button">Create Playlist</button>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btn-cancel-modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btn-confirm-playlist">Create Playlist</button>
       </div>
     </div>
   </div>
 
-  <!-- Notification Toast Container -->
-  <div id="ignite-toast" class="ignite-toast" role="status" aria-live="polite"></div>
+  <!-- Toast Notification -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 </body>
 </html>

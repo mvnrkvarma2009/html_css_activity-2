@@ -131,6 +131,19 @@
       this.trackEl.style.width = `${totalWidth}px`;
     }
 
+    toggleMute(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if (this.value > 0) {
+        this.lastUnmutedValue = this.value;
+        this.setValue(0);
+      } else {
+        this.setValue(this.lastUnmutedValue || 80);
+      }
+    }
+
     attachEvents() {
       const vp = this.viewportEl;
       const ringBox = this.container.querySelector('.exposure-ring-box');
@@ -139,21 +152,7 @@
       if (ringBox) {
         ringBox.style.cursor = 'pointer';
         ringBox.setAttribute('title', 'Click to Mute / Unmute');
-        
-        const toggleMute = (e) => {
-          if (e) {
-            e.preventDefault();
-            e.stopPropagation();
-          }
-          if (this.value > 0) {
-            this.lastUnmutedValue = this.value;
-            this.setValue(0);
-          } else {
-            this.setValue(this.lastUnmutedValue || 80);
-          }
-        };
-
-        ringBox.addEventListener('click', toggleMute);
+        ringBox.addEventListener('click', (e) => this.toggleMute(e));
         ringBox.addEventListener('pointerdown', (e) => e.stopPropagation());
       }
 
