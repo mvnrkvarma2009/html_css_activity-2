@@ -3,217 +3,367 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Windows Music Workspace | Studio Local Audio</title>
-  <meta name="description" content="Windows Music Workspace: A lightweight, bit-perfect music player for local audio playback with hardware exposure volume dynamics.">
+  <title>Windows Music Workspace | Studio Audio Streaming</title>
+  <meta name="description" content="Windows Music Workspace: A bit-perfect, pure HTML & CSS music streaming platform with artists, albums, playlists, and lossless playback.">
   <meta name="theme-color" content="#0a0c10">
-
-  <!-- Lucide Icons & Stylesheet -->
   <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- Scripts -->
-  <script src="js/exposure-slider.js" defer></script>
-  <script src="js/app.js" defer></script>
 </head>
 <body>
 
-  <!-- Hidden File Input -->
-  <input type="file" id="audio-file-input" accept="audio/*,.mp3,.wav,.flac,.ogg,.m4a,.aac" multiple style="display:none">
-
-  <!-- Top Navbar -->
+  <!-- ======================================================================
+       TOP NAVBAR
+       ====================================================================== -->
   <header class="navbar">
     <div class="nav-brand">
       <div class="brand-icon">
-        <i data-lucide="music" class="icon-sm"></i>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
       </div>
-      <span class="brand-title">Windows Music Workspace</span>
+      <span class="brand-title">Music Workspace</span>
     </div>
 
+    <nav class="nav-links">
+      <a href="#hero" class="nav-link active">Home</a>
+      <a href="#browse-section" class="nav-link">Tracks</a>
+      <a href="#albums" class="nav-link">Albums</a>
+      <a href="#artists" class="nav-link">Artists</a>
+      <a href="#player-anchor" class="nav-link">Now Playing</a>
+    </nav>
+
     <div class="nav-actions">
-      <button type="button" class="btn btn-secondary" id="btn-import-top">
-        <i data-lucide="folder-plus" class="icon-sm"></i>
-        <span>Open Audio Files</span>
-      </button>
-      <button type="button" class="btn btn-primary" id="btn-download-win">
-        <i data-lucide="download" class="icon-sm"></i>
+      <a href="#download-modal" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         <span>Download for Windows (x64)</span>
-      </button>
+      </a>
     </div>
   </header>
 
-  <!-- Main Container -->
+  <!-- ======================================================================
+       MAIN CONTENT
+       ====================================================================== -->
   <main class="main-container">
 
-    <!-- Hero Section with Dropzone -->
-    <section class="hero-section">
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
       <div class="hero-badge">
         <span class="badge-dot"></span>
-        <span>WINDOWS 11 / 10 &bull; BIT-PERFECT LOCAL AUDIO</span>
+        <span>WINDOWS 11 / 10 &bull; BIT-PERFECT STUDIO STREAMING</span>
       </div>
 
       <h1 class="hero-title">
-        PLAY YOUR LOCAL MUSIC <br>
+        STREAM YOUR SOUND <br>
         <span class="gradient-text">WITH STUDIO CLARITY.</span>
       </h1>
 
       <p class="hero-desc">
-        Direct drag-and-drop playback from your computer. Pure lossless audio, custom playlists, and hardware-calibrated exposure volume dynamics.
+        Bit-perfect lossless streaming, hardware exposure dynamic leveling, and curated master playlists designed purely in semantic HTML5 &amp; CSS3.
       </p>
 
-      <!-- Import Dropzone Hub -->
-      <div class="dropzone" id="dropzone">
-        <div class="dropzone-icon">
-          <i data-lucide="upload-cloud" class="icon-lg"></i>
+      <div class="hero-actions">
+        <a href="#player-anchor" class="btn btn-primary btn-lg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span>Listen to Live Stream</span>
+        </a>
+        <a href="#playlist-modal" class="btn btn-secondary btn-lg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New Playlist</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- BROWSE & FILTER MATRIX (PURE CSS TABS) -->
+    <section class="browse-section" id="browse-section">
+      <!-- Hidden Pure CSS Radio Controller -->
+      <input type="radio" name="view-tab" id="tab-tracks" class="tab-radio" checked>
+      <input type="radio" name="view-tab" id="tab-albums" class="tab-radio">
+      <input type="radio" name="view-tab" id="tab-artists" class="tab-radio">
+      <input type="radio" name="view-tab" id="tab-playlists" class="tab-radio">
+
+      <!-- Tab Buttons (Labels) -->
+      <div class="tab-bar">
+        <label for="tab-tracks" class="tab-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          <span>Popular Tracks</span>
+        </label>
+        <label for="tab-albums" class="tab-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="12" cy="12" r="3"></circle></svg>
+          <span>Featured Albums</span>
+        </label>
+        <label for="tab-artists" class="tab-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span>Popular Artists</span>
+        </label>
+        <label for="tab-playlists" class="tab-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+          <span>Curated Playlists</span>
+        </label>
+      </div>
+
+      <!-- TAB 1: POPULAR TRACKS VIEW -->
+      <div class="tab-pane pane-tracks">
+        <div class="tracks-card">
+          <div class="table-header">
+            <div class="col-num">#</div>
+            <div class="col-title">TRACK TITLE / ARTIST</div>
+            <div class="col-album">ALBUM</div>
+            <div class="col-format">FORMAT</div>
+            <div class="col-dur">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+          </div>
+
+          <div class="track-row">
+            <div class="col-num">01</div>
+            <div class="col-title">
+              <img src="assets/images/album_1.jpg" alt="" class="track-thumb">
+              <div class="track-meta">
+                <span class="track-name">Midnight Resonance</span>
+                <span class="track-artist">Aarav Sen &bull; Divine Pulse</span>
+              </div>
+            </div>
+            <div class="col-album">Neon Horizon EP</div>
+            <div class="col-format"><span class="badge-pill">FLAC 24-BIT</span></div>
+            <div class="col-dur">3:42</div>
+          </div>
+
+          <div class="track-row">
+            <div class="col-num">02</div>
+            <div class="col-title">
+              <img src="assets/images/album_2.jpg" alt="" class="track-thumb">
+              <div class="track-meta">
+                <span class="track-name">Cyber Hyderabad Lo-Fi</span>
+                <span class="track-artist">Tara Krishnan &bull; Chill Collective</span>
+              </div>
+            </div>
+            <div class="col-album">Monsoon Melodies</div>
+            <div class="col-format"><span class="badge-pill">FLAC 24-BIT</span></div>
+            <div class="col-dur">2:54</div>
+          </div>
+
+          <div class="track-row">
+            <div class="col-num">03</div>
+            <div class="col-title">
+              <img src="assets/images/album_3.jpg" alt="" class="track-thumb">
+              <div class="track-meta">
+                <span class="track-name">Starlight Odyssey</span>
+                <span class="track-artist">Rishi &amp; The Circuit</span>
+              </div>
+            </div>
+            <div class="col-album">Cyber Circuits 2026</div>
+            <div class="col-format"><span class="badge-pill">WAV 96kHz</span></div>
+            <div class="col-dur">4:10</div>
+          </div>
+
+          <div class="track-row">
+            <div class="col-num">04</div>
+            <div class="col-title">
+              <img src="assets/images/album_4.jpg" alt="" class="track-thumb">
+              <div class="track-meta">
+                <span class="track-name">Quantum Flux Velocity</span>
+                <span class="track-artist">DJ Agni &bull; Bass Syndicate</span>
+              </div>
+            </div>
+            <div class="col-album">Ignite Volume 1</div>
+            <div class="col-format"><span class="badge-pill">MP3 320K</span></div>
+            <div class="col-dur">3:28</div>
+          </div>
         </div>
-        <div class="dropzone-text">
-          <h3>Drag &amp; drop audio files anywhere, or browse folders</h3>
-          <p>Supports bit-perfect FLAC, WAV, MP3, M4A, OGG, and AAC files</p>
+      </div>
+
+      <!-- TAB 2: FEATURED ALBUMS VIEW -->
+      <div class="tab-pane pane-albums" id="albums">
+        <div class="grid-cards">
+          <div class="media-card">
+            <img src="assets/images/album_1.jpg" alt="Neon Horizon EP" class="media-card-img">
+            <div class="media-card-body">
+              <h4 class="media-title">Neon Horizon EP</h4>
+              <p class="media-sub">Aarav Sen &bull; 8 Tracks &bull; 2026</p>
+            </div>
+          </div>
+          <div class="media-card">
+            <img src="assets/images/album_2.jpg" alt="Monsoon Melodies" class="media-card-img">
+            <div class="media-card-body">
+              <h4 class="media-title">Monsoon Melodies</h4>
+              <p class="media-sub">Tara Krishnan &bull; 10 Tracks &bull; 2026</p>
+            </div>
+          </div>
+          <div class="media-card">
+            <img src="assets/images/album_3.jpg" alt="Cyber Circuits" class="media-card-img">
+            <div class="media-card-body">
+              <h4 class="media-title">Cyber Circuits 2026</h4>
+              <p class="media-sub">Rishi &bull; 12 Tracks &bull; 2026</p>
+            </div>
+          </div>
+          <div class="media-card">
+            <img src="assets/images/album_4.jpg" alt="Ignite Volume 1" class="media-card-img">
+            <div class="media-card-body">
+              <h4 class="media-title">Ignite Volume 1</h4>
+              <p class="media-sub">DJ Agni &bull; 14 Tracks &bull; 2026</p>
+            </div>
+          </div>
         </div>
-        <div class="dropzone-actions">
-          <button type="button" class="btn btn-primary" id="btn-dropzone-open">
-            <i data-lucide="folder-open" class="icon-sm"></i>
-            <span>Browse Audio Files</span>
-          </button>
-          <button type="button" class="btn btn-secondary" id="btn-new-playlist-hero">
-            <i data-lucide="plus" class="icon-sm"></i>
-            <span>New Playlist</span>
-          </button>
+      </div>
+
+      <!-- TAB 3: POPULAR ARTISTS VIEW -->
+      <div class="tab-pane pane-artists" id="artists">
+        <div class="grid-artists">
+          <div class="artist-card">
+            <img src="assets/images/artist_1.jpg" alt="Aarav Sen" class="artist-avatar">
+            <h4 class="artist-name">Aarav Sen</h4>
+            <span class="artist-role">Electronic &bull; 1.2M Listeners</span>
+          </div>
+          <div class="artist-card">
+            <img src="assets/images/artist_2.jpg" alt="Tara Krishnan" class="artist-avatar">
+            <h4 class="artist-name">Tara Krishnan</h4>
+            <span class="artist-role">Lo-Fi / Soul &bull; 890K Listeners</span>
+          </div>
+          <div class="artist-card">
+            <img src="assets/images/artist_3.jpg" alt="Rishi" class="artist-avatar">
+            <h4 class="artist-name">Rishi &amp; The Circuit</h4>
+            <span class="artist-role">Synthwave &bull; 640K Listeners</span>
+          </div>
+          <div class="artist-card">
+            <img src="assets/images/artist_4.jpg" alt="DJ Agni" class="artist-avatar">
+            <h4 class="artist-name">DJ Agni</h4>
+            <span class="artist-role">Bass / EDM &bull; 2.1M Listeners</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: CURATED PLAYLISTS VIEW -->
+      <div class="tab-pane pane-playlists">
+        <div class="grid-cards">
+          <div class="media-card">
+            <img src="assets/images/playlist_1.jpg" alt="Late Night Coding" class="media-card-img">
+            <div class="media-card-body">
+              <h4 class="media-title">Late Night Coding</h4>
+              <p class="media-sub">Focus beats &bull; 45 Songs</p>
+            </div>
+          </div>
+          <div class="media-card">
+            <img src="assets/images/playlist_2.jpg" alt="High Energy Gaming" class="media-card-img">
+            <div class="media-card-body">
+              <h4 class="media-title">High Energy Gaming</h4>
+              <p class="media-sub">Adrenaline synth &bull; 60 Songs</p>
+            </div>
+          </div>
+          <div class="media-card">
+            <img src="assets/images/playlist_3.jpg" alt="Hyderabad Chillout" class="media-card-img">
+            <div class="media-card-body">
+              <h4 class="media-title">Hyderabad Chillout</h4>
+              <p class="media-sub">Ambient coffee house &bull; 32 Songs</p>
+            </div>
+          </div>
+          <div class="media-card">
+            <img src="assets/images/playlist_4.jpg" alt="Studio Master Reference" class="media-card-img">
+            <div class="media-card-body">
+              <h4 class="media-title">Studio Master Reference</h4>
+              <p class="media-sub">Lossless FLAC testing &bull; 20 Songs</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Workspace Library Section -->
-    <section class="library-section">
-      <!-- Toolbar -->
-      <div class="library-toolbar">
-        <div class="playlist-pills" id="playlist-pills">
-          <button type="button" class="pill active" data-view="all">
-            <i data-lucide="layers" class="icon-xs"></i>
-            <span>All Songs (<span id="count-all">0</span>)</span>
-          </button>
-          <button type="button" class="pill" data-view="favorites">
-            <i data-lucide="heart" class="icon-xs"></i>
-            <span>Favorites (<span id="count-fav">0</span>)</span>
-          </button>
+    <!-- LIVE NATIVE AUDIO PLAYER SECTION -->
+    <section class="live-player-section" id="player-anchor">
+      <div class="player-card">
+        <div class="player-header">
+          <span class="badge-dot"></span>
+          <span class="player-status-tag">NOW PLAYING &bull; LIVE AUDIO STREAM</span>
         </div>
 
-        <button type="button" class="btn btn-sm btn-secondary" id="btn-add-playlist">
-          <i data-lucide="plus" class="icon-xs"></i>
-          <span>Add Playlist</span>
-        </button>
-      </div>
+        <div class="player-body">
+          <img src="assets/images/album_1.jpg" alt="Active Track" class="player-big-thumb">
 
-      <!-- Tracks Table -->
-      <div class="tracks-card">
-        <div class="table-header">
-          <div class="col-num">#</div>
-          <div class="col-title">TITLE / ARTIST</div>
-          <div class="col-format">FORMAT</div>
-          <div class="col-dur">
-            <i data-lucide="clock" class="icon-xs"></i>
+          <div class="player-main-info">
+            <h3 class="player-stream-title">Midnight Resonance (Studio Master)</h3>
+            <p class="player-stream-sub">Aarav Sen &bull; Lossless Stream</p>
+
+            <div class="player-badges">
+              <span class="pill-flac">FLAC 24-BIT</span>
+              <span class="pill-khz">96.0 kHz</span>
+              <span class="pill-stereo">BIT-PERFECT STEREO</span>
+            </div>
+
+            <!-- Native HTML5 Audio Controller (Zero JS Required) -->
+            <div class="audio-control-wrap">
+              <audio controls class="pure-audio-player">
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                Your browser does not support HTML5 audio.
+              </audio>
+            </div>
           </div>
-          <div class="col-actions">ACTIONS</div>
-        </div>
 
-        <div class="table-rows" id="track-rows">
-          <!-- Dynamically populated rows -->
-        </div>
-
-        <!-- Empty State -->
-        <div class="empty-state" id="empty-state">
-          <div class="empty-icon-box">
-            <i data-lucide="disc-3" class="icon-lg"></i>
+          <!-- Pure CSS Volume Exposure Slider -->
+          <div class="exposure-slider-box">
+            <div class="exposure-label">
+              <span>HARDWARE EXPOSURE</span>
+              <span class="exposure-val">80%</span>
+            </div>
+            <input type="range" min="0" max="100" value="80" class="exposure-range" aria-label="Volume Exposure Slider">
+            <div class="slider-ticks">
+              <span>0</span>
+              <span>20</span>
+              <span>40</span>
+              <span>60</span>
+              <span>80</span>
+              <span>100</span>
+            </div>
           </div>
-          <h4>No songs imported yet</h4>
-          <p>Drop audio files onto the workspace or click "Browse Audio Files" above to begin playback.</p>
         </div>
       </div>
     </section>
 
-    <!-- Footer Attribution -->
+    <!-- FOOTER WITH ORIGINKIT SCRAMBLE TEXT ATTRIBUTION -->
     <footer class="footer">
       <div class="footer-badge">
         <span>Website developed for NRI University Web Assignment</span>
         <span class="sep">&bull;</span>
-        <span>Made by <strong id="nagendra-scramble" class="scramble-name" data-text="NAGENDRA VARMA">NAGENDRA VARMA</strong></span>
+        <span>Made by <strong class="scramble-author">NAGENDRA VARMA</strong></span>
       </div>
     </footer>
 
   </main>
 
-  <!-- Sticky Bottom Player Dock (Hidden until a song is loaded) -->
-  <aside class="player-dock" id="player-dock" aria-label="Playback Controls">
-    <div class="player-dock-inner">
-      <!-- Track Meta -->
-      <div class="player-meta">
-        <div class="player-thumb">
-          <i data-lucide="music" class="icon-sm"></i>
-        </div>
-        <div class="player-info">
-          <div class="player-title" id="player-title">No Track Selected</div>
-          <div class="player-sub" id="player-artist">Ready to play</div>
-        </div>
-        <span class="format-badge" id="player-format">AUDIO</span>
-      </div>
-
-      <!-- Center Controls & Seekbar -->
-      <div class="player-center">
-        <div class="player-controls">
-          <button type="button" class="btn-ctrl" id="btn-shuffle" title="Shuffle Mode">
-            <i data-lucide="shuffle" class="icon-xs"></i>
-          </button>
-          <button type="button" class="btn-ctrl" id="btn-prev" title="Previous Track">
-            <i data-lucide="skip-back" class="icon-sm"></i>
-          </button>
-          <button type="button" class="btn-ctrl btn-play" id="btn-play" title="Play / Pause">
-            <i data-lucide="play" class="icon-sm" id="play-icon"></i>
-          </button>
-          <button type="button" class="btn-ctrl" id="btn-next" title="Next Track">
-            <i data-lucide="skip-forward" class="icon-sm"></i>
-          </button>
-          <button type="button" class="btn-ctrl" id="btn-repeat" title="Repeat Mode">
-            <i data-lucide="repeat" class="icon-xs"></i>
-            <span class="repeat-badge" id="repeat-badge" style="display:none">1</span>
-          </button>
-        </div>
-
-        <div class="player-progress">
-          <span class="time" id="time-current">0:00</span>
-          <div class="seek-track" id="seek-track" title="Click to seek">
-            <div class="seek-fill" id="seek-fill"></div>
-          </div>
-          <span class="time" id="time-total">0:00</span>
-        </div>
-      </div>
-
-      <!-- Right: Speed & Exposure Slider -->
-      <div class="player-right">
-        <button type="button" class="btn-speed" id="btn-speed" title="Playback Speed">1.0x</button>
-        <div class="exposure-slider-mount" id="player-exposure-slider"></div>
-      </div>
-    </div>
-  </aside>
-
-  <!-- Create Playlist Modal -->
-  <div class="modal" id="playlist-modal" role="dialog" aria-hidden="true">
+  <!-- PURE CSS MODAL: DOWNLOAD WINDOWS CLIENT (via :target) -->
+  <div class="modal" id="download-modal">
     <div class="modal-dialog">
       <div class="modal-header">
-        <h3>Create New Playlist</h3>
-        <button type="button" class="modal-close" id="btn-close-modal">&times;</button>
+        <h3>Windows Desktop Client</h3>
+        <a href="#browse-section" class="modal-close">&times;</a>
       </div>
       <div class="modal-body">
-        <label for="playlist-name-input">Playlist Name</label>
-        <input type="text" id="playlist-name-input" placeholder="e.g. Chill Beats, Coding Session">
+        <p>Download the bit-perfect hardware-accelerated Windows 11/10 desktop playback client.</p>
+        <ul class="modal-feature-list">
+          <li>Bit-perfect ASIO / WASAPI Exclusive Audio Output</li>
+          <li>Direct Drag-and-Drop FLAC, WAV, and MP3 Playback</li>
+          <li>Zero telemetry and zero cloud lock-in</li>
+        </ul>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="btn-cancel-modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="btn-confirm-playlist">Create Playlist</button>
+        <a href="#browse-section" class="btn btn-secondary">Close</a>
+        <a href="#" class="btn btn-primary" download="Windows-Music-Workspace-x64.exe">Download Installer (x64)</a>
       </div>
     </div>
   </div>
 
-  <!-- Toast Notification -->
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <!-- PURE CSS MODAL: CREATE PLAYLIST (via :target) -->
+  <div class="modal" id="playlist-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Create New Playlist</h3>
+        <a href="#browse-section" class="modal-close">&times;</a>
+      </div>
+      <div class="modal-body">
+        <label for="pl-name-input">Playlist Title</label>
+        <input type="text" id="pl-name-input" class="modal-input" placeholder="e.g. Midnight Beats 2026">
+      </div>
+      <div class="modal-footer">
+        <a href="#browse-section" class="btn btn-secondary">Cancel</a>
+        <a href="#browse-section" class="btn btn-primary">Save Playlist</a>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
